@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workspace
+   version = "1.0">
+   <FileRef
+      location = "group:DBBBuilder-Demo-iOS.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:/Users/dennis/Documents/Projects/DBBBuilder/DBBBuilder-Demo-OSX.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:DBBBuilder-iOS/DBBBuilder-iOS.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:DBBBuilder-OSX/DBBBuilder-OSX.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:CodeGenerator/CodeGenerator.xcodeproj">
+   </FileRef>
+</Workspace>
