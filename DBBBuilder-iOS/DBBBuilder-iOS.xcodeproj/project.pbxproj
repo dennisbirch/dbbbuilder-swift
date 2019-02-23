@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		954DDF7B2221B34C00E0BD05 /* FMDB.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 954DDF7A2221B34C00E0BD05 /* FMDB.framework */; };
 		955305BF2203E5A90076D402 /* DBBIndexer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 955305BE2203E5A90076D402 /* DBBIndexer.swift */; };
 		955305C12203E5CD0076D402 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 955305C02203E5CD0076D402 /* Extensions.swift */; };
 		9554A0A121F8B620004B778E /* DBBBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9554A0A021F8B620004B778E /* DBBBuilder.swift */; };
@@ -21,13 +22,13 @@
 		95808A2721E9596A00CE7219 /* DBBTableBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95808A1221E9596A00CE7219 /* DBBTableBuilder.swift */; };
 		95808A2921E9596A00CE7219 /* DBBDatabaseValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95808A1421E9596A00CE7219 /* DBBDatabaseValidator.swift */; };
 		95808A7221E96B5D00CE7219 /* ExceptionCatcher.h in Headers */ = {isa = PBXBuildFile; fileRef = 95808A7121E96B5D00CE7219 /* ExceptionCatcher.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		9588E1F322211F1E00944D18 /* FMDB.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9588E1F222211F1E00944D18 /* FMDB.framework */; };
 		95DC085D21F424E100D14EF3 /* DBBQueryOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95DC085C21F424E100D14EF3 /* DBBQueryOptions.swift */; };
 		95E7A02B21F6E7D900BA1F7E /* TableObjectReading.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95E7A02921F6E7D900BA1F7E /* TableObjectReading.swift */; };
 		95E7A02C21F6E7D900BA1F7E /* TableObjectWriting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95E7A02A21F6E7D900BA1F7E /* TableObjectWriting.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		954DDF7A2221B34C00E0BD05 /* FMDB.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FMDB.framework; path = ../Carthage/Build/iOS/FMDB.framework; sourceTree = "<group>"; };
 		955305BE2203E5A90076D402 /* DBBIndexer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DBBIndexer.swift; sourceTree = "<group>"; };
 		955305C02203E5CD0076D402 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		9554A0A021F8B620004B778E /* DBBBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DBBBuilder.swift; sourceTree = "<group>"; };
@@ -57,7 +58,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9588E1F322211F1E00944D18 /* FMDB.framework in Frameworks */,
+				954DDF7B2221B34C00E0BD05 /* FMDB.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -67,6 +68,7 @@
 		954E22F421EA7DBB00AE389A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				954DDF7A2221B34C00E0BD05 /* FMDB.framework */,
 				9588E1F222211F1E00944D18 /* FMDB.framework */,
 			);
 			name = Frameworks;
@@ -223,6 +225,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
+				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/FMDB.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
