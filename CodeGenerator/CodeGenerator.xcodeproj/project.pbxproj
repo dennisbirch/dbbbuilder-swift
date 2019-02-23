@@ -280,7 +280,7 @@
 				CODE_SIGN_ENTITLEMENTS = CodeGenerator/CodeGenerator.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = B75Q6TLYBM;
 				INFOPLIST_FILE = "$(SRCROOT)/CodeGenerator/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -299,7 +299,7 @@
 				CODE_SIGN_ENTITLEMENTS = CodeGenerator/CodeGenerator.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = B75Q6TLYBM;
 				INFOPLIST_FILE = "$(SRCROOT)/CodeGenerator/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

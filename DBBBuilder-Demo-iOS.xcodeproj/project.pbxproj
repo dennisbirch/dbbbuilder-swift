@@ -278,6 +278,7 @@
 					};
 					A54DCCC61A322C8500D0A617 = {
 						CreatedOnToolsVersion = 6.2;
+						DevelopmentTeam = B75Q6TLYBM;
 						LastSwiftMigration = 1010;
 					};
 				};
@@ -588,7 +589,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = B75Q6TLYBM;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/DBBBuilder-iOS/Carthage/Build/iOS",
@@ -607,7 +608,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = B75Q6TLYBM;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/DBBBuilder-iOS/Carthage/Build/iOS",
