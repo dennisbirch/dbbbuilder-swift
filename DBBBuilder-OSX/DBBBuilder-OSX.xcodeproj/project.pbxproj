@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		954E22E221EA5F0700AE389A /* DBBBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 954E22E121EA5F0700AE389A /* DBBBuilder.swift */; };
-		954E22E721EA6C4700AE389A /* FMDB.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 954E22E621EA6C4700AE389A /* FMDB.framework */; };
 		955305BD2203AE100076D402 /* DBBIndexer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 955305BC2203AE100076D402 /* DBBIndexer.swift */; };
 		9564B38D21EF0F67004C03C6 /* TableObjectWriting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9564B38C21EF0F67004C03C6 /* TableObjectWriting.swift */; };
 		9564B38F21EF11EF004C03C6 /* TableObjectReading.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9564B38E21EF11EF004C03C6 /* TableObjectReading.swift */; };
@@ -26,12 +25,12 @@
 		95808A3E21E960ED00CE7219 /* ExceptionCatcher.h in Headers */ = {isa = PBXBuildFile; fileRef = 95808A3D21E960ED00CE7219 /* ExceptionCatcher.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		9588E1D62220CBE600944D18 /* Cartfile in Resources */ = {isa = PBXBuildFile; fileRef = 9588E1D42220CBE600944D18 /* Cartfile */; };
 		9588E1D72220CBE600944D18 /* Cartfile.resolved in Resources */ = {isa = PBXBuildFile; fileRef = 9588E1D52220CBE600944D18 /* Cartfile.resolved */; };
+		9588E1F522211F9A00944D18 /* FMDB.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9588E1F422211F9A00944D18 /* FMDB.framework */; };
 		95DC085B21F4244000D14EF3 /* DBBQueryOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95DC085A21F4244000D14EF3 /* DBBQueryOptions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		954E22E121EA5F0700AE389A /* DBBBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DBBBuilder.swift; sourceTree = "<group>"; };
-		954E22E621EA6C4700AE389A /* FMDB.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FMDB.framework; path = Carthage/Build/Mac/FMDB.framework; sourceTree = "<group>"; };
 		955305BC2203AE100076D402 /* DBBIndexer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DBBIndexer.swift; sourceTree = "<group>"; };
 		9564B38C21EF0F67004C03C6 /* TableObjectWriting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableObjectWriting.swift; sourceTree = "<group>"; };
 		9564B38E21EF11EF004C03C6 /* TableObjectReading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableObjectReading.swift; sourceTree = "<group>"; };
@@ -51,6 +50,7 @@
 		95808A3D21E960ED00CE7219 /* ExceptionCatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ExceptionCatcher.h; path = "DBBBuilder-OSX/ExceptionCatcher.h"; sourceTree = SOURCE_ROOT; };
 		9588E1D42220CBE600944D18 /* Cartfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Cartfile; sourceTree = SOURCE_ROOT; };
 		9588E1D52220CBE600944D18 /* Cartfile.resolved */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Cartfile.resolved; sourceTree = SOURCE_ROOT; };
+		9588E1F422211F9A00944D18 /* FMDB.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FMDB.framework; path = Carthage/Build/Mac/FMDB.framework; sourceTree = "<group>"; };
 		95DC085A21F4244000D14EF3 /* DBBQueryOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DBBQueryOptions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -59,7 +59,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				954E22E721EA6C4700AE389A /* FMDB.framework in Frameworks */,
+				9588E1F522211F9A00944D18 /* FMDB.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -69,7 +69,7 @@
 		954E22E521EA6C4600AE389A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				954E22E621EA6C4700AE389A /* FMDB.framework */,
+				9588E1F422211F9A00944D18 /* FMDB.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";

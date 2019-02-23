@@ -12,7 +12,6 @@
 		9554A0A121F8B620004B778E /* DBBBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9554A0A021F8B620004B778E /* DBBBuilder.swift */; };
 		956774CC21EDC6B900FFA682 /* DBBJoinMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 956774CB21EDC6B900FFA682 /* DBBJoinMap.swift */; };
 		956CE9BA2215065F004D08AF /* DBBPropertyPersistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 956CE9B92215065F004D08AF /* DBBPropertyPersistence.swift */; };
-		9578B3F421F834B200219E8A /* FMDB.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9578B3F321F834B200219E8A /* FMDB.framework */; };
 		958089DC21E94B5000CE7219 /* DBBBuilder.h in Headers */ = {isa = PBXBuildFile; fileRef = 958089DA21E94B5000CE7219 /* DBBBuilder.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		95808A2221E9596A00CE7219 /* DBBStorageType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95808A0D21E9596A00CE7219 /* DBBStorageType.swift */; };
 		95808A2321E9596A00CE7219 /* DBBPersistenceMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95808A0E21E9596A00CE7219 /* DBBPersistenceMap.swift */; };
@@ -22,6 +21,7 @@
 		95808A2721E9596A00CE7219 /* DBBTableBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95808A1221E9596A00CE7219 /* DBBTableBuilder.swift */; };
 		95808A2921E9596A00CE7219 /* DBBDatabaseValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95808A1421E9596A00CE7219 /* DBBDatabaseValidator.swift */; };
 		95808A7221E96B5D00CE7219 /* ExceptionCatcher.h in Headers */ = {isa = PBXBuildFile; fileRef = 95808A7121E96B5D00CE7219 /* ExceptionCatcher.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		9588E1F322211F1E00944D18 /* FMDB.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9588E1F222211F1E00944D18 /* FMDB.framework */; };
 		95DC085D21F424E100D14EF3 /* DBBQueryOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95DC085C21F424E100D14EF3 /* DBBQueryOptions.swift */; };
 		95E7A02B21F6E7D900BA1F7E /* TableObjectReading.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95E7A02921F6E7D900BA1F7E /* TableObjectReading.swift */; };
 		95E7A02C21F6E7D900BA1F7E /* TableObjectWriting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95E7A02A21F6E7D900BA1F7E /* TableObjectWriting.swift */; };
@@ -35,7 +35,6 @@
 		955A7B0D22076FA400401885 /* Cartfile.resolved */ = {isa = PBXFileReference; lastKnownFileType = text; path = Cartfile.resolved; sourceTree = "<group>"; };
 		956774CB21EDC6B900FFA682 /* DBBJoinMap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DBBJoinMap.swift; sourceTree = "<group>"; };
 		956CE9B92215065F004D08AF /* DBBPropertyPersistence.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DBBPropertyPersistence.swift; sourceTree = "<group>"; };
-		9578B3F321F834B200219E8A /* FMDB.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FMDB.framework; path = Carthage/Build/iOS/FMDB.framework; sourceTree = "<group>"; };
 		958089D721E94B5000CE7219 /* DBBBuilder.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DBBBuilder.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		958089DA21E94B5000CE7219 /* DBBBuilder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DBBBuilder.h; sourceTree = "<group>"; };
 		958089DB21E94B5000CE7219 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -47,6 +46,7 @@
 		95808A1221E9596A00CE7219 /* DBBTableBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DBBTableBuilder.swift; sourceTree = "<group>"; };
 		95808A1421E9596A00CE7219 /* DBBDatabaseValidator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DBBDatabaseValidator.swift; sourceTree = "<group>"; };
 		95808A7121E96B5D00CE7219 /* ExceptionCatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ExceptionCatcher.h; path = "DBBBuilder-iOS/ExceptionCatcher.h"; sourceTree = SOURCE_ROOT; };
+		9588E1F222211F1E00944D18 /* FMDB.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FMDB.framework; path = Carthage/Build/iOS/FMDB.framework; sourceTree = "<group>"; };
 		95DC085C21F424E100D14EF3 /* DBBQueryOptions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DBBQueryOptions.swift; sourceTree = "<group>"; };
 		95E7A02921F6E7D900BA1F7E /* TableObjectReading.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableObjectReading.swift; sourceTree = "<group>"; };
 		95E7A02A21F6E7D900BA1F7E /* TableObjectWriting.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableObjectWriting.swift; sourceTree = "<group>"; };
@@ -57,7 +57,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9578B3F421F834B200219E8A /* FMDB.framework in Frameworks */,
+				9588E1F322211F1E00944D18 /* FMDB.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -67,7 +67,7 @@
 		954E22F421EA7DBB00AE389A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				9578B3F321F834B200219E8A /* FMDB.framework */,
+				9588E1F222211F1E00944D18 /* FMDB.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
