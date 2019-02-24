@@ -158,7 +158,6 @@
 				958089D321E94B5000CE7219 /* Sources */,
 				958089D421E94B5000CE7219 /* Frameworks */,
 				958089D521E94B5000CE7219 /* Resources */,
-				9588E1F022211CF700944D18 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -210,28 +209,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		9588E1F022211CF700944D18 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"$(SRCROOT)/Carthage/Build/iOS/FMDB.framework",
-			);
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/FMDB.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "#/usr/local/bin/carthage copy-frameworks\n";
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		958089D321E94B5000CE7219 /* Sources */ = {
