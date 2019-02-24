@@ -8,10 +8,10 @@
       location = "group:DBBBuilder-OSX/DBBBuilder-OSX.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:DBBBuilder-Demo-iOS.xcodeproj">
+      location = "group:Demos/DBBBuilder-Demo-iOS.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:DBBBuilder-Demo-OSX.xcodeproj">
+      location = "group:Demos/DBBBuilder-Demo-OSX.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:CodeGenerator/CodeGenerator.xcodeproj">

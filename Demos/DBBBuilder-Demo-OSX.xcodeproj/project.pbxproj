@@ -7,11 +7,18 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		954BF5202222F45B0057C9B6 /* Meeting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 954BF51C2222F45B0057C9B6 /* Meeting.swift */; };
+		954BF5212222F45B0057C9B6 /* Person.swift in Sources */ = {isa = PBXBuildFile; fileRef = 954BF51D2222F45B0057C9B6 /* Person.swift */; };
+		954BF5222222F45B0057C9B6 /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = 954BF51E2222F45B0057C9B6 /* Project.swift */; };
+		954BF5232222F45B0057C9B6 /* Company.swift in Sources */ = {isa = PBXBuildFile; fileRef = 954BF51F2222F45B0057C9B6 /* Company.swift */; };
+		954BF52B2222F47C0057C9B6 /* CommonTestTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 954BF5242222F47C0057C9B6 /* CommonTestTask.swift */; };
+		954BF52C2222F47C0057C9B6 /* DBBTableBuilderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 954BF5252222F47C0057C9B6 /* DBBTableBuilderTests.swift */; };
+		954BF52D2222F47C0057C9B6 /* SaveAtomicTypesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 954BF5262222F47C0057C9B6 /* SaveAtomicTypesTests.swift */; };
+		954BF52E2222F47C0057C9B6 /* MeetingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 954BF5272222F47C0057C9B6 /* MeetingTests.swift */; };
+		954BF52F2222F47C0057C9B6 /* DBBDatabaseSetupTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 954BF5282222F47C0057C9B6 /* DBBDatabaseSetupTests.swift */; };
+		954BF5302222F47C0057C9B6 /* DBBTableObjectSaveTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 954BF5292222F47C0057C9B6 /* DBBTableObjectSaveTests.swift */; };
+		954BF5312222F47C0057C9B6 /* DBBManagerExecuteSQLTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 954BF52A2222F47C0057C9B6 /* DBBManagerExecuteSQLTests.swift */; };
 		954E22EB21EA6FDE00AE389A /* FMDB.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 954E22EA21EA6FDE00AE389A /* FMDB.framework */; };
-		9554A0A721F8B7FC004B778E /* Meeting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9554A0A321F8B7FC004B778E /* Meeting.swift */; };
-		9554A0A821F8B7FC004B778E /* Person.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9554A0A421F8B7FC004B778E /* Person.swift */; };
-		9554A0A921F8B7FC004B778E /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9554A0A521F8B7FC004B778E /* Project.swift */; };
-		9554A0AA21F8B7FC004B778E /* Company.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9554A0A621F8B7FC004B778E /* Company.swift */; };
 		9554A15321F97E75004B778E /* ProjectListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9554A15221F97E75004B778E /* ProjectListViewController.swift */; };
 		9554A15521F980CC004B778E /* EditProjectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9554A15421F980CC004B778E /* EditProjectViewController.swift */; };
 		9570C3AA21FADBD800450E3B /* ContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9570C3A921FADBD800450E3B /* ContainerViewController.swift */; };
@@ -19,13 +26,6 @@
 		9578B3BA21F82CF600219E8A /* DBBBuilder.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9578B3B921F82CF600219E8A /* DBBBuilder.framework */; };
 		9588E1DB2220E29D00944D18 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9588E1DA2220E29C00944D18 /* Info.plist */; };
 		9588E1DE2220E51200944D18 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9588E1DD2220E51200944D18 /* Info.plist */; };
-		9588E1E62220E52900944D18 /* CommonTestTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9588E1DF2220E52800944D18 /* CommonTestTask.swift */; };
-		9588E1E72220E52900944D18 /* SaveAtomicTypesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9588E1E02220E52800944D18 /* SaveAtomicTypesTests.swift */; };
-		9588E1E82220E52900944D18 /* MeetingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9588E1E12220E52800944D18 /* MeetingTests.swift */; };
-		9588E1E92220E52900944D18 /* DBBTableObjectSaveTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9588E1E22220E52800944D18 /* DBBTableObjectSaveTests.swift */; };
-		9588E1EA2220E52900944D18 /* DBBDatabaseSetupTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9588E1E32220E52800944D18 /* DBBDatabaseSetupTests.swift */; };
-		9588E1EB2220E52900944D18 /* DBBManagerExecuteSQLTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9588E1E42220E52900944D18 /* DBBManagerExecuteSQLTests.swift */; };
-		9588E1EC2220E52900944D18 /* DBBTableBuilderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9588E1E52220E52900944D18 /* DBBTableBuilderTests.swift */; };
 		95E304E221FA42AD00CF99B6 /* MeetingListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95E304E121FA42AD00CF99B6 /* MeetingListViewController.swift */; };
 		95E3882821FBD2AC003A2565 /* DBBProjectExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95E3882421FBD2AC003A2565 /* DBBProjectExtensions.swift */; };
 		95E3882A21FBD2AC003A2565 /* DateExtensons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95E3882621FBD2AC003A2565 /* DateExtensons.swift */; };
@@ -60,11 +60,18 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		954BF51C2222F45B0057C9B6 /* Meeting.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Meeting.swift; sourceTree = "<group>"; };
+		954BF51D2222F45B0057C9B6 /* Person.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Person.swift; sourceTree = "<group>"; };
+		954BF51E2222F45B0057C9B6 /* Project.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Project.swift; sourceTree = "<group>"; };
+		954BF51F2222F45B0057C9B6 /* Company.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Company.swift; sourceTree = "<group>"; };
+		954BF5242222F47C0057C9B6 /* CommonTestTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CommonTestTask.swift; path = "../../Common-Source/Unit-Tests/CommonTestTask.swift"; sourceTree = "<group>"; };
+		954BF5252222F47C0057C9B6 /* DBBTableBuilderTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DBBTableBuilderTests.swift; path = "../../Common-Source/Unit-Tests/DBBTableBuilderTests.swift"; sourceTree = "<group>"; };
+		954BF5262222F47C0057C9B6 /* SaveAtomicTypesTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SaveAtomicTypesTests.swift; path = "../../Common-Source/Unit-Tests/SaveAtomicTypesTests.swift"; sourceTree = "<group>"; };
+		954BF5272222F47C0057C9B6 /* MeetingTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MeetingTests.swift; path = "../../Common-Source/Unit-Tests/MeetingTests.swift"; sourceTree = "<group>"; };
+		954BF5282222F47C0057C9B6 /* DBBDatabaseSetupTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DBBDatabaseSetupTests.swift; path = "../../Common-Source/Unit-Tests/DBBDatabaseSetupTests.swift"; sourceTree = "<group>"; };
+		954BF5292222F47C0057C9B6 /* DBBTableObjectSaveTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DBBTableObjectSaveTests.swift; path = "../../Common-Source/Unit-Tests/DBBTableObjectSaveTests.swift"; sourceTree = "<group>"; };
+		954BF52A2222F47C0057C9B6 /* DBBManagerExecuteSQLTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DBBManagerExecuteSQLTests.swift; path = "../../Common-Source/Unit-Tests/DBBManagerExecuteSQLTests.swift"; sourceTree = "<group>"; };
 		954E22EA21EA6FDE00AE389A /* FMDB.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FMDB.framework; path = "DBBBuilder-OSX/Carthage/Build/Mac/FMDB.framework"; sourceTree = "<group>"; };
-		9554A0A321F8B7FC004B778E /* Meeting.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Meeting.swift; sourceTree = "<group>"; };
-		9554A0A421F8B7FC004B778E /* Person.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Person.swift; sourceTree = "<group>"; };
-		9554A0A521F8B7FC004B778E /* Project.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Project.swift; sourceTree = "<group>"; };
-		9554A0A621F8B7FC004B778E /* Company.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Company.swift; sourceTree = "<group>"; };
 		9554A15221F97E75004B778E /* ProjectListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectListViewController.swift; sourceTree = "<group>"; };
 		9554A15421F980CC004B778E /* EditProjectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProjectViewController.swift; sourceTree = "<group>"; };
 		9570C3A921FADBD800450E3B /* ContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerViewController.swift; sourceTree = "<group>"; };
@@ -72,13 +79,6 @@
 		9578B3B921F82CF600219E8A /* DBBBuilder.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = DBBBuilder.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9588E1DA2220E29C00944D18 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9588E1DD2220E51200944D18 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		9588E1DF2220E52800944D18 /* CommonTestTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CommonTestTask.swift; path = "Common-Source/Unit-Tests/CommonTestTask.swift"; sourceTree = SOURCE_ROOT; };
-		9588E1E02220E52800944D18 /* SaveAtomicTypesTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SaveAtomicTypesTests.swift; path = "Common-Source/Unit-Tests/SaveAtomicTypesTests.swift"; sourceTree = SOURCE_ROOT; };
-		9588E1E12220E52800944D18 /* MeetingTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MeetingTests.swift; path = "Common-Source/Unit-Tests/MeetingTests.swift"; sourceTree = SOURCE_ROOT; };
-		9588E1E22220E52800944D18 /* DBBTableObjectSaveTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DBBTableObjectSaveTests.swift; path = "Common-Source/Unit-Tests/DBBTableObjectSaveTests.swift"; sourceTree = SOURCE_ROOT; };
-		9588E1E32220E52800944D18 /* DBBDatabaseSetupTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DBBDatabaseSetupTests.swift; path = "Common-Source/Unit-Tests/DBBDatabaseSetupTests.swift"; sourceTree = SOURCE_ROOT; };
-		9588E1E42220E52900944D18 /* DBBManagerExecuteSQLTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DBBManagerExecuteSQLTests.swift; path = "Common-Source/Unit-Tests/DBBManagerExecuteSQLTests.swift"; sourceTree = SOURCE_ROOT; };
-		9588E1E52220E52900944D18 /* DBBTableBuilderTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DBBTableBuilderTests.swift; path = "Common-Source/Unit-Tests/DBBTableBuilderTests.swift"; sourceTree = SOURCE_ROOT; };
 		95E304E121FA42AD00CF99B6 /* MeetingListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeetingListViewController.swift; sourceTree = "<group>"; };
 		95E3882421FBD2AC003A2565 /* DBBProjectExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DBBProjectExtensions.swift; sourceTree = "<group>"; };
 		95E3882621FBD2AC003A2565 /* DateExtensons.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateExtensons.swift; sourceTree = "<group>"; };
@@ -113,17 +113,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		9554A0A221F8B7FC004B778E /* Demo-Models */ = {
+		954BF51B2222F45B0057C9B6 /* Demo-Models */ = {
 			isa = PBXGroup;
 			children = (
-				9554A0A321F8B7FC004B778E /* Meeting.swift */,
-				9554A0A421F8B7FC004B778E /* Person.swift */,
-				9554A0A521F8B7FC004B778E /* Project.swift */,
-				9554A0A621F8B7FC004B778E /* Company.swift */,
+				954BF51C2222F45B0057C9B6 /* Meeting.swift */,
+				954BF51D2222F45B0057C9B6 /* Person.swift */,
+				954BF51E2222F45B0057C9B6 /* Project.swift */,
+				954BF51F2222F45B0057C9B6 /* Company.swift */,
 			);
 			name = "Demo-Models";
-			path = "Common-Source/Demo-Models";
-			sourceTree = SOURCE_ROOT;
+			path = "../../Common-Source/Demo-Models";
+			sourceTree = "<group>";
 		};
 		9554A15121F97DBA004B778E /* ViewControllers */ = {
 			isa = PBXGroup;
@@ -159,13 +159,13 @@
 		9588E1DC2220E51200944D18 /* DBBBuilder-OSXTests */ = {
 			isa = PBXGroup;
 			children = (
-				9588E1DF2220E52800944D18 /* CommonTestTask.swift */,
-				9588E1E32220E52800944D18 /* DBBDatabaseSetupTests.swift */,
-				9588E1E42220E52900944D18 /* DBBManagerExecuteSQLTests.swift */,
-				9588E1E52220E52900944D18 /* DBBTableBuilderTests.swift */,
-				9588E1E22220E52800944D18 /* DBBTableObjectSaveTests.swift */,
-				9588E1E12220E52800944D18 /* MeetingTests.swift */,
-				9588E1E02220E52800944D18 /* SaveAtomicTypesTests.swift */,
+				954BF5242222F47C0057C9B6 /* CommonTestTask.swift */,
+				954BF5282222F47C0057C9B6 /* DBBDatabaseSetupTests.swift */,
+				954BF52A2222F47C0057C9B6 /* DBBManagerExecuteSQLTests.swift */,
+				954BF5252222F47C0057C9B6 /* DBBTableBuilderTests.swift */,
+				954BF5292222F47C0057C9B6 /* DBBTableObjectSaveTests.swift */,
+				954BF5272222F47C0057C9B6 /* MeetingTests.swift */,
+				954BF5262222F47C0057C9B6 /* SaveAtomicTypesTests.swift */,
 				9588E1DD2220E51200944D18 /* Info.plist */,
 			);
 			path = "DBBBuilder-OSXTests";
@@ -206,8 +206,8 @@
 				95F9A1D021E2918B00E8E068 /* Main.storyboard */,
 				95F9A1CA21E2918A00E8E068 /* AppDelegate.swift */,
 				9554A15121F97DBA004B778E /* ViewControllers */,
+				954BF51B2222F45B0057C9B6 /* Demo-Models */,
 				95E3882321FBD2AC003A2565 /* TypeExtensions */,
-				9554A0A221F8B7FC004B778E /* Demo-Models */,
 				95F9A1CE21E2918B00E8E068 /* Assets.xcassets */,
 				95F9A1D321E2918B00E8E068 /* Info.plist */,
 				95F9A1D421E2918B00E8E068 /* DBBBuilder.entitlements */,
@@ -331,7 +331,7 @@
 			inputFileListPaths = (
 			);
 			inputPaths = (
-				"$(SRCROOT)/DBBBuilder-OSX/Carthage/Build/Mac/FMDB.framework",
+				"$(SRCROOT)/../Carthage/Build/Mac/FMDB.framework",
 			);
 			outputFileListPaths = (
 			);
@@ -351,18 +351,18 @@
 			files = (
 				9570C3AD21FB898600450E3B /* EditMeetingViewController.swift in Sources */,
 				95E3882E21FBF711003A2565 /* ParticipantListViewController.swift in Sources */,
-				9554A0A721F8B7FC004B778E /* Meeting.swift in Sources */,
 				95E3882A21FBD2AC003A2565 /* DateExtensons.swift in Sources */,
 				95E3883221FD3C86003A2565 /* EditParticipantViewController.swift in Sources */,
-				9554A0A821F8B7FC004B778E /* Person.swift in Sources */,
 				9570C3AA21FADBD800450E3B /* ContainerViewController.swift in Sources */,
-				9554A0A921F8B7FC004B778E /* Project.swift in Sources */,
+				954BF5222222F45B0057C9B6 /* Project.swift in Sources */,
 				95F9A1CB21E2918A00E8E068 /* AppDelegate.swift in Sources */,
+				954BF5212222F45B0057C9B6 /* Person.swift in Sources */,
 				9554A15321F97E75004B778E /* ProjectListViewController.swift in Sources */,
 				95E3882821FBD2AC003A2565 /* DBBProjectExtensions.swift in Sources */,
+				954BF5202222F45B0057C9B6 /* Meeting.swift in Sources */,
+				954BF5232222F45B0057C9B6 /* Company.swift in Sources */,
 				9554A15521F980CC004B778E /* EditProjectViewController.swift in Sources */,
 				95E304E221FA42AD00CF99B6 /* MeetingListViewController.swift in Sources */,
-				9554A0AA21F8B7FC004B778E /* Company.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -370,13 +370,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9588E1E62220E52900944D18 /* CommonTestTask.swift in Sources */,
-				9588E1EB2220E52900944D18 /* DBBManagerExecuteSQLTests.swift in Sources */,
-				9588E1EC2220E52900944D18 /* DBBTableBuilderTests.swift in Sources */,
-				9588E1E92220E52900944D18 /* DBBTableObjectSaveTests.swift in Sources */,
-				9588E1EA2220E52900944D18 /* DBBDatabaseSetupTests.swift in Sources */,
-				9588E1E72220E52900944D18 /* SaveAtomicTypesTests.swift in Sources */,
-				9588E1E82220E52900944D18 /* MeetingTests.swift in Sources */,
+				954BF52D2222F47C0057C9B6 /* SaveAtomicTypesTests.swift in Sources */,
+				954BF52E2222F47C0057C9B6 /* MeetingTests.swift in Sources */,
+				954BF52F2222F47C0057C9B6 /* DBBDatabaseSetupTests.swift in Sources */,
+				954BF5312222F47C0057C9B6 /* DBBManagerExecuteSQLTests.swift in Sources */,
+				954BF5302222F47C0057C9B6 /* DBBTableObjectSaveTests.swift in Sources */,
+				954BF52B2222F47C0057C9B6 /* CommonTestTask.swift in Sources */,
+				954BF52C2222F47C0057C9B6 /* DBBTableBuilderTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -525,10 +525,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = B75Q6TLYBM;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/DBBBuilder-OSX/Carthage/Build/Mac",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/../Carthage/Build/Mac";
 				INFOPLIST_FILE = "$(SRCROOT)/DBBBuilder-Demo-OSX/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -549,10 +546,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = B75Q6TLYBM;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/DBBBuilder-OSX/Carthage/Build/Mac",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/../Carthage/Build/Mac";
 				INFOPLIST_FILE = "$(SRCROOT)/DBBBuilder-Demo-OSX/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

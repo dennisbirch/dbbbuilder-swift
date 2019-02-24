@@ -7,10 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		9554A0B021F8B81B004B778E /* Meeting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9554A0AC21F8B81B004B778E /* Meeting.swift */; };
-		9554A0B121F8B81B004B778E /* Person.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9554A0AD21F8B81B004B778E /* Person.swift */; };
-		9554A0B221F8B81B004B778E /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9554A0AE21F8B81B004B778E /* Project.swift */; };
-		9554A0B321F8B81B004B778E /* Company.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9554A0AF21F8B81B004B778E /* Company.swift */; };
+		954BF5172222F4200057C9B6 /* Meeting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 954BF5132222F4200057C9B6 /* Meeting.swift */; };
+		954BF5182222F4200057C9B6 /* Person.swift in Sources */ = {isa = PBXBuildFile; fileRef = 954BF5142222F4200057C9B6 /* Person.swift */; };
+		954BF5192222F4200057C9B6 /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = 954BF5152222F4200057C9B6 /* Project.swift */; };
+		954BF51A2222F4200057C9B6 /* Company.swift in Sources */ = {isa = PBXBuildFile; fileRef = 954BF5162222F4200057C9B6 /* Company.swift */; };
+		954BF5392222F4970057C9B6 /* CommonTestTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 954BF5322222F4970057C9B6 /* CommonTestTask.swift */; };
+		954BF53A2222F4970057C9B6 /* DBBTableBuilderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 954BF5332222F4970057C9B6 /* DBBTableBuilderTests.swift */; };
+		954BF53B2222F4970057C9B6 /* SaveAtomicTypesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 954BF5342222F4970057C9B6 /* SaveAtomicTypesTests.swift */; };
+		954BF53C2222F4970057C9B6 /* MeetingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 954BF5352222F4970057C9B6 /* MeetingTests.swift */; };
+		954BF53D2222F4970057C9B6 /* DBBDatabaseSetupTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 954BF5362222F4970057C9B6 /* DBBDatabaseSetupTests.swift */; };
+		954BF53E2222F4970057C9B6 /* DBBTableObjectSaveTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 954BF5372222F4970057C9B6 /* DBBTableObjectSaveTests.swift */; };
+		954BF53F2222F4970057C9B6 /* DBBManagerExecuteSQLTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 954BF5382222F4970057C9B6 /* DBBManagerExecuteSQLTests.swift */; };
 		9554A0B521F8B92F004B778E /* DBBProjectExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9554A0B421F8B92E004B778E /* DBBProjectExtensions.swift */; };
 		9578B3DC21F8330400219E8A /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9578B3C121F8330400219E8A /* LaunchScreen.xib */; };
 		9578B3DD21F8330400219E8A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9578B3C321F8330400219E8A /* Main.storyboard */; };
@@ -31,13 +38,6 @@
 		9578B3F621F834F200219E8A /* FMDB.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9578B3F521F834F200219E8A /* FMDB.framework */; };
 		957978481A337488007329CC /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 957978471A337488007329CC /* libsqlite3.dylib */; };
 		95C5D079221DCC2D00B1C938 /* FMDB.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9578B3F521F834F200219E8A /* FMDB.framework */; };
-		95C5D081221DCCDA00B1C938 /* CommonTestTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95C5D07A221DCCDA00B1C938 /* CommonTestTask.swift */; };
-		95C5D082221DCCDA00B1C938 /* DBBTableObjectSaveTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95C5D07B221DCCDA00B1C938 /* DBBTableObjectSaveTests.swift */; };
-		95C5D083221DCCDA00B1C938 /* MeetingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95C5D07C221DCCDA00B1C938 /* MeetingTests.swift */; };
-		95C5D084221DCCDA00B1C938 /* DBBManagerExecuteSQLTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95C5D07D221DCCDA00B1C938 /* DBBManagerExecuteSQLTests.swift */; };
-		95C5D085221DCCDA00B1C938 /* SaveAtomicTypesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95C5D07E221DCCDA00B1C938 /* SaveAtomicTypesTests.swift */; };
-		95C5D086221DCCDA00B1C938 /* DBBDatabaseSetupTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95C5D07F221DCCDA00B1C938 /* DBBDatabaseSetupTests.swift */; };
-		95C5D087221DCCDA00B1C938 /* DBBTableBuilderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95C5D080221DCCDA00B1C938 /* DBBTableBuilderTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,10 +51,17 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		9554A0AC21F8B81B004B778E /* Meeting.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Meeting.swift; sourceTree = "<group>"; };
-		9554A0AD21F8B81B004B778E /* Person.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Person.swift; sourceTree = "<group>"; };
-		9554A0AE21F8B81B004B778E /* Project.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Project.swift; sourceTree = "<group>"; };
-		9554A0AF21F8B81B004B778E /* Company.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Company.swift; sourceTree = "<group>"; };
+		954BF5132222F4200057C9B6 /* Meeting.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Meeting.swift; sourceTree = "<group>"; };
+		954BF5142222F4200057C9B6 /* Person.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Person.swift; sourceTree = "<group>"; };
+		954BF5152222F4200057C9B6 /* Project.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Project.swift; sourceTree = "<group>"; };
+		954BF5162222F4200057C9B6 /* Company.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Company.swift; sourceTree = "<group>"; };
+		954BF5322222F4970057C9B6 /* CommonTestTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CommonTestTask.swift; path = "../../Common-Source/Unit-Tests/CommonTestTask.swift"; sourceTree = "<group>"; };
+		954BF5332222F4970057C9B6 /* DBBTableBuilderTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DBBTableBuilderTests.swift; path = "../../Common-Source/Unit-Tests/DBBTableBuilderTests.swift"; sourceTree = "<group>"; };
+		954BF5342222F4970057C9B6 /* SaveAtomicTypesTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SaveAtomicTypesTests.swift; path = "../../Common-Source/Unit-Tests/SaveAtomicTypesTests.swift"; sourceTree = "<group>"; };
+		954BF5352222F4970057C9B6 /* MeetingTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MeetingTests.swift; path = "../../Common-Source/Unit-Tests/MeetingTests.swift"; sourceTree = "<group>"; };
+		954BF5362222F4970057C9B6 /* DBBDatabaseSetupTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DBBDatabaseSetupTests.swift; path = "../../Common-Source/Unit-Tests/DBBDatabaseSetupTests.swift"; sourceTree = "<group>"; };
+		954BF5372222F4970057C9B6 /* DBBTableObjectSaveTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DBBTableObjectSaveTests.swift; path = "../../Common-Source/Unit-Tests/DBBTableObjectSaveTests.swift"; sourceTree = "<group>"; };
+		954BF5382222F4970057C9B6 /* DBBManagerExecuteSQLTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DBBManagerExecuteSQLTests.swift; path = "../../Common-Source/Unit-Tests/DBBManagerExecuteSQLTests.swift"; sourceTree = "<group>"; };
 		9554A0B421F8B92E004B778E /* DBBProjectExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DBBProjectExtensions.swift; sourceTree = "<group>"; };
 		956575CA21F7A5AE00540CF0 /* FMDB.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FMDB.framework; path = ../Frameworks/FMDB.framework; sourceTree = "<group>"; };
 		956575CB21F7A5AE00540CF0 /* DBBBuilder.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DBBBuilder.framework; path = ../Frameworks/DBBBuilder.framework; sourceTree = "<group>"; };
@@ -80,13 +87,6 @@
 		957978471A337488007329CC /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
 		95C5D06F221DCC0600B1C938 /* DBBBuilder-Demo-iOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "DBBBuilder-Demo-iOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		95C5D073221DCC0600B1C938 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		95C5D07A221DCCDA00B1C938 /* CommonTestTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CommonTestTask.swift; path = "Common-Source/Unit-Tests/CommonTestTask.swift"; sourceTree = SOURCE_ROOT; };
-		95C5D07B221DCCDA00B1C938 /* DBBTableObjectSaveTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DBBTableObjectSaveTests.swift; path = "Common-Source/Unit-Tests/DBBTableObjectSaveTests.swift"; sourceTree = SOURCE_ROOT; };
-		95C5D07C221DCCDA00B1C938 /* MeetingTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MeetingTests.swift; path = "Common-Source/Unit-Tests/MeetingTests.swift"; sourceTree = SOURCE_ROOT; };
-		95C5D07D221DCCDA00B1C938 /* DBBManagerExecuteSQLTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DBBManagerExecuteSQLTests.swift; path = "Common-Source/Unit-Tests/DBBManagerExecuteSQLTests.swift"; sourceTree = SOURCE_ROOT; };
-		95C5D07E221DCCDA00B1C938 /* SaveAtomicTypesTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SaveAtomicTypesTests.swift; path = "Common-Source/Unit-Tests/SaveAtomicTypesTests.swift"; sourceTree = SOURCE_ROOT; };
-		95C5D07F221DCCDA00B1C938 /* DBBDatabaseSetupTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DBBDatabaseSetupTests.swift; path = "Common-Source/Unit-Tests/DBBDatabaseSetupTests.swift"; sourceTree = SOURCE_ROOT; };
-		95C5D080221DCCDA00B1C938 /* DBBTableBuilderTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DBBTableBuilderTests.swift; path = "Common-Source/Unit-Tests/DBBTableBuilderTests.swift"; sourceTree = SOURCE_ROOT; };
 		A54DCCC71A322C8500D0A617 /* DBBBuilder-Demo-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "DBBBuilder-Demo-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -112,24 +112,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		9554A0AB21F8B81B004B778E /* Demo-Models */ = {
+		954BF5122222F4200057C9B6 /* Demo-Models */ = {
 			isa = PBXGroup;
 			children = (
-				9554A0AC21F8B81B004B778E /* Meeting.swift */,
-				9554A0AD21F8B81B004B778E /* Person.swift */,
-				9554A0AE21F8B81B004B778E /* Project.swift */,
-				9554A0AF21F8B81B004B778E /* Company.swift */,
+				954BF5132222F4200057C9B6 /* Meeting.swift */,
+				954BF5142222F4200057C9B6 /* Person.swift */,
+				954BF5152222F4200057C9B6 /* Project.swift */,
+				954BF5162222F4200057C9B6 /* Company.swift */,
 			);
 			name = "Demo-Models";
-			path = "Common-Source/Demo-Models";
-			sourceTree = SOURCE_ROOT;
+			path = "../../Common-Source/Demo-Models";
+			sourceTree = "<group>";
 		};
 		9578B3BF21F8330400219E8A /* DBBBuilder-Demo-iOS */ = {
 			isa = PBXGroup;
 			children = (
 				9578B3C321F8330400219E8A /* Main.storyboard */,
 				9578B3C521F8330400219E8A /* ViewControllers */,
-				9554A0AB21F8B81B004B778E /* Demo-Models */,
+				954BF5122222F4200057C9B6 /* Demo-Models */,
 				9578B3D221F8330400219E8A /* Images.xcassets */,
 				9578B3D321F8330400219E8A /* AppDelegate.swift */,
 				9578B3D421F8330400219E8A /* TypeExtensions */,
@@ -189,14 +189,14 @@
 		95C5D070221DCC0600B1C938 /* DBBBuilder-Demo-iOSTests */ = {
 			isa = PBXGroup;
 			children = (
+				954BF5322222F4970057C9B6 /* CommonTestTask.swift */,
+				954BF5362222F4970057C9B6 /* DBBDatabaseSetupTests.swift */,
+				954BF5382222F4970057C9B6 /* DBBManagerExecuteSQLTests.swift */,
+				954BF5332222F4970057C9B6 /* DBBTableBuilderTests.swift */,
+				954BF5372222F4970057C9B6 /* DBBTableObjectSaveTests.swift */,
+				954BF5352222F4970057C9B6 /* MeetingTests.swift */,
+				954BF5342222F4970057C9B6 /* SaveAtomicTypesTests.swift */,
 				95C5D073221DCC0600B1C938 /* Info.plist */,
-				95C5D07A221DCCDA00B1C938 /* CommonTestTask.swift */,
-				95C5D07F221DCCDA00B1C938 /* DBBDatabaseSetupTests.swift */,
-				95C5D07D221DCCDA00B1C938 /* DBBManagerExecuteSQLTests.swift */,
-				95C5D080221DCCDA00B1C938 /* DBBTableBuilderTests.swift */,
-				95C5D07B221DCCDA00B1C938 /* DBBTableObjectSaveTests.swift */,
-				95C5D07C221DCCDA00B1C938 /* MeetingTests.swift */,
-				95C5D07E221DCCDA00B1C938 /* SaveAtomicTypesTests.swift */,
 			);
 			path = "DBBBuilder-Demo-iOSTests";
 			sourceTree = "<group>";
@@ -331,7 +331,7 @@
 			inputFileListPaths = (
 			);
 			inputPaths = (
-				"$(SRCROOT)/DBBBuilder-iOS/Carthage/Build/iOS/FMDB.framework",
+				"$(SRCROOT)/../Carthage/Build/iOS/FMDB.framework",
 			);
 			outputFileListPaths = (
 			);
@@ -349,13 +349,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				95C5D081221DCCDA00B1C938 /* CommonTestTask.swift in Sources */,
-				95C5D086221DCCDA00B1C938 /* DBBDatabaseSetupTests.swift in Sources */,
-				95C5D087221DCCDA00B1C938 /* DBBTableBuilderTests.swift in Sources */,
-				95C5D085221DCCDA00B1C938 /* SaveAtomicTypesTests.swift in Sources */,
-				95C5D082221DCCDA00B1C938 /* DBBTableObjectSaveTests.swift in Sources */,
-				95C5D083221DCCDA00B1C938 /* MeetingTests.swift in Sources */,
-				95C5D084221DCCDA00B1C938 /* DBBManagerExecuteSQLTests.swift in Sources */,
+				954BF53B2222F4970057C9B6 /* SaveAtomicTypesTests.swift in Sources */,
+				954BF53C2222F4970057C9B6 /* MeetingTests.swift in Sources */,
+				954BF53D2222F4970057C9B6 /* DBBDatabaseSetupTests.swift in Sources */,
+				954BF53F2222F4970057C9B6 /* DBBManagerExecuteSQLTests.swift in Sources */,
+				954BF53E2222F4970057C9B6 /* DBBTableObjectSaveTests.swift in Sources */,
+				954BF5392222F4970057C9B6 /* CommonTestTask.swift in Sources */,
+				954BF53A2222F4970057C9B6 /* DBBTableBuilderTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -363,23 +363,23 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				954BF5182222F4200057C9B6 /* Person.swift in Sources */,
 				9578B3EA21F8330400219E8A /* AppDelegate.swift in Sources */,
 				9578B3EE21F8330400219E8A /* DBBDatePickerView.swift in Sources */,
-				9554A0B021F8B81B004B778E /* Meeting.swift in Sources */,
 				9578B3E221F8330400219E8A /* ProjectListViewController.swift in Sources */,
-				9554A0B121F8B81B004B778E /* Person.swift in Sources */,
 				9578B3DF21F8330400219E8A /* EditAttendeesViewController.swift in Sources */,
 				9578B3E321F8330400219E8A /* EditMeetingViewController.swift in Sources */,
 				9578B3EB21F8330400219E8A /* UIAlertController+Extensions.swift in Sources */,
 				9554A0B521F8B92F004B778E /* DBBProjectExtensions.swift in Sources */,
-				9554A0B221F8B81B004B778E /* Project.swift in Sources */,
+				954BF5172222F4200057C9B6 /* Meeting.swift in Sources */,
 				9578B3EF21F8330400219E8A /* EditButtonTableViewCell.swift in Sources */,
 				9578B3E021F8330400219E8A /* EditProjectViewController.swift in Sources */,
 				9578B3ED21F8330400219E8A /* UIColorExtensions.swift in Sources */,
+				954BF51A2222F4200057C9B6 /* Company.swift in Sources */,
 				9578B3DE21F8330400219E8A /* MeetingListViewController.swift in Sources */,
 				9578B3E121F8330400219E8A /* AddPersonViewController.swift in Sources */,
 				9578B3EC21F8330400219E8A /* DateExtensons.swift in Sources */,
-				9554A0B321F8B81B004B778E /* Company.swift in Sources */,
+				954BF5192222F4200057C9B6 /* Project.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -513,6 +513,7 @@
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				FRAMEWORK_SEARCH_PATHS = "";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -568,6 +569,7 @@
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_SEARCH_PATHS = "";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -590,10 +592,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = B75Q6TLYBM;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(PROJECT_DIR)",
-					"$(PROJECT_DIR)/DBBBuilder-iOS/Carthage/Build/iOS",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/../Carthage/Build/iOS";
 				INFOPLIST_FILE = "$(SRCROOT)/DBBBuilder-Demo-iOS/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -609,10 +608,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = B75Q6TLYBM;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(PROJECT_DIR)",
-					"$(PROJECT_DIR)/DBBBuilder-iOS/Carthage/Build/iOS",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/../Carthage/Build/iOS";
 				INFOPLIST_FILE = "$(SRCROOT)/DBBBuilder-Demo-iOS/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
