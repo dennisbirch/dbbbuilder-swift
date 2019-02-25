@@ -1,5 +1,6 @@
 #DBBBuilder
-###A framework for working in Swift with first-class objects persisted to SQLiite databases.###
+
+###A framework for working in Swift with first-class objects persisted to SQLiite databases.
 
 
 - Works in conjunction with the [FMDB](https://github.com/ccgus/fmdb) framework
@@ -17,7 +18,9 @@ DBBBuilder is a Swift project that makes it easy to work with first-class object
 DBBBuilder takes care of creating the database file if needed, and all database tables and indexes, at runtime, based on your class definitions and other configuration steps.
 
 ###Installation
+
 ####Carthage
+
 You can add DBBBuilder to your Xcode project using the [Carthage](https://github.com/Carthage/Carthage) dependency manager.
 
 After [installing Carthage](https://github.com/Carthage/Carthage#quick-start), add a dependency statement for DBBBuilder to your Cartfile:
@@ -33,6 +36,7 @@ Then follow the [directions for adding frameworks to your project.](https://gith
 You should now be able to begin using DBBBuilder in your Xcode project.
 
 ###Usage
+
 DBBBuilder has two main classes you need to be concerned with to use it properly.
 
 `DBBManager` is the class that holds a reference to the database file you're persisting data to. You can have more than one DBBManager instance in your project, but each one must be set up to work with a different file.
@@ -42,6 +46,7 @@ DBBBuilder has two main classes you need to be concerned with to use it properly
 Proper use of DBBBuilder requires setting up each DBBManager instance with the DBBTableObject subclass types it manages. You also need to configure the DBBManager with mapping for each DBBTableObject subclass, defining the properties that should be persisted to the database file and their types. You can optionally configure the DBBManager with indexing instructions for any DBBTableObject subclass to tell it which properties it should build indexes for.
 
 ####DBBManager
+
 __Initalizing:__ `init(databaseURL: URL)`
 
 _databaseURL_: The URL for a database file. Be sure it points to a file and not to a directory.
@@ -133,6 +138,7 @@ An optional dictionary that lets you define attributes to apply to class propert
 A Boolean value you can set and read from your application code to set and determine whether an object is an altered state.
 
 ####DBBPropertyPersistence
+
 DBBPropertyPersistence is used as part of the process of initializing a DBBManager instance to define the properties that should be persisted to the database file. As explained above, it is best practice to add this meta-data as part of a DBBTableObject subclass's initialization process.
 
 __initialization:__ `public init(type: DBBStorageType)`
