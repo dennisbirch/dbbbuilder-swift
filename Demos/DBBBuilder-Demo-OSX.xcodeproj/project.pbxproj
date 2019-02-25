@@ -570,7 +570,7 @@
 				DEVELOPMENT_TEAM = B75Q6TLYBM;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/DBBBuilder-OSX/Carthage/Build/Mac",
+					"$(PROJECT_DIR)/../Carthage/Build/Mac",
 				);
 				INFOPLIST_FILE = "DBBBuilder-OSXTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -599,7 +599,7 @@
 				DEVELOPMENT_TEAM = B75Q6TLYBM;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/DBBBuilder-OSX/Carthage/Build/Mac",
+					"$(PROJECT_DIR)/../Carthage/Build/Mac",
 				);
 				INFOPLIST_FILE = "DBBBuilder-OSXTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
