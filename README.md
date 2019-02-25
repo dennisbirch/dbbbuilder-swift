@@ -189,10 +189,10 @@ There is one method for saving any DBBTableObject subclass instance to the datab
 
 `public func saveToDB() -> Bool`
 
-This method returns a Boolean value indicating whether the save succeeded. In case of failure you can get an error message from the underlying database by accessing the lastErrorMessage function of the DBManager's database object. For example:
+This method returns a Boolean value indicating whether the save succeeded. In case of failure you can get an error message from the underlying database by calling the errorMessage function on your DBManager's instance. For example:
 
 ```
-print(dbMgr.database.lastErrorMessage())
+print(dbMgr.errorMessage())
 ```
 
 #### Retrieving Objects From the Database
@@ -337,6 +337,10 @@ There are some helper methods and definitions available in different classes tha
 __ColumnAttributes:__ There is a publicly accessible _ColumnAttributes_ struct in the DBBBuilder.swift file that defines `notNull = "NOT NULL"` and `unique = "UNIQUE"` which you may want to use if setting a DBBTableObject subclass's _attributesDictionary_ property.
 
 __ColumnSorting:__ There is a publicly accessible _ColumnSorting_ struct in the DBBBuilder.swift file that defines `ascending = "ASC` and `descending = "DESC"` which you may want to use for assigning sort order query options.
+
+__Error messages:__ `public func errorMessage() -> String`
+
+A publicly accessible method in DBBManager for getting the error message from the underlying SQLite database for any operation on it.
 
 __Table/object count:__ `public func countForTable(_ tableName: String) -> Int`
 

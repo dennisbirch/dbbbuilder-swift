@@ -154,6 +154,9 @@ class EditProjectViewController: NSViewController, NSTextFieldDelegate, NSTableV
     @IBAction func saveChanges(_ sender: NSButton) {
         let success = project?.saveToDB()
         os_log("Saved changes to project: %@", (success == true) ? "true" : "false")
+        if success == false {
+            os_log("Error saving to database: %@", self.dbManager?.errorMessage() ?? "NA")
+        }
         project?.makeDirty(success == false)
         
         showProjectList()

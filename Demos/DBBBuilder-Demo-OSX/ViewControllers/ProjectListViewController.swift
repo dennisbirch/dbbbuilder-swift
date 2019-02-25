@@ -174,7 +174,10 @@ DBBManagerConsumer {
         if let parent = parentProject {
             parent.subProject = project
             parent.makeDirty(true)
-            let _ = parent.saveToDB()
+            let success = parent.saveToDB()
+            if success == false {
+                os_log("Error saving to database: %@", self.dbManager?.errorMessage() ?? "NA")
+            }
             self.parentProject = nil
         } else {
             if row + 1 > projects.count {

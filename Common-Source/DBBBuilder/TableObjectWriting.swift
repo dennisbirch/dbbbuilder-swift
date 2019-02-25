@@ -66,7 +66,7 @@ extension DBBTableObject {
         let executor = DBBDatabaseExecutor(manager: dbManager)
         success = executor.executeUpdate(sql: statement, withArgumentsIn: instanceComponents.values)
         if success == false {
-            os_log("Insert failed with error message: %@", log: logger, type: defaultLogType, dbManager.database.lastErrorMessage())
+            os_log("Insert failed with error message: %@", log: logger, type: defaultLogType, dbManager.errorMessage())
         }
         
         // set the id property for this instance
@@ -99,7 +99,7 @@ extension DBBTableObject {
         let executor = DBBDatabaseExecutor(manager: dbManager)
         success = executor.executeUpdate(sql: statement, withArgumentsIn: instanceComponents.values)
         if success == false {
-            os_log("Update failed with error message: %@", log: logger, type: defaultLogType, dbManager.database.lastErrorMessage())
+            os_log("Update failed with error message: %@", log: logger, type: defaultLogType, dbManager.errorMessage())
         }
         
         if let joinMap = dbManager.joinMapDict[shortName] {
@@ -127,7 +127,7 @@ extension DBBTableObject {
             let executor = DBBDatabaseExecutor(manager: dbManager)
             var success = executor.executeStatements(sql)
             if success == false {
-                os_log("Error deleting existing join rows: %@", log: logger, type: defaultLogType, dbManager.database.lastErrorMessage())
+                os_log("Error deleting existing join rows: %@", log: logger, type: defaultLogType, dbManager.errorMessage())
             }
             os_log("Success deleting existing join rows with SQL: %@ – %@", log: logger, type: defaultLogType, sql, (success == true) ? "true" : "false")
             
@@ -146,7 +146,7 @@ extension DBBTableObject {
                 sql = "INSERT INTO \(joinTableName) (\(joinMap.parentJoinColumn), \(joinMap.joinColumnName)) VALUES (\("?, ?"))"
                 success = executor.executeUpdate(sql: sql, withArgumentsIn: args)
                 if success == false {
-                    os_log("Insert failed with error message: %@", log: logger, type: defaultLogType, dbManager.database.lastErrorMessage())
+                    os_log("Insert failed with error message: %@", log: logger, type: defaultLogType, dbManager.errorMessage())
                 }
                 os_log("Saved join to table with SQL statement(s) %@ – Success: %@ – Values: %@", log: logger, type: defaultLogType, sql, (success == true) ? "true" : "false", args)
             }

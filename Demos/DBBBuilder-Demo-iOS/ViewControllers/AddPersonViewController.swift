@@ -66,7 +66,7 @@ class AddPersonViewController: UITableViewController, UITextFieldDelegate {
                             delegate.addPersonViewControllerSavedPerson(person: person)
 						}
 					} else {
-						os_log("Failed to save new attendee")
+                        os_log("Error saving to database: %@", self?.dbManager?.errorMessage() ?? "NA")
 					}
 				}
 			}

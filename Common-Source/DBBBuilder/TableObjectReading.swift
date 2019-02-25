@@ -58,7 +58,7 @@ extension DBBTableObject {
         let sql = sqlString(withOptions: options, manager: manager)
         let executor = DBBDatabaseExecutor(manager: manager)
         guard let results = executor.runQuery(sql) else {
-            os_log("Fetch failed with error: %@ for SQL: %@", log: DBBBuilder.logger(withCategory: "TableObjectReading"), type: defaultLogType, manager.database.lastErrorMessage(), sql)
+            os_log("Fetch failed with error: %@ for SQL: %@", log: DBBBuilder.logger(withCategory: "TableObjectReading"), type: defaultLogType, manager.errorMessage(), sql)
             return nil
         }
         
@@ -194,7 +194,7 @@ extension DBBTableObject {
         let sql = "SELECT \(Keys.id) FROM \(tableName)"
         let executor = DBBDatabaseExecutor(manager: manager)
         guard let result = executor.runQuery(sql) else {
-            os_log("Error getting results with query %@: %@", log: DBBBuilder.logger(withCategory: "DBTableObject"), type: defaultLogType,  sql, manager.database.lastErrorMessage())
+            os_log("Error getting results with query %@: %@", log: DBBBuilder.logger(withCategory: "DBTableObject"), type: defaultLogType,  sql, manager.errorMessage())
             return idsArray
         }
         
@@ -319,7 +319,7 @@ extension DBBTableObject {
                 } else {
                     os_log("ResultSet is nil with query: %@", log: logger, type: defaultLogType, sql)
                     if manager.database.lastErrorCode() != 0 {
-                        os_log("Database error message: %@", log: logger, type: defaultLogType, manager.database.lastErrorMessage())
+                        os_log("Database error message: %@", log: logger, type: defaultLogType, manager.errorMessage())
                     }
                 }                
             } else {

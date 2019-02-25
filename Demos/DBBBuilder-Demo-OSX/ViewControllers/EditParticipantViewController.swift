@@ -68,6 +68,9 @@ class EditParticipantViewController: NSViewController, NSTextFieldDelegate, DBBM
     @IBAction func saveChanges(_ sender: NSButton) {
         let success = participant?.saveToDB()
         os_log("Saved changes to participant: %@", (success == true) ? "true" : "false")
+        if success == false {
+            os_log("Error saving to database: %@", self.dbManager?.errorMessage() ?? "NA")
+        }
         participant?.makeDirty(success == false)
         showParcipitantList()
     }

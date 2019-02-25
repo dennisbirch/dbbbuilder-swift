@@ -93,7 +93,7 @@ struct DBBDatabaseValidator {
             let joinedStatements = alterStatements.joined()
             let success = executor.executeStatements(joinedStatements)
             if success == false {
-                os_log("Execute failed with error message: %@", log: logger, type: defaultLogType, tableClass.dbManager.database.lastErrorMessage())
+                os_log("Execute failed with error message: %@", log: logger, type: defaultLogType, tableClass.dbManager.errorMessage())
             }
             os_log("Alter table statements %@ succeeded: %@", log: logger, type: defaultLogType, joinedStatements, (success == true) ? "true" : "false")
         }
@@ -183,7 +183,7 @@ struct DBBDatabaseValidator {
             let joinedStatements = alterStatements.joined()
             let success = executor.executeStatements(joinedStatements)
             if success == false {
-                os_log("Execute failed with error message: %@", log: logger, type: defaultLogType, tableClass.dbManager.database.lastErrorMessage())
+                os_log("Execute failed with error message: %@", log: logger, type: defaultLogType, tableClass.dbManager.errorMessage())
             }
             os_log("Join table alter table statements %@ succeeded: %@", log: logger, type: defaultLogType, joinedStatements, (success == true) ? "true" : "false")
         }
@@ -193,7 +193,7 @@ struct DBBDatabaseValidator {
         let createString = "\(createTableIfNotExists) \(tableName)_\(column) (\(idNumWithAttributes), \(tableName)\(idExtension) Integer, \(column) \(type))"
         let success = executor.executeUpdate(sql: createString, withArgumentsIn: [])
         if success == false {
-            os_log("Update failed with error message: %@", log: logger, type: defaultLogType, tableClass.dbManager.database.lastErrorMessage())
+            os_log("Update failed with error message: %@", log: logger, type: defaultLogType, tableClass.dbManager.errorMessage())
         }
         os_log("Adding join table with creation string: %@ – success: %@", log: logger, type: defaultLogType, createString, (success == true) ? "true" : "false")
     }

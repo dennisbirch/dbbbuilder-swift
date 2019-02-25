@@ -101,8 +101,11 @@ class DBBEditMeetingViewController: UITableViewController, DatePickerViewDelegat
 
         let purpose = meeting.purpose
 		if purpose.isEmpty == false {
-			let _ = meeting.saveToDB()
+			let success = meeting.saveToDB()
             delegate?.meetingEditor(editor: self, savedMeeting: meeting)
+            if success == false {
+                os_log("Error saving to database: %@", self.dbManager?.errorMessage() ?? "NA")
+            }
 		}
 	}
 	

@@ -123,7 +123,10 @@ class EditProjectViewController: UITableViewController, UITextFieldDelegate, Dat
             
             let projName = project.name
             if projName.isEmpty == false {
-                let _ = project.saveToDB()
+                let success = project.saveToDB()
+                if success == false {
+                    os_log("Error saving to database: %@", self.dbManager?.errorMessage() ?? "NA")
+                }
             }
         }
     }

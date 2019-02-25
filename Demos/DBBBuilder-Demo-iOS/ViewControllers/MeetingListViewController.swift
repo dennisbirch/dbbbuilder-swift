@@ -160,6 +160,9 @@ class MeetingListViewController: UIViewController, UITableViewDataSource, UITabl
         project?.addMeeting(savedMeeting)
         if let success = project?.saveToDB() {
             os_log("Saved updated project: %@", (success == true) ? "true" : "false")
+            if success == false {
+                os_log("Error saving to database: %@", self.dbManager?.errorMessage() ?? "NA")
+            }
         }
     }
 

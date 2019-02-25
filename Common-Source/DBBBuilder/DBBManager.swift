@@ -132,6 +132,12 @@ import os.log
         return success
     }
     
+    public func errorMessage() -> String {
+        return database.lastErrorMessage()
+    }
+    
+    // MARK: Internal Methods
+    
     func initializePersistenceContents(_ contents: [String : DBBPropertyPersistence], forTableNamed table: String) {
         let map = DBBPersistenceMap([String : DBBPropertyPersistence](), columnMap: [String : String]())
         let newMap = map.appendDictionary(contents)

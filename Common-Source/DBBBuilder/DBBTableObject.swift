@@ -125,7 +125,7 @@ typealias ParamsAndValues = (params: [String], values: [String])
         let logger = DBBBuilder.logger(withCategory: "DBBTableObject")
         os_log("Executed DELETE statement with SQL: %@ – success: %@", log: logger, type: defaultLogType, sql, (success == true) ? "true" : "false")
         if success == false {
-            os_log("Error deleting instance: %@", log: logger, type: defaultLogType, manager.database.lastErrorMessage())
+            os_log("Error deleting instance: %@", log: logger, type: defaultLogType, manager.errorMessage())
         }
         
         // check join tables
@@ -190,12 +190,12 @@ typealias ParamsAndValues = (params: [String], values: [String])
                 let joinSQL = "DELETE FROM \(map.joinTableName)"
                 var success = executor.executeStatements(joinSQL)
                 if success == false {
-                    os_log("Error deleting join table: %@", log: DBBBuilder.logger(withCategory: "DBBTableOject"), type: defaultLogType, manager.database.lastErrorMessage())
+                    os_log("Error deleting join table: %@", log: DBBBuilder.logger(withCategory: "DBBTableOject"), type: defaultLogType, manager.errorMessage())
                 }
                 let indexName = "\(tableName)_\(column)_idx"
                 success = manager.dropIndex(named: indexName)
                 if success == false {
-                    os_log("Error deleting index: %@: %@", log: DBBBuilder.logger(withCategory: "DBBTableOject"), type: defaultLogType, indexName, manager.database.lastErrorMessage())
+                    os_log("Error deleting index: %@: %@", log: DBBBuilder.logger(withCategory: "DBBTableOject"), type: defaultLogType, indexName, manager.errorMessage())
                 }
             }
         }
@@ -211,7 +211,7 @@ typealias ParamsAndValues = (params: [String], values: [String])
                 let idxName = "\(tableName)_\(columnName)"
                 let success = manager.dropIndex(named: idxName)
                 if success == false {
-                    os_log("Error deleting index: %@: %@", log: DBBBuilder.logger(withCategory: "DBBTableOject"), type: defaultLogType, idxName, manager.database.lastErrorMessage())
+                    os_log("Error deleting index: %@: %@", log: DBBBuilder.logger(withCategory: "DBBTableOject"), type: defaultLogType, idxName, manager.errorMessage())
                 }
             }
         }

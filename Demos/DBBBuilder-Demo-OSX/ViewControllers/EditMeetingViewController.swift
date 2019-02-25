@@ -128,7 +128,10 @@ class EditMeetingViewController: NSViewController, NSTextFieldDelegate, NSTableV
     @IBAction func saveChanges(_ sender: NSButton) {
         let success = meeting?.saveToDB()
         os_log("Saved message: %@", (success == true) ? "True" : "False")
-        meeting?.makeDirty(success == false)
+        if success == false {
+            os_log("Error saving to database: %@", self.dbManager?.errorMessage() ?? "NA")
+        }
+       meeting?.makeDirty(success == false)
         showMeetingList()
     }
     
