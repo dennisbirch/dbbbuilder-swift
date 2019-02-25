@@ -307,7 +307,7 @@ extension DBBTableObject {
             }
             
             if let joinMap = joinMapDict[column] {
-                let sql = "SELECT \(joinMap.joinColumnName) FROM \(joinMap.joinTableName) WHERE \(joinMap.parentJoinColumn) = \(instance.id);"
+                let sql = "SELECT \(joinMap.joinColumnName) FROM \(joinMap.joinTableName) WHERE \(joinMap.parentJoinColumn) = \(instance.idNum);"
                 if let results = executor.runQuery(sql) {
                     os_log("Executed query for join table content: %@", sql)
                     instance.setValues(fromResult: results,
@@ -403,7 +403,7 @@ extension DBBTableObject {
     
     private func setDBBObjectValue(objectType: DBBTableObject.Type, joinMap: DBBJoinMap, manager: DBBManager, isArray: Bool) {
         let tableName = (objectType == type(of: self)) ? joinMap.joinTableName.replacingOccurrences(of: idExtension, with: "") : joinMap.joinTableName
-        let sql = "SELECT \(joinMap.joinColumnName) FROM \(tableName) WHERE \(joinMap.parentJoinColumn) = \(self.id)"
+        let sql = "SELECT \(joinMap.joinColumnName) FROM \(tableName) WHERE \(joinMap.parentJoinColumn) = \(self.idNum)"
 
         let executor = DBBDatabaseExecutor(manager: manager)
         guard let result = executor.runQuery(sql) else {

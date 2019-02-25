@@ -173,7 +173,7 @@ typealias ParamsAndValues = (params: [String], values: [String])
         for instance in instances {
             let instanceSuccess = self.deleteInstance(instance, manager: manager)
             if instanceSuccess == false {
-                os_log("Deleting instance of %@ with idNum %@ failed.", log: DBBBuilder.logger(withCategory: "DBBTableObject"), type: defaultLogType, self.init(dbManager: manager).shortName, String(instance.id))
+                os_log("Deleting instance of %@ with idNum %@ failed.", log: DBBBuilder.logger(withCategory: "DBBTableObject"), type: defaultLogType, self.init(dbManager: manager).shortName, String(instance.idNum))
                 success = false
             }
         }

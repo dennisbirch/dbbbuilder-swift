@@ -98,7 +98,7 @@ extension DBBTableObject {
             paramsArray.append("\(param) = ?")
         }
         
-        statement += paramsArray.joined(separator: ", ") + " WHERE \(Keys.id) = \(id)"
+        statement += paramsArray.joined(separator: ", ") + " WHERE \(Keys.id) = \(idNum)"
         let executor = DBBDatabaseExecutor(manager: dbManager)
         do {
             try executor.executeUpdate(sql: statement, withArgumentsIn: instanceComponents.values)
@@ -171,7 +171,7 @@ extension DBBTableObject {
         }
         
         if let objectArray = values as? [DBBTableObject] {
-            let idArray = objectArray.map{ String($0.id) }
+            let idArray = objectArray.map{ String($0.idNum) }
             itemArray = idArray
         } else if let dateArray = values as? [Date] {
             itemArray = dateArray.map{ $0.dbb_timeIntervalForDate() }
