@@ -70,6 +70,8 @@ _contents_: A [String : DBBPropertyPersistence] dictionary defining the name and
 
 _table_: A String defining the name of the DBBTableObject subclass. You can use the DBBTableObject's _shortName_ property to get this.
 
+_indexer_: An optional argument that takes an instance of a `DBBIndexer` struct, with information on building indexes for properties belonging to this subclass. See the discussion of DBBIndexer [below](#dbbindexer). 
+
 It is best practice to call this method in your DBBTableObject subclass instances. [See below.](#complete-init)
 
 #### DBBTableObject
@@ -108,6 +110,7 @@ A complete DBBTableObject subclass's init method might look like this: <a name="
     required init(dbManager: DBBManager) {
         super.init(dbManager: dbManager)
         
+        let index = DBBIndexer(columnNames: ["name"])
         let map: [String : DBBPropertyPersistence] = ["name" : DBBPropertyPersistence(type: .string),
                                                       "code" : DBBPropertyPersistence(type: .string),
                                                       "startDate" : DBBPropertyPersistence(type: .date),
@@ -117,9 +120,8 @@ A complete DBBTableObject subclass's init method might look like this: <a name="
                                                       "tags" : DBBPropertyPersistence(type: .stringArray),
                                                       "subProject" : DBBPropertyPersistence(type: .dbbObject(objectType: Project.self)),
                                                       "projectLead" : DBBPropertyPersistence(type: .dbbObject(objectType: Person.self))]
-        dbManager.addPersistenceMapContents(map, forTableNamed: shortName)
+        dbManager.addPersistenceMapContents(map, forTableNamed: shortName, indexer: indexer)
     }
-
 ```
 
 You can see more examples of DBBTableObject initialization in the demo projects included in the DBBBuilder workspace.
@@ -152,7 +154,7 @@ _type_: Same as above.
 
 _columnName_: A String argument that defines an alternate name to use in the database file to define this property. This is useful if you're working with an existing database table and want or need to have a different name for a corresponding property.
 
-#### DBBIndexer
+#### DBBIndexer <a name="dbbindexer"></a>
 
 DBBIndexer is used to contain the names of all database columns (properties) that should be indexed for a table. You can also set the indexer's _unique_ property to true if the index should only work on unique values.
 
