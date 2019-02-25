@@ -1,6 +1,7 @@
-#DBBBuilder
 
-###A framework for working in Swift with first-class objects persisted to SQLiite databases.
+# DBBBuilder
+
+### A framework for working in Swift with first-class objects persisted to SQLiite databases.
 
 
 - Works in conjunction with the [FMDB](https://github.com/ccgus/fmdb) framework
@@ -11,15 +12,15 @@
 - Swift 4.2
 - Xcode 10.1 or higher
 
-###Overview
+### Overview
 
 DBBBuilder is a Swift project that makes it easy to work with first-class objects that are persisted to an SQLite database with the FMDB framework in your iOS or Mac projects.
 
 DBBBuilder takes care of creating the database file if needed, and all database tables and indexes, at runtime, based on your class definitions and other configuration steps.
 
-###Installation
+### Installation
 
-####Carthage
+#### Carthage
 
 You can add DBBBuilder to your Xcode project using the [Carthage](https://github.com/Carthage/Carthage) dependency manager.
 
@@ -35,7 +36,7 @@ Then follow the [directions for adding frameworks to your project.](https://gith
 
 You should now be able to begin using DBBBuilder in your Xcode project.
 
-###Usage
+### Usage
 
 DBBBuilder has two main classes you need to be concerned with to use it properly.
 
@@ -45,7 +46,7 @@ DBBBuilder has two main classes you need to be concerned with to use it properly
 
 Proper use of DBBBuilder requires setting up each DBBManager instance with the DBBTableObject subclass types it manages. You also need to configure the DBBManager with mapping for each DBBTableObject subclass, defining the properties that should be persisted to the database file and their types. You can optionally configure the DBBManager with indexing instructions for any DBBTableObject subclass to tell it which properties it should build indexes for.
 
-####DBBManager
+#### DBBManager
 
 __Initalizing:__ `init(databaseURL: URL)`
 
@@ -71,7 +72,7 @@ _table_: A String defining the name of the DBBTableObject subclass. You can use 
 
 It is best practice to call this method in your DBBTableObject subclass instances. [See below.](#complete-init)
 
-####DBBTableObject
+#### DBBTableObject
 
 __Defining properties:__ Because DBBBuilder uses Key Value Observing to assign values from the database to DBBTableObject subclass instances, each of a DBBTableObject subclass's properties that you want to persist to the database must be marked with the `@objc` attribute.
 
@@ -101,7 +102,7 @@ As part of the initialization process, you should call DBBManager's addPersisten
 This method takes as its *contents* parameter, a [String : DBBPropertyPersistence] dictionary.
 The String key is the case-sensitive name of the property. DBBProperty is a simple struct that defines a database column name and its type as one of a member of the DBBStorageType enum. This allows you to assign a custom name for a property in your class so that the property name and databse column name can differ if necessary, for example if you're working with a pre-existing table where you want the property name to be different from the column name already defined.
 
-A complete DBBTableObject subclass's init method might look like this:<a name="complete-init"></a>
+A complete DBBTableObject subclass's init method might look like this: <a name="complete-init"></a>
 
 ```
     required init(dbManager: DBBManager) {
@@ -137,7 +138,7 @@ An optional dictionary that lets you define attributes to apply to class propert
 
 A Boolean value you can set and read from your application code to set and determine whether an object is an altered state.
 
-####DBBPropertyPersistence
+#### DBBPropertyPersistence
 
 DBBPropertyPersistence is used as part of the process of initializing a DBBManager instance to define the properties that should be persisted to the database file. As explained above, it is best practice to add this meta-data as part of a DBBTableObject subclass's initialization process.
 
@@ -151,7 +152,7 @@ _type_: Same as above.
 
 _columnName_: A String argument that defines an alternate name to use in the database file to define this property. This is useful if you're working with an existing database table and want or need to have a different name for a corresponding property.
 
-####DBBIndexer
+#### DBBIndexer
 
 DBBIndexer is used to contain the names of all database columns (properties) that should be indexed for a table. You can also set the indexer's _unique_ property to true if the index should only work on unique values.
 
@@ -161,7 +162,7 @@ _columnsToIndex_: A String array of names of properties that should be indexed i
 
 _unique_: A Bool value telling DBBBuilder to create UNIQUE indexes. It is set to False by default.
 
-####DBBStorageType<a name="dbbstoragetype"></a>
+#### DBBStorageType <a name="dbbstoragetype"></a>
 
 An enum that defines the types DBBBuilder can persist to the database file. You use tyese types to configure your DBBManager instance(s) with mapping that tells them what to persist to file and how to persist it.
 
@@ -182,7 +183,7 @@ The dbbObject and dbbObjectArray members take an `objectType` argument in their 
 
 See the [DBBTableObject discussion above](#complete-init) for an example of DBBStorageType usage.
 
-####Writing Objects To The Database
+#### Writing Objects To The Database
 
 There is one method for saving any DBBTableObject subclass instance to the database.
 
@@ -194,7 +195,7 @@ This method returns a Boolean value indicating whether the save succeeded. In ca
 print(dbMgr.database.lastErrorMessage())
 ```
 
-####Retrieving Objects From the Database
+#### Retrieving Objects From the Database
 
 There are several methods for retrieving objets from the database. All of them are static methods that should be clled on your DBBTableObject subclass types. Each method returns either a single DBBTableObject instance or an array of them. As such you will need to cast them to their subclass type in order to use them in most cases. For example:
 
@@ -271,7 +272,7 @@ _manager_: A DBBManager instance that owns the FMDB instance/SQLite file being r
 
 _Returns_: An optional DBBTableObject instance whose id property matches the id value passed in.n array of Int64 values representing all the id values for the subclass you ran the request on.
 
-####DBBQueryOptions<a name="dbbqueryoptions"></a>
+#### DBBQueryOptions <a name="dbbqueryoptions"></a>
 
 When retrieving objects from the database, some methods take a DBBQueryOptions argument to determine which and how objects should be returned.
 
@@ -321,7 +322,7 @@ _conditions_: A string array of conditions to match on.
 
 _distinct_: An optional Boolean value to specify returning only distinct values. Pass True if you want to override the default False value.
 
-####Optimizing Reads
+#### Optimizing Reads
 
 There are a couple of strategies you can pursue to enhance the performance of object retrieval. If your object graph is complex, you may want to consider one of these strategies to improve the user experience.
 
@@ -329,7 +330,7 @@ __Sparse object population:__ Some of the object retrieval methods have an optio
 
 __Explicit object population:__ Some of the object retrieval methods let you specify what properties should be populated with a DBBQueryOptions instance. This is a less severe form of sparse population that can still improve performance for complex objects. You could benefit from this approach when you need to fetch many objects, but only need to display basic information to the user in a view.
 
-####Helpers<a name="helpers"></a>
+#### Helpers <a name="helpers"></a>
 
 There are some helper methods and definitions available in different classes that may be useful at various points of development.
 
