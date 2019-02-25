@@ -24,7 +24,7 @@ import os.log
      
      Usage example:
      ```
-             let dbManager = DBBManager(url: fileURL)
+        let dbManager = DBBManager(databaseURL: fileURL)
      ```
      */
     public init(databaseURL: URL) {
@@ -65,7 +65,7 @@ import os.log
     }
     
     /**
-     Public method to add persistence mapping for a DBBTableObject subclass. This mapping is required in order for any subclass to read and write data from the database.
+     Public method to add persistence mapping for a DBBTableObject subclass. This mapping is required in order for any subclass to read and write data to and from the database.
      
      - Parameters:
         - contents: A [String : DBBPropertyPersistence] dictionary that maps out the storage required for each property in the subclass.
