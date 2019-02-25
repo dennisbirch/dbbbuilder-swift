@@ -16,7 +16,9 @@ public struct DBBQueryOptions {
      An optional array of strings for properties to include in the results. Properties that are omitted do not have their values populated.
      */
     public var propertyNames: [String]?
-    
+    /**
+     An optional array of strings for properties from join tables (arrays, binary values and DBBTableObject types) to include in the results. Properties that are omitted do not have their values populated.
+     */
     public var joinPropertiesToPopulate: [String]?
     /**
      An optional array of strings for column sort orders, by sort priorty. All columns receive the same ascending or descending order. You can change the default ascending sort order to descending by including the `ColumnSorting.descending` value (defined in DBBBuilder.swift) as one of the items in the array.
