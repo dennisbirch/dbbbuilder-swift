@@ -38,8 +38,12 @@ struct DBBDatabaseExecutor {
         return runQuery(query, arguments: [])
     }
     
-    func executeUpdate(sql: String, withArgumentsIn arguments: [Any]) -> Bool {
-        return database.executeUpdate(sql, withArgumentsIn: arguments)
+    func executeUpdate(sql: String, withArgumentsIn arguments: [Any]) throws {
+        do {
+            try database.executeUpdate(sql, values: arguments)
+        } catch {
+            throw error
+        }
     }
     
     func executeStatements(_ sql: String) -> Bool {

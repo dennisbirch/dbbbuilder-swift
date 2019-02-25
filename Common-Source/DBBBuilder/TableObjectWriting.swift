@@ -64,9 +64,12 @@ extension DBBTableObject {
         let columnNamesString = instanceComponents.params.joined(separator: ", ")
         let statement = "INSERT INTO \(shortName) (\(columnNamesString)) VALUES (\(placeholders))"
         let executor = DBBDatabaseExecutor(manager: dbManager)
-        success = executor.executeUpdate(sql: statement, withArgumentsIn: instanceComponents.values)
-        if success == false {
-            os_log("Insert failed with error message: %@", log: logger, type: defaultLogType, dbManager.errorMessage())
+        
+        do {
+            try executor.executeUpdate(sql: statement, withArgumentsIn: instanceComponents.values)
+            success = true
+        } catch {
+            os_log("Insert failed with error message: %@", log: logger, type: defaultLogType, error.localizedDescription)
         }
         
         // set the id property for this instance
@@ -97,9 +100,12 @@ extension DBBTableObject {
         
         statement += paramsArray.joined(separator: ", ") + " WHERE \(Keys.id) = \(id)"
         let executor = DBBDatabaseExecutor(manager: dbManager)
-        success = executor.executeUpdate(sql: statement, withArgumentsIn: instanceComponents.values)
-        if success == false {
-            os_log("Update failed with error message: %@", log: logger, type: defaultLogType, dbManager.errorMessage())
+        do {
+            try executor.executeUpdate(sql: statement, withArgumentsIn: instanceComponents.values)
+            success = true
+        } catch  {
+            os_log("Update failed with error message: %@", log: logger, type: defaultLogType, error.localizedDescription)
+            success = false
         }
         
         if let joinMap = dbManager.joinMapDict[shortName] {
@@ -144,11 +150,14 @@ extension DBBTableObject {
                 var args: [Any]
                 args = [String(id), item]
                 sql = "INSERT INTO \(joinTableName) (\(joinMap.parentJoinColumn), \(joinMap.joinColumnName)) VALUES (\("?, ?"))"
-                success = executor.executeUpdate(sql: sql, withArgumentsIn: args)
-                if success == false {
-                    os_log("Insert failed with error message: %@", log: logger, type: defaultLogType, dbManager.errorMessage())
+                do {
+                    try executor.executeUpdate(sql: sql, withArgumentsIn: args)
+                    success = success && true
+                    os_log("Saved join to table with SQL statement(s) %@ – Success: %@ – Values: %@", log: logger, type: defaultLogType, sql, (success == true) ? "true" : "false", args)
+                } catch {
+                    os_log("Insert failed with error message: %@", log: logger, type: defaultLogType, error.localizedDescription)
+                    success = false
                 }
-                os_log("Saved join to table with SQL statement(s) %@ – Success: %@ – Values: %@", log: logger, type: defaultLogType, sql, (success == true) ? "true" : "false", args)
             }
         }        
     }    

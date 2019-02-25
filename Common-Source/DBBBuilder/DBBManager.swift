@@ -127,9 +127,14 @@ import os.log
     public func dropIndex(named indexName: String) -> Bool {
         let sql = "DROP INDEX IF EXISTS \(indexName)"
         let executor = DBBDatabaseExecutor(manager: self)
-        let success = executor.executeUpdate(sql: sql, withArgumentsIn: [])
-        os_log("Success dropping index %@: %@", log: logger, type: defaultLogType, indexName, (success == true) ? "true" : "false")
-        return success
+        do {
+            try executor.executeUpdate(sql: sql, withArgumentsIn: [])
+            os_log("Success dropping index %@: true", log: logger, type: defaultLogType, indexName)
+            return true
+        } catch {
+            os_log("Error dropping index: %@", error.localizedDescription)
+            return false
+        }
     }
     
     public func errorMessage() -> String {

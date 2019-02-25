@@ -47,12 +47,15 @@ class DBBBuilderTests: XCTestCase {
         // insert with arguments array
         var insertSQL = "INSERT INTO \(tableName) (Name, Age) VALUES (?,?)"
         let executor = DBBDatabaseExecutor(manager: dbMgr)
-        var success = executor.executeUpdate(sql: insertSQL, withArgumentsIn: [joeSchmo, joeAge])
-        XCTAssertTrue(success)
+        do {
+            try executor.executeUpdate(sql: insertSQL, withArgumentsIn: [joeSchmo, joeAge])
+        } catch {
+            XCTFail()
+        }
 
         // insert with "embedded" arguments
         insertSQL = "INSERT INTO \(tableName) (Name, Age) VALUES ('\(bettySchmo)', \(bettyAge))"
-        success = executor.executeStatements(insertSQL)
+        let success = executor.executeStatements(insertSQL)
         XCTAssertTrue(success)
 
         count = dbMgr.countForTable(tableName)

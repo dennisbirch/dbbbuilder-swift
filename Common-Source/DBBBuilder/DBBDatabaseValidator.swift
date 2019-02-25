@@ -47,13 +47,13 @@ struct DBBDatabaseValidator {
             // the file does not contain create string for this table, so insert one
             let sql = tableClass.tableCreationString
             
-            let success = executor.executeUpdate(sql: sql, withArgumentsIn: [])
-            if success == true {
+            do {
+                try executor.executeUpdate(sql: sql, withArgumentsIn: [])
                 os_log("Created table: %@", log: logger, type: defaultLogType, sql)
                 // update the creation strings dictionary
                 dbCreationStrings[tableName] = sql
-            } else {
-                os_log("Failed to create table: %@", log: logger, type: defaultLogType, sql)
+            } catch {
+                os_log("Failed to create table: %@ - Error: %@", log: logger, type: defaultLogType, sql, error.localizedDescription)
             }
             
             if joinColumns.count > 0 {
@@ -154,9 +154,12 @@ struct DBBDatabaseValidator {
                 
                 // generate index for parent ID column -- won't do anything if there is already one
                 let indexSQL = "\(createIndexIfNotExists) \(tableName)_\(column)_idx ON \(joinTableName) (\(joinMap.parentJoinColumn))"
-                let success = executor.executeUpdate(sql: indexSQL, withArgumentsIn: [])
-                os_log("Successfully created join table index with SQL '%@': %@", log: logger, type: defaultLogType, indexSQL, (success == true) ? "true" : "false")
-                
+                do {
+                    try executor.executeUpdate(sql: indexSQL, withArgumentsIn: [])
+                    os_log("Successfully created join table index with SQL '%@': true", log: logger, type: defaultLogType, indexSQL)
+                } catch {
+                    os_log("Error creating join table: %@", log: logger, type: defaultLogType, error.localizedDescription)
+                }
             } else {
                 // failed to get raw type from map
                 os_log("Failed to get type from map for %@", log: logger, type: defaultLogType, column)
@@ -191,11 +194,13 @@ struct DBBDatabaseValidator {
     
     private func createJoinTableForParent(_ tableName: String, column: String, type: String) {
         let createString = "\(createTableIfNotExists) \(tableName)_\(column) (\(idNumWithAttributes), \(tableName)\(idExtension) Integer, \(column) \(type))"
-        let success = executor.executeUpdate(sql: createString, withArgumentsIn: [])
-        if success == false {
-            os_log("Update failed with error message: %@", log: logger, type: defaultLogType, tableClass.dbManager.errorMessage())
+
+        do {
+            try executor.executeUpdate(sql: createString, withArgumentsIn: [])
+            os_log("Adding join table with creation string: %@", log: logger, type: defaultLogType, createString)
+        } catch  {
+            os_log("Update failed with error message: %@", log: logger, type: defaultLogType, error.localizedDescription)
         }
-        os_log("Adding join table with creation string: %@ – success: %@", log: logger, type: defaultLogType, createString, (success == true) ? "true" : "false")
     }
     
     private func requiresJoin(type: DBBStorageType?) -> Bool {
@@ -222,11 +227,11 @@ struct DBBDatabaseValidator {
             guard createIndexSQL.isEmpty == false else {
                 return
             }
-            let success = executor.executeUpdate(sql: createIndexSQL, withArgumentsIn: [])
-            if success == true {
+            do {
+                try executor.executeUpdate(sql: createIndexSQL, withArgumentsIn: [])
                 os_log("Created index for table: %@", log: logger, type: defaultLogType, createIndexSQL)
-            } else {
-                os_log("Failed to create index for table: %@", log: logger, type: defaultLogType, createIndexSQL)
+            } catch {
+                os_log("Failed to create index for table: %@ with error: %@", log: logger, type: defaultLogType, createIndexSQL, error.localizedDescription)
             }
         }
 

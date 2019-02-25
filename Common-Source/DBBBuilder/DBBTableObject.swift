@@ -119,13 +119,17 @@ typealias ParamsAndValues = (params: [String], values: [String])
         let idNum = instance.id
         let instance = self.init(dbManager: manager)
         let tableName = instance.shortName
+        var success = false
         var sql = "DELETE FROM \(tableName) WHERE \(Keys.id) = ?"
         let executor = DBBDatabaseExecutor(manager: manager)
-        let success = executor.executeUpdate(sql: sql, withArgumentsIn: [idNum])
         let logger = DBBBuilder.logger(withCategory: "DBBTableObject")
-        os_log("Executed DELETE statement with SQL: %@ – success: %@", log: logger, type: defaultLogType, sql, (success == true) ? "true" : "false")
-        if success == false {
-            os_log("Error deleting instance: %@", log: logger, type: defaultLogType, manager.errorMessage())
+        do {
+            try executor.executeUpdate(sql: sql, withArgumentsIn: [idNum])
+            os_log("Executed DELETE statement with SQL: %@: true", log: logger, type: defaultLogType)
+            success = true
+        } catch  {
+            os_log("Error deleting instance: %@", log: logger, type: defaultLogType, error.localizedDescription)
+            success = false
         }
         
         // check join tables
@@ -136,7 +140,13 @@ typealias ParamsAndValues = (params: [String], values: [String])
                     let joinTable = propertyMap.joinTableName
                     let parentColumn = propertyMap.parentJoinColumn
                     sql = "DELETE FROM \(joinTable) WHERE \(parentColumn) = ?"
-                    let _ = executor.executeUpdate(sql: sql, withArgumentsIn: [idNum])
+                    success = success && true
+                    do {
+                        try executor.executeUpdate(sql: sql, withArgumentsIn: [idNum])
+                    } catch {
+                        os_log("Error deleting outdated join table entries: %@", log: logger, type: defaultLogType, error.localizedDescription)
+                        success = false
+                    }
                 }
             }
         }
