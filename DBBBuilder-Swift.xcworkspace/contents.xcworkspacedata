@@ -2,6 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:README.md">
+   </FileRef>
+   <FileRef
       location = "group:DBBBuilder-iOS/DBBBuilder-iOS.xcodeproj">
    </FileRef>
    <FileRef
@@ -15,8 +18,5 @@
    </FileRef>
    <FileRef
       location = "group:CodeGenerator/CodeGenerator.xcodeproj">
-   </FileRef>
-   <FileRef
-      location = "group:README.md">
    </FileRef>
 </Workspace>

@@ -197,9 +197,19 @@ This method returns a Boolean value indicating whether the save succeeded. In ca
 print(dbMgr.errorMessage())
 ```
 
+There are two additional public methods you can call from your application's DBBTableObject subclasses:
+
+`public func performPreSaveActions()`
+
+If you override this method, it will be called immediately before data is inserted into the database or the database is updated. You can perform whatever actions are necessary to prepare instances for saving in this method.
+
+`public func performPostSaveActions()`
+
+If you override this method, it will be called immediately after data is inserted into the database or the database is updated. You can perform whatever actions are necessary to continue after instances are persisted.
+
 #### Retrieving Objects From the Database
 
-There are several methods for retrieving objets from the database. All of them are static methods that should be clled on your DBBTableObject subclass types. Each method returns either a single DBBTableObject instance or an array of them. As such you will need to cast them to their subclass type in order to use them in most cases. For example:
+There are several methods for retrieving objects from the database. All of them are static methods that should be called on your DBBTableObject subclass types. Each method returns either a single DBBTableObject instance or an array of them. As such you will need to cast them to their subclass type in order to use them in most cases. For example:
 
 ```
 guard let projects = Project.allInstances(manager: manager) as? [Project] else {
@@ -211,7 +221,7 @@ guard let projects = Project.allInstances(manager: manager) as? [Project] else {
 
 A static method to retrieve all instances of a DBBTableObject subclass from the database.
  
-_manager_: A DBBManager instance that owns the FMDB instance/SQLite file being read from.`
+_manager_: A DBBManager instance that owns the FMDB instance/SQLite file being read from.
 
 _Returns_: An array of all instances of the subclass in the database, fully populated.
 
@@ -221,7 +231,7 @@ A static method to retrieve DBBTableObjects that meet defined criteria.
 
 _options_: A DBBQueryOptions instance that defines characteristics of the DBBTableObjects you want to retrieve. See the section on _DBBQueryOptions_ [below](#dbbqueryoptions) for details.
 
-_manager_: A DBBManager instance that owns the FMDB instance/SQLite file being read from.`
+_manager_: A DBBManager instance that owns the FMDB instance/SQLite file being read from.
 
 _sparsePopulation_: An optional Boolean value indicating whether you would like returned objects to be populated only with their id and created and modified dates. The default value is False.
 
@@ -236,7 +246,7 @@ A static method to get an array of DBBTableObjects that meet requested criteria 
                                              
 _options_: A DBBQueryOptions instance that defines characteristics of the DBBTableObjects you want to retrieve. See the section on _DBBQueryOptions_ [below](#dbbqueryoptions) for details.
 
-_manager_: A DBBManager instance that owns the FMDB instance/SQLite file being read from.`
+_manager_: A DBBManager instance that owns the FMDB instance/SQLite file being read from.
 
 _sparsePopulation_: An optional Boolean value indicating whether you would like returned objects to be populated only with their id and created and modified dates. The default value is False.
 
@@ -272,7 +282,7 @@ A static method to retrieve the ids of all instances of a DBBTableObject subclas
 
 _manager_: A DBBManager instance that owns the FMDB instance/SQLite file being read from.
 
-_Returns_: An optional DBBTableObject instance whose id property matches the id value passed in.n array of Int64 values representing all the id values for the subclass you ran the request on.
+_Returns_: An array of Int64 values representing all the id values for the subclass you ran the request on.
 
 #### DBBQueryOptions <a name="dbbqueryoptions"></a>
 
@@ -324,13 +334,21 @@ _conditions_: A string array of conditions to match on.
 
 _distinct_: An optional Boolean value to specify returning only distinct values. Pass True if you want to override the default False value.
 
+__NOTE:__ When using a condition clause, you should sanitize any strings you pass in as a condition. Because DBBBuilder creates the WHERE clause dynamically, it cannot automatically escape strings for you. There is a publicly accessible extension on String in the framework that you can use for this purpose, `public func dbb_SQLEscaped() -> String`. Example usage:
+
+```
+let isBossCondition = "\(person.employer) = \(company.owner.dbb_SQLEscaped())"
+let options = DBBQueryOptions.queryOptionsWithConditions([isBossCondition])
+
+```
+
 #### Optimizing Reads
 
 There are a couple of strategies you can pursue to enhance the performance of object retrieval. If your object graph is complex, you may want to consider one of these strategies to improve the user experience.
 
 __Sparse object population:__ Some of the object retrieval methods have an optional _sparsePopulation_ argument which defaults to False. If you pass in True for this value, you will get back objects which only have their _id_, _createdTime_, and _modifiedTime_ values populated.
 
-__Explicit object population:__ Some of the object retrieval methods let you specify what properties should be populated with a DBBQueryOptions instance. This is a less severe form of sparse population that can still improve performance for complex objects. You could benefit from this approach when you need to fetch many objects, but only need to display basic information to the user in a view.
+__Explicit object population:__ Some of the object retrieval methods let you specify what properties should be populated with a [DBBQueryOptions](#dbbqueryoptions) instance. This is a less severe form of sparse population that can still improve performance for complex objects. You could benefit from this approach when you need to fetch many objects, but only need to display basic information to the user in a view.
 
 #### Helpers <a name="helpers"></a>
 
