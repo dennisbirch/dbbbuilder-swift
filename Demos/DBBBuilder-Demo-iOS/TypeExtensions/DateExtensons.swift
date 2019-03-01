@@ -8,22 +8,33 @@
 
 import Foundation
 
-extension Date {
-    // returns a string with the receiving date's value expressed in "short" date format (without the time)
-    func db_display() -> String {
+extension DateFormatter {
+    static func dbb_shortDateFormatter() -> DateFormatter {
         let formatter = DateFormatter()
         formatter.dateStyle = .short
         formatter.timeStyle = .none
-        
+        return formatter
+    }
+    
+    static func dbb_shortDateTimeFormatter() -> DateFormatter {
+        let formatter = DateFormatter()
+        formatter.dateStyle = .short
+        formatter.timeStyle = .short
+        return formatter
+    }
+}
+
+extension Date {
+    
+    // returns a string with the receiving date's value expressed in "short" date format (without the time)
+    func db_display() -> String {
+        let formatter = DateFormatter.dbb_shortDateFormatter()
         return formatter.string(from: self)
     }
 
     // returns a string with the receiving date's value expressed in "short" date and time format
     func dbb_displayTime() -> String {
-        let formatter = DateFormatter()
-        formatter.dateStyle = .short
-        formatter.timeStyle = .short
-
+        let formatter = DateFormatter.dbb_shortDateTimeFormatter()
         return formatter.string(from: self)
     }
     

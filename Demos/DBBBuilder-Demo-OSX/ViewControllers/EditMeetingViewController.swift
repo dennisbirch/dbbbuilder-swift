@@ -36,13 +36,9 @@ class EditMeetingViewController: NSViewController, NSTextFieldDelegate, NSTableV
         purposeField.delegate = self
         startTimeField.delegate = self
         endTimeField.delegate = self
-        let startFormatter = DateFormatter()
-        startFormatter.dateStyle = .short
-        startFormatter.timeStyle = .short
+        let startFormatter = DateFormatter.dbb_shortDateTimeFormatter()
         startTimeField.cell?.formatter = startFormatter
-        let endFormatter = DateFormatter()
-        endFormatter.dateStyle = .short
-        endFormatter.timeStyle = .short
+        let endFormatter = DateFormatter.dbb_shortDateTimeFormatter()
         endTimeField.cell?.formatter = endFormatter
 
         if let meeting = self.meeting {
