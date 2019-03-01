@@ -149,7 +149,7 @@ extension DBBTableObject {
             for item in valuesToInsert {
                 var args: [Any]
                 args = [String(id), item]
-                sql = "INSERT INTO \(joinTableName) (\(joinMap.parentJoinColumn), \(joinMap.joinColumnName)) VALUES (\("?, ?"))"
+                sql = "INSERT INTO \(joinTableName) (\(joinMap.parentJoinColumn), \(joinMap.joinColumnName)) VALUES (?, ?)"
                 do {
                     try executor.executeUpdate(sql: sql, withArgumentsIn: args)
                     success = success && true
