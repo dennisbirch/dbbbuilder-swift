@@ -108,4 +108,37 @@ class MultiObjectSaveTests: XCTestCase {
         XCTAssertEqual(daddyCopy.nicknames, daddyNickNames)
     }
 
+    
+    func testSavingNonHomogenousTypesFails() {
+        guard let manager = dbManager else {
+            XCTFail()
+            return
+        }
+        
+        let firstName = "John"
+        let lastName = "Doe"
+        let daddyAge = 35
+        let billyAge = 7
+        let sallyAge = 5
+        let spouseAge = 33
+        let daddy = Person(firstName: firstName, lastName: lastName, age: daddyAge, dbManager: manager)
+        
+        let child1 = Person(firstName: "Billy", lastName: "Doe", age: billyAge, dbManager: manager)
+        let child2 = Person(firstName: "Sally", lastName: "Doe", age: sallyAge, dbManager: manager)
+        let spouse = Person(firstName: "Mary", lastName: "Doe", age: spouseAge, dbManager: manager)
+        
+        let companyName = "Acme Stuff"
+        let employer = Company(name: companyName, city: "", state: "", dbManager: manager)
+        
+        let accountantName = "Joe Accountant, CPA"
+        let accountant = Company(name: accountantName, city: "", state: "", dbManager: manager)
+        
+        let mechanicName = "Helen's Auto Repair"
+        let mechanic = Company(name: mechanicName, city: "", state: "", dbManager: manager)
+        
+        let objects = [daddy, child1, child2, spouse, employer, accountant, mechanic]
+        let saved = Person.saveObjects(objects, dbManager: manager)
+        XCTAssertFalse(saved)
+        
+    }
 }

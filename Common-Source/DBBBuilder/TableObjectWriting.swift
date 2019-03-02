@@ -9,6 +9,8 @@
 import Foundation
 import os.log
 
+private typealias JoinStatementsAndValues = (statement: String, args: [Any]?)
+
 /*
     Methods for writing object instances to the database file
 */
@@ -45,7 +47,19 @@ extension DBBTableObject {
         // subclasses can override, or external types can call this if post-save action is required
     }
     
+    /**
+     Public static method for saving an array of DBTableObject subclass instances to the database file
+     - Parameters:
+         - objects: A homogenous array of DBBTableObject subclass types.
+         - dbManager: The DBBManager instance managing the database the object values should be saved to.
+     - Returns: Boolean value indicating successful execution
+     */
     public static func saveObjects(_ objects: [DBBTableObject], dbManager: DBBManager) -> Bool {
+        if self.objectsAreOfSameType(objects) == false {
+            os_log("Objects must all be of the same type", log: DBBBuilder.logger(withCategory: "TableObjectWriting"), type: defaultLogType)
+            return false
+        }
+        
         let insertArray = objects.filter{ $0.idNum == 0 }
         let updateArray = objects.filter{ $0.idNum > 0 }
         
@@ -104,7 +118,15 @@ extension DBBTableObject {
                 
                 // update any join columns for this class
                 if let joinMap = dbManager.joinMapDict[instance.shortName] {
-                    instance.insertIntoJoinTable(joinDict: joinMap, database: database)
+                    let statementsAndArgs = instance.statementsAndValuesForJoins(joinDict: joinMap)
+                    for statementTuple in statementsAndArgs {
+                        let statement = statementTuple.statement
+                        if let args = statementTuple.args {
+                            database.executeUpdate(statement, withArgumentsIn: args)
+                        } else {
+                            database.executeUpdate(statement, withArgumentsIn: [])
+                        }
+                    }
                 }
             }
         })
@@ -155,7 +177,15 @@ extension DBBTableObject {
                 }
                 
                 if let joinMap = dbManager.joinMapDict[instance.shortName] {
-                    instance.insertIntoJoinTable(joinDict: joinMap, database: database)
+                    let statementsAndArgs = instance.statementsAndValuesForJoins(joinDict: joinMap)
+                    for statementTuple in statementsAndArgs {
+                        let statement = statementTuple.statement
+                        if let args = statementTuple.args {
+                            database.executeUpdate(statement, withArgumentsIn: args)
+                        } else {
+                            database.executeUpdate(statement, withArgumentsIn: [])
+                        }
+                    }
                 }
             }
         })
@@ -172,55 +202,46 @@ extension DBBTableObject {
         let success = type(of: self).updateObjects([self], dbManager: dbManager)
         return success
     }
-    
-    private func insertIntoJoinTable(joinDict: [String : DBBJoinMap], database: FMDatabase) {
-        let joinColumns = joinDict.keys
-        
-        for column in joinColumns {
-            let joinMap: DBBJoinMap
-            // get the mapping for writing this column's join table
-            if let unwrappedJoinMap = joinDict[column] {
-                joinMap = unwrappedJoinMap
-            } else {
-                os_log("Failed to find joinMap for column %@", log: logger, type: defaultLogType, column)
-                continue
-            }
 
-            // delete from joinTable where parentClass_id = parentClassIDNum
-            let joinTableName = joinMap.joinTableName
-            var sql = "DELETE FROM \(joinMap.joinTableName) WHERE \(joinMap.parentJoinColumn) = \(id)"
-            let executor = DBBDatabaseExecutor(db: database)
-            var success = executor.executeStatements(sql)
-            if success == false {
-                os_log("Error deleting existing join rows: %@", log: logger, type: defaultLogType, dbManager.errorMessage())
-            }
-            os_log("Success deleting existing join rows with SQL: %@ – %@", log: logger, type: defaultLogType, sql, (success == true) ? "true" : "false")
+    private func statementsAndValuesForJoins(joinDict: [String : DBBJoinMap]) -> [JoinStatementsAndValues] {
+            let joinColumns = joinDict.keys
             
-            guard let propertyName = dbManager.persistenceMap[shortName]?.propertyForColumn(named: column) else {
-                os_log("Can't get property name for %@", log: logger, type: defaultLogType, column)
-                continue
-            }
-            let valuesToInsert = joinValues(column: propertyName)
-            if valuesToInsert.count == 0 {
-                continue
-            }
-            
-            for item in valuesToInsert {
-                var args: [Any]
-                args = [String(id), item]
-                sql = "INSERT INTO \(joinTableName) (\(joinMap.parentJoinColumn), \(joinMap.joinColumnName)) VALUES (?, ?)"
-                do {
-                    try executor.executeUpdate(sql: sql, withArgumentsIn: args)
-                    success = success && true
-                    os_log("Saved join to table with SQL statement(s) %@ – Success: %@ – Values: %@", log: logger, type: defaultLogType, sql, (success == true) ? "true" : "false", args)
-                } catch {
-                    os_log("Insert failed with error message: %@", log: logger, type: defaultLogType, error.localizedDescription)
-                    success = false
+            var statementsAndArgs = [JoinStatementsAndValues]()
+        
+            for column in joinColumns {
+                let joinMap: DBBJoinMap
+                // get the mapping for writing this column's join table
+                if let unwrappedJoinMap = joinDict[column] {
+                    joinMap = unwrappedJoinMap
+                } else {
+                    os_log("Failed to find joinMap for column %@", log: logger, type: defaultLogType, column)
+                    continue
+                }
+                
+                // delete from joinTable where parentClass_id = parentClassIDNum
+                let joinTableName = joinMap.joinTableName
+                var sql = "DELETE FROM \(joinMap.joinTableName) WHERE \(joinMap.parentJoinColumn) = \(id)"
+                statementsAndArgs.append((sql, nil))
+                
+                guard let propertyName = dbManager.persistenceMap[shortName]?.propertyForColumn(named: column) else {
+                    os_log("Can't get property name for %@", log: logger, type: defaultLogType, column)
+                    continue
+                }
+                let valuesToInsert = joinValues(column: propertyName)
+                if valuesToInsert.count == 0 {
+                    continue
+                }
+                
+                for item in valuesToInsert {
+                    let args: [Any] = [String(id), item]
+                    sql = "INSERT INTO \(joinTableName) (\(joinMap.parentJoinColumn), \(joinMap.joinColumnName)) VALUES (?, ?)"
+                    statementsAndArgs.append((sql, args))
                 }
             }
-        }        
-    }    
 
+        return statementsAndArgs
+    }
+    
     private func joinValues(column: String) -> [Any] {
         var itemArray = [Any]()
         let objectInfo = objectTypeForColumn(column)
@@ -387,6 +408,27 @@ extension DBBTableObject {
         }
         
         return output.joined(separator: ", ")
+    }
+    
+    private static func objectsAreOfSameType(_ objects: [DBBTableObject]) -> Bool {
+        if objects.count == 1 {
+            return true
+        }
+        
+        guard let firstObject = objects.first else {
+            os_log("Unable to get object instance for comparison", log: DBBBuilder.logger(withCategory: "TableObjectWriting"), type: defaultLogType)
+            return false
+        }
+        
+        let firstType = type(of: firstObject)
+        let otherObjects = Array(objects.dropFirst())
+        for instance in otherObjects {
+            if type(of: instance) != firstType {
+                return false
+            }
+        }
+        
+        return true
     }
 
 }
