@@ -44,79 +44,138 @@ extension DBBTableObject {
     public func performPostSaveActions() {
         // subclasses can override, or external types can call this if post-save action is required
     }
+    
+    public static func saveObjects(_ objects: [DBBTableObject], dbManager: DBBManager) -> Bool {
+        let insertArray = objects.filter{ $0.idNum == 0 }
+        let updateArray = objects.filter{ $0.idNum > 0 }
+        
+        var success = true
+        success = success && insertObjects(insertArray, dbManager: dbManager)
+        success = success && updateObjects(updateArray, dbManager: dbManager)
+        
+        return success
+    }
         
     // MARK: - Private Methods
     
-    private func insertIntoDB() -> Bool {
-        var success = false
+    private static func insertObjects(_ objects: [DBBTableObject], dbManager: DBBManager) -> Bool {
+        if objects.count == 0 {
+            return true
+        }
         
-        createdTime = Date()
-        modifiedTime = Date()
+        let logger = DBBBuilder.logger(withCategory: "TableObjectWriting")
         
-        // get an object with param (column) names and values to persist
-        let instanceComponents = persistenceComponents()
-        guard instanceComponents.params.count == instanceComponents.values.count else {
-            os_log("Params and values are of unequal sizes", log: logger, type: defaultLogType)
+        guard let databaseURL = dbManager.database.databaseURL else {
+            os_log("Can't get database URL", log: logger, type: defaultLogType)
             return false
         }
         
-        let placeholders = sqlPlaceholders(count: instanceComponents.params.count)
-        let columnNamesString = instanceComponents.params.joined(separator: ", ")
-        let statement = "INSERT INTO \(shortName) (\(columnNamesString)) VALUES (\(placeholders))"
-        let executor = DBBDatabaseExecutor(manager: dbManager)
-        
-        do {
-            try executor.executeUpdate(sql: statement, withArgumentsIn: instanceComponents.values)
-            success = true
-        } catch {
-            os_log("Insert failed with error message: %@", log: logger, type: defaultLogType, error.localizedDescription)
-        }
-        
-        // set the id property for this instance
-        id = dbManager.database.lastInsertRowId
+        var success = true
 
-        // update any join columns for this class
-        if let joinMap = dbManager.joinMapDict[shortName] {
-            insertIntoJoinTable(joinDict: joinMap)
+        let queue = FMDatabaseQueue(url: databaseURL)
+        queue?.inTransaction({ (database, rollback) in
+            for instance in objects {
+                instance.createdTime = Date()
+                instance.modifiedTime = Date()
+                
+                // get an object with param (column) names and values to persist
+                let instanceComponents = instance.persistenceComponents()
+                guard instanceComponents.params.count == instanceComponents.values.count else {
+                    os_log("Params and values are of unequal sizes", log: logger, type: defaultLogType)
+                    success = false
+                    continue
+                }
+                
+                let placeholders = instance.sqlPlaceholders(count: instanceComponents.params.count)
+                let columnNamesString = instanceComponents.params.joined(separator: ", ")
+                let statement = "INSERT INTO \(instance.shortName) (\(columnNamesString)) VALUES (\(placeholders))"
+               
+                let executor = DBBDatabaseExecutor(db: database)
+
+                do {
+                    try executor.executeUpdate(sql: statement, withArgumentsIn: instanceComponents.values)
+                    success = success && true
+                } catch {
+                    os_log("Insert failed with error message: %@", log: logger, type: defaultLogType, error.localizedDescription)
+                }
+                
+                // set the id property for this instance
+                instance.id = database.lastInsertRowId
+                
+                // update any join columns for this class
+                if let joinMap = dbManager.joinMapDict[instance.shortName] {
+                    instance.insertIntoJoinTable(joinDict: joinMap, database: database)
+                }
+            }
+        })
+        
+        return success
+    }
+
+    private static func updateObjects(_ objects: [DBBTableObject], dbManager: DBBManager) -> Bool {
+        if objects.count == 0 {
+            return true
         }
         
+        let logger = DBBBuilder.logger(withCategory: "TableObjectWriting")
+        
+        guard let databaseURL = dbManager.database.databaseURL else {
+            os_log("Can't get database URL", log: logger, type: defaultLogType)
+            return false
+        }
+        
+        var success = true
+        
+        let queue = FMDatabaseQueue(url: databaseURL)
+        queue?.inTransaction({ (database, rollback) in
+            
+            for instance in objects {
+                instance.modifiedTime = Date()
+                let instanceComponents = instance.persistenceComponents()
+                guard instanceComponents.params.count == instanceComponents.values.count else {
+                    os_log("Params and values are of unequal sizes", log: logger, type: defaultLogType)
+                    success = false
+                    continue
+                }
+                
+                var statement = "UPDATE \(instance.shortName) SET "
+                var paramsArray = [String]()
+                for param in instanceComponents.params {
+                    paramsArray.append("\(param) = ?")
+                }
+                
+                statement += paramsArray.joined(separator: ", ") + " WHERE \(Keys.id) = \(instance.idNum)"
+                let executor = DBBDatabaseExecutor(db: database)
+                do {
+                    try executor.executeUpdate(sql: statement, withArgumentsIn: instanceComponents.values)
+                    success = true
+                } catch  {
+                    os_log("Update failed with error message: %@", log: logger, type: defaultLogType, error.localizedDescription)
+                    success = false
+                }
+                
+                if let joinMap = dbManager.joinMapDict[instance.shortName] {
+                    instance.insertIntoJoinTable(joinDict: joinMap, database: database)
+                }
+            }
+        })
+        
+        return success
+    }
+
+    private func insertIntoDB() -> Bool {
+        let success = type(of: self).insertObjects([self], dbManager: dbManager)
         return success
     }
     
     private func updateInDB() -> Bool {
-        var success = false
-        modifiedTime = Date()
-        let instanceComponents = persistenceComponents()
-        guard instanceComponents.params.count == instanceComponents.values.count else {
-            os_log("Params and values are of unequal sizes", log: logger, type: defaultLogType)
-            return false
-        }
-        
-        var statement = "UPDATE \(shortName) SET "
-        var paramsArray = [String]()
-        for param in instanceComponents.params {
-            paramsArray.append("\(param) = ?")
-        }
-        
-        statement += paramsArray.joined(separator: ", ") + " WHERE \(Keys.id) = \(idNum)"
-        let executor = DBBDatabaseExecutor(manager: dbManager)
-        do {
-            try executor.executeUpdate(sql: statement, withArgumentsIn: instanceComponents.values)
-            success = true
-        } catch  {
-            os_log("Update failed with error message: %@", log: logger, type: defaultLogType, error.localizedDescription)
-            success = false
-        }
-        
-        if let joinMap = dbManager.joinMapDict[shortName] {
-            insertIntoJoinTable(joinDict: joinMap)
-        }
-        
+        let success = type(of: self).updateObjects([self], dbManager: dbManager)
         return success
     }
     
-    private func insertIntoJoinTable(joinDict: [String : DBBJoinMap]) {
+    private func insertIntoJoinTable(joinDict: [String : DBBJoinMap], database: FMDatabase) {
         let joinColumns = joinDict.keys
+        
         for column in joinColumns {
             let joinMap: DBBJoinMap
             // get the mapping for writing this column's join table
@@ -130,7 +189,7 @@ extension DBBTableObject {
             // delete from joinTable where parentClass_id = parentClassIDNum
             let joinTableName = joinMap.joinTableName
             var sql = "DELETE FROM \(joinMap.joinTableName) WHERE \(joinMap.parentJoinColumn) = \(id)"
-            let executor = DBBDatabaseExecutor(manager: dbManager)
+            let executor = DBBDatabaseExecutor(db: database)
             var success = executor.executeStatements(sql)
             if success == false {
                 os_log("Error deleting existing join rows: %@", log: logger, type: defaultLogType, dbManager.errorMessage())

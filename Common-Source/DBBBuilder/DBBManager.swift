@@ -95,7 +95,7 @@ import os.log
     */
     public func countForTable(_ tableName: String) -> Int {
         let query = "SELECT COUNT(*) FROM \(tableName)"
-        let executor = DBBDatabaseExecutor(manager: self)
+        let executor = DBBDatabaseExecutor(db: self.database)
         let result = executor.runQuery(query)
         if let result = result {
             result.next()
@@ -111,7 +111,7 @@ import os.log
      */
    public func vacuumDB() {
         let sql = "VACUUM"
-        let executor = DBBDatabaseExecutor(manager: self)
+        let executor = DBBDatabaseExecutor(db: self.database)
         let _ = executor.executeStatements(sql)
     }
     
@@ -126,7 +126,7 @@ import os.log
      */
     public func dropIndex(named indexName: String) -> Bool {
         let sql = "DROP INDEX IF EXISTS \(indexName)"
-        let executor = DBBDatabaseExecutor(manager: self)
+        let executor = DBBDatabaseExecutor(db: self.database)
         do {
             try executor.executeUpdate(sql: sql, withArgumentsIn: [])
             os_log("Success dropping index %@: true", log: logger, type: defaultLogType, indexName)

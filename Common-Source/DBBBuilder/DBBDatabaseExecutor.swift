@@ -14,10 +14,9 @@ struct DBBDatabaseExecutor {
     private var database: FMDatabase
     private let logger = DBBBuilder.logger(withCategory: "DBBDatabaseExecutor")
 
-    init(manager: DBBManager) {
-        database = manager.database
+    init(db: FMDatabase) {
+        self.database = db
     }
-
     
     func runQuery(_ query: String, arguments: [String]) -> FMResultSet? {
         guard query.isEmpty == false else {

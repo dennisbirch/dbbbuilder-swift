@@ -56,7 +56,7 @@ extension DBBTableObject {
                                             manager: DBBManager,
                                             sparsePopulation: Bool = false) -> [DBBTableObject]? {
         let sql = sqlString(withOptions: options, manager: manager)
-        let executor = DBBDatabaseExecutor(manager: manager)
+        let executor = DBBDatabaseExecutor(db: manager.database)
         guard let results = executor.runQuery(sql) else {
             os_log("Fetch failed with error: %@ for SQL: %@", log: DBBBuilder.logger(withCategory: "TableObjectReading"), type: defaultLogType, manager.errorMessage(), sql)
             return nil
@@ -137,7 +137,7 @@ extension DBBTableObject {
         let instance = self.init(dbManager: manager)
         let table = instance.shortName
         let sql = "SELECT * FROM \(table) WHERE \(Keys.id) = \(id)"
-        let executor = DBBDatabaseExecutor(manager: manager)
+        let executor = DBBDatabaseExecutor(db: manager.database)
         guard let result = executor.runQuery(sql) else {
             os_log("Fetch from database failed")
             return nil
@@ -192,7 +192,7 @@ extension DBBTableObject {
         let tableName = self.init(dbManager: manager).shortName
         
         let sql = "SELECT \(Keys.id) FROM \(tableName)"
-        let executor = DBBDatabaseExecutor(manager: manager)
+        let executor = DBBDatabaseExecutor(db: manager.database)
         guard let result = executor.runQuery(sql) else {
             os_log("Error getting results with query %@: %@", log: DBBBuilder.logger(withCategory: "DBTableObject"), type: defaultLogType,  sql, manager.errorMessage())
             return idsArray
@@ -299,7 +299,7 @@ extension DBBTableObject {
                 columns = Array(joinMapDict.keys)
             }
         }
-        let executor = DBBDatabaseExecutor(manager: manager)
+        let executor = DBBDatabaseExecutor(db: manager.database)
         for column in columns {
             guard let propertyName = instance.dbManager.persistenceMap[instance.shortName]?.propertyForColumn(named: column) else {
                 os_log("Can't get property name for %@", log: logger, type: defaultLogType, column)
@@ -405,7 +405,7 @@ extension DBBTableObject {
         let tableName = (objectType == type(of: self)) ? joinMap.joinTableName.replacingOccurrences(of: idExtension, with: "") : joinMap.joinTableName
         let sql = "SELECT \(joinMap.joinColumnName) FROM \(tableName) WHERE \(joinMap.parentJoinColumn) = \(self.idNum)"
 
-        let executor = DBBDatabaseExecutor(manager: manager)
+        let executor = DBBDatabaseExecutor(db: manager.database)
         guard let result = executor.runQuery(sql) else {
             os_log("Result of query is nil: %@", log: logger, type: defaultLogType, sql)
             return

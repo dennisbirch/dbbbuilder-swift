@@ -38,6 +38,7 @@
 		9578B3F621F834F200219E8A /* FMDB.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9578B3F521F834F200219E8A /* FMDB.framework */; };
 		957978481A337488007329CC /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 957978471A337488007329CC /* libsqlite3.dylib */; };
 		95C5D079221DCC2D00B1C938 /* FMDB.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9578B3F521F834F200219E8A /* FMDB.framework */; };
+		95F778AF222A178800E246DF /* MultiObjectSaveTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95F778AE222A178700E246DF /* MultiObjectSaveTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -87,6 +88,7 @@
 		957978471A337488007329CC /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
 		95C5D06F221DCC0600B1C938 /* DBBBuilder-Demo-iOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "DBBBuilder-Demo-iOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		95C5D073221DCC0600B1C938 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		95F778AE222A178700E246DF /* MultiObjectSaveTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MultiObjectSaveTests.swift; path = "../../Common-Source/Unit-Tests/MultiObjectSaveTests.swift"; sourceTree = "<group>"; };
 		A54DCCC71A322C8500D0A617 /* DBBBuilder-Demo-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "DBBBuilder-Demo-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -196,6 +198,7 @@
 				954BF5372222F4970057C9B6 /* DBBTableObjectSaveTests.swift */,
 				954BF5352222F4970057C9B6 /* MeetingTests.swift */,
 				954BF5342222F4970057C9B6 /* SaveAtomicTypesTests.swift */,
+				95F778AE222A178700E246DF /* MultiObjectSaveTests.swift */,
 				95C5D073221DCC0600B1C938 /* Info.plist */,
 			);
 			path = "DBBBuilder-Demo-iOSTests";
@@ -350,6 +353,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				954BF53B2222F4970057C9B6 /* SaveAtomicTypesTests.swift in Sources */,
+				95F778AF222A178800E246DF /* MultiObjectSaveTests.swift in Sources */,
 				954BF53C2222F4970057C9B6 /* MeetingTests.swift in Sources */,
 				954BF53D2222F4970057C9B6 /* DBBDatabaseSetupTests.swift in Sources */,
 				954BF53F2222F4970057C9B6 /* DBBManagerExecuteSQLTests.swift in Sources */,

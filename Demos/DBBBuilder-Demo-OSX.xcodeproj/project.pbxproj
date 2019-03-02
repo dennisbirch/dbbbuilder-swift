@@ -31,6 +31,7 @@
 		95E3882A21FBD2AC003A2565 /* DateExtensons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95E3882621FBD2AC003A2565 /* DateExtensons.swift */; };
 		95E3882E21FBF711003A2565 /* ParticipantListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95E3882C21FBF711003A2565 /* ParticipantListViewController.swift */; };
 		95E3883221FD3C86003A2565 /* EditParticipantViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95E3883021FD3C86003A2565 /* EditParticipantViewController.swift */; };
+		95F778AD222A177600E246DF /* MultiObjectSaveTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95F778AC222A177600E246DF /* MultiObjectSaveTests.swift */; };
 		95F9A1CB21E2918A00E8E068 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95F9A1CA21E2918A00E8E068 /* AppDelegate.swift */; };
 		95F9A1CF21E2918B00E8E068 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 95F9A1CE21E2918B00E8E068 /* Assets.xcassets */; };
 		95F9A1D221E2918B00E8E068 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 95F9A1D021E2918B00E8E068 /* Main.storyboard */; };
@@ -84,6 +85,7 @@
 		95E3882621FBD2AC003A2565 /* DateExtensons.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateExtensons.swift; sourceTree = "<group>"; };
 		95E3882C21FBF711003A2565 /* ParticipantListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParticipantListViewController.swift; sourceTree = "<group>"; };
 		95E3883021FD3C86003A2565 /* EditParticipantViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditParticipantViewController.swift; sourceTree = "<group>"; };
+		95F778AC222A177600E246DF /* MultiObjectSaveTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MultiObjectSaveTests.swift; path = "../../Common-Source/Unit-Tests/MultiObjectSaveTests.swift"; sourceTree = "<group>"; };
 		95F9A1C721E2918A00E8E068 /* DBBBuilder-Demo-OSX.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "DBBBuilder-Demo-OSX.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		95F9A1CA21E2918A00E8E068 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		95F9A1CE21E2918B00E8E068 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -166,6 +168,7 @@
 				954BF5292222F47C0057C9B6 /* DBBTableObjectSaveTests.swift */,
 				954BF5272222F47C0057C9B6 /* MeetingTests.swift */,
 				954BF5262222F47C0057C9B6 /* SaveAtomicTypesTests.swift */,
+				95F778AC222A177600E246DF /* MultiObjectSaveTests.swift */,
 				9588E1DD2220E51200944D18 /* Info.plist */,
 			);
 			path = "DBBBuilder-OSXTests";
@@ -371,6 +374,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				954BF52D2222F47C0057C9B6 /* SaveAtomicTypesTests.swift in Sources */,
+				95F778AD222A177600E246DF /* MultiObjectSaveTests.swift in Sources */,
 				954BF52E2222F47C0057C9B6 /* MeetingTests.swift in Sources */,
 				954BF52F2222F47C0057C9B6 /* DBBDatabaseSetupTests.swift in Sources */,
 				954BF5312222F47C0057C9B6 /* DBBManagerExecuteSQLTests.swift in Sources */,

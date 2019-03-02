@@ -121,7 +121,7 @@ typealias ParamsAndValues = (params: [String], values: [String])
         let tableName = instance.shortName
         var success = false
         var sql = "DELETE FROM \(tableName) WHERE \(Keys.id) = ?"
-        let executor = DBBDatabaseExecutor(manager: manager)
+        let executor = DBBDatabaseExecutor(db: manager.database)
         let logger = DBBBuilder.logger(withCategory: "DBBTableObject")
         do {
             try executor.executeUpdate(sql: sql, withArgumentsIn: [idNum])
@@ -192,7 +192,7 @@ typealias ParamsAndValues = (params: [String], values: [String])
     public static func deleteAllInstances(manager: DBBManager) -> Bool {
         let instance = self.init(dbManager: manager)
         let tableName = instance.shortName
-        let executor = DBBDatabaseExecutor(manager: manager)
+        let executor = DBBDatabaseExecutor(db: manager.database)
 
         // delete join columns
         if let joinMap = manager.joinMapDict[tableName] {

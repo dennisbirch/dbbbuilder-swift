@@ -22,7 +22,7 @@ struct DBBDatabaseValidator {
     
     init(manager: DBBManager, table: DBBTableObject) {
         self.tableClass = table
-        self.executor = DBBDatabaseExecutor(manager: manager)
+        self.executor = DBBDatabaseExecutor(db: manager.database)
         dbCreationStrings = getDatabaseCreationStrings()
     }
 

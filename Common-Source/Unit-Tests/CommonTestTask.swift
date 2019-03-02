@@ -49,7 +49,7 @@ struct CommonTestTask {
     
     private static func savedTables(manager: DBBManager) -> FMResultSet? {
         let sql = "SELECT name, sql FROM sqlite_master WHERE type = 'table'"
-        let executor = DBBDatabaseExecutor(manager: manager)
+        let executor = DBBDatabaseExecutor(db: manager.database)
         guard let result = executor.runQuery(sql) else {
             return nil
         }

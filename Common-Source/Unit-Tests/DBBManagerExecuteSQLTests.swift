@@ -46,7 +46,7 @@ class DBBBuilderTests: XCTestCase {
         let bettyAge = 43
         // insert with arguments array
         var insertSQL = "INSERT INTO \(tableName) (Name, Age) VALUES (?,?)"
-        let executor = DBBDatabaseExecutor(manager: dbMgr)
+        let executor = DBBDatabaseExecutor(db: dbMgr.database)
         do {
             try executor.executeUpdate(sql: insertSQL, withArgumentsIn: [joeSchmo, joeAge])
         } catch {
