@@ -104,7 +104,7 @@ As part of the initialization process, you should call DBBManager's addPersisten
 This method takes as its *contents* parameter, a [String : DBBPropertyPersistence] dictionary.
 The String key is the case-sensitive name of the property. DBBProperty is a simple struct that defines a database column name and its type as one of a member of the DBBStorageType enum. This allows you to assign a custom name for a property in your class so that the property name and databse column name can differ if necessary, for example if you're working with a pre-existing table where you want the property name to be different from the column name already defined.
 
-A complete DBBTableObject subclass's init method might look like this: <a name="complete-init"></a>
+A complete DBBTableObject subclass's init method might look like this: <a name="complete-init"> </a>
 
 ```
     required init(dbManager: DBBManager) {
@@ -154,7 +154,7 @@ _type_: Same as above.
 
 _columnName_: A String argument that defines an alternate name to use in the database file to define this property. This is useful if you're working with an existing database table and want or need to have a different name for a corresponding property.
 
-#### DBBIndexer <a name="dbbindexer"></a>
+#### DBBIndexer <a name="dbbindexer"> </a>
 
 DBBIndexer is used to contain the names of all database columns (properties) that should be indexed for a table. You can also set the indexer's _unique_ property to true if the index should only work on unique values.
 
@@ -164,7 +164,7 @@ _columnsToIndex_: A String array of names of properties that should be indexed i
 
 _unique_: A Bool value telling DBBBuilder to create UNIQUE indexes. It is set to False by default.
 
-#### DBBStorageType <a name="dbbstoragetype"></a>
+#### DBBStorageType <a name="dbbstoragetype"> </a>
 
 An enum that defines the types DBBBuilder can persist to the database file. You use tyese types to configure your DBBManager instance(s) with mapping that tells them what to persist to file and how to persist it.
 
@@ -187,14 +187,33 @@ See the [DBBTableObject discussion above](#complete-init) for an example of DBBS
 
 #### Writing Objects To The Database
 
-There is one method for saving any DBBTableObject subclass instance to the database.
+There are two ways of saving DBBTableObject subclass instances to the database, one at a time, or as an array of homogenous objects.
 
 `public func saveToDB() -> Bool`
 
-This method returns a Boolean value indicating whether the save succeeded. In case of failure you can get an error message from the underlying database by calling the errorMessage function on your DBManager's instance. For example:
+Saves a single instance to the database. This method returns a Boolean value indicating whether the save succeeded. In case of failure you can get an error message from the underlying database by calling the errorMessage function on your DBManager's instance. For example:
 
 ```
 print(dbMgr.errorMessage())
+```
+<a name="save-object-arrays"> </a>
+`public static func saveObjects(_ objects: [DBBTableObject], dbManager: DBBManager) -> Bool` 
+A static method for saving an array of DBTableObject subclass instances to the database file
+
+_objects_: A homogenous array of DBBTableObject subclass types. If you pass in an array of different types, the method will abort before saving anything.
+         
+ _dbManager_: The DBBManager instance managing the database the object values should be saved to.
+ 
+_Returns_: A Boolean indicating successful execution.
+
+An example of using this method:
+
+```
+let people = [joe, mary, billy]
+let success = Person.saveObjects(people, dbManager: mgr)
+if success == false {
+	print("Error saving person array: \(mgr.errorMessage())")
+}
 ```
 
 There are two additional public methods you can call from your application's DBBTableObject subclasses:
@@ -284,7 +303,7 @@ _manager_: A DBBManager instance that owns the FMDB instance/SQLite file being r
 
 _Returns_: An array of Int64 values representing all the id values for the subclass you ran the request on.
 
-#### DBBQueryOptions <a name="dbbqueryoptions"></a>
+#### DBBQueryOptions <a name="dbbqueryoptions"> </a>
 
 When retrieving objects from the database, some methods take a DBBQueryOptions argument to determine which and how objects should be returned.
 
@@ -341,6 +360,9 @@ let isBossCondition = "\(person.employer) = \(company.owner.dbb_SQLEscaped())"
 let options = DBBQueryOptions.queryOptionsWithConditions([isBossCondition])
 
 ```
+#### Optimizing Writes
+
+If you are writing several objects of the same type at once, you can optimize persisting them to the database by using the DBBTableObject static method [saveObjects(objects:dbManager)](#save-object-arrays), instead of persisting them one at a time. 
 
 #### Optimizing Reads
 
@@ -350,7 +372,7 @@ __Sparse object population:__ Some of the object retrieval methods have an optio
 
 __Explicit object population:__ Some of the object retrieval methods let you specify what properties should be populated with a [DBBQueryOptions](#dbbqueryoptions) instance. This is a less severe form of sparse population that can still improve performance for complex objects. You could benefit from this approach when you need to fetch many objects, but only need to display basic information to the user in a view.
 
-#### Helpers <a name="helpers"></a>
+#### Helpers <a name="helpers"> </a>
 
 There are some helper methods and definitions available in different classes that may be useful at various points of development.
 
