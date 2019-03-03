@@ -360,7 +360,7 @@ extension DBBTableObject {
                 os_log("Type of object is nil", log: logger, type: defaultLogType)
                 return
             }
-            setDBBObjectValue(objectType: type, joinMap: joinMap, manager: manager, isArray: isArray)
+            setDBBObjectValue(objectType: type, joinMap: joinMap, resultSet: resultSet, manager: manager, isArray: isArray)
             return
         }
         
@@ -401,18 +401,10 @@ extension DBBTableObject {
         }
     }
     
-    private func setDBBObjectValue(objectType: DBBTableObject.Type, joinMap: DBBJoinMap, manager: DBBManager, isArray: Bool) {
-        let tableName = (objectType == type(of: self)) ? joinMap.joinTableName.replacingOccurrences(of: idExtension, with: "") : joinMap.joinTableName
-        let sql = "SELECT \(joinMap.joinColumnName) FROM \(tableName) WHERE \(joinMap.parentJoinColumn) = \(self.idNum)"
-
-        let executor = DBBDatabaseExecutor(db: manager.database)
-        guard let result = executor.runQuery(sql) else {
-            os_log("Result of query is nil: %@", log: logger, type: defaultLogType, sql)
-            return
-        }
+    private func setDBBObjectValue(objectType: DBBTableObject.Type, joinMap: DBBJoinMap, resultSet: FMResultSet, manager: DBBManager, isArray: Bool) {
         var valuesArray = [Int32]()
-        while result.next() {
-            valuesArray.append(result.int(forColumn: joinMap.joinColumnName))
+        while resultSet.next() {
+            valuesArray.append(resultSet.int(forColumn: joinMap.joinColumnName))
         }
         
         if valuesArray.isEmpty {
