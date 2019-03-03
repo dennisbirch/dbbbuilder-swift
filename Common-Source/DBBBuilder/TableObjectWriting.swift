@@ -111,6 +111,7 @@ extension DBBTableObject {
                     success = success && true
                 } catch {
                     os_log("Insert failed with error message: %@", log: logger, type: defaultLogType, error.localizedDescription)
+                    rollback.pointee = true
                 }
                 
                 // set the id property for this instance
@@ -174,6 +175,7 @@ extension DBBTableObject {
                 } catch  {
                     os_log("Update failed with error message: %@", log: logger, type: defaultLogType, error.localizedDescription)
                     success = false
+                    rollback.pointee = true
                 }
                 
                 if let joinMap = dbManager.joinMapDict[instance.shortName] {
@@ -182,8 +184,14 @@ extension DBBTableObject {
                         let statement = statementTuple.statement
                         if let args = statementTuple.args {
                             database.executeUpdate(statement, withArgumentsIn: args)
+                            if database.lastErrorCode() != 0 {
+                                rollback.pointee = true
+                            }
                         } else {
                             database.executeUpdate(statement, withArgumentsIn: [])
+                            if database.lastErrorCode() != 0 {
+                                rollback.pointee = true
+                            }
                         }
                     }
                 }
