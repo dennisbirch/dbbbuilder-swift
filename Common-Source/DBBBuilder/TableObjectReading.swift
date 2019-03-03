@@ -134,24 +134,13 @@ extension DBBTableObject {
      ```
      */
     public static func instanceWithIDNumber(_ id: Int64, manager: DBBManager, sparsePopulation: Bool = false) -> DBBTableObject? {
-        let instance = self.init(dbManager: manager)
-        let table = instance.shortName
-        let sql = "SELECT * FROM \(table) WHERE \(Keys.id) = \(id)"
-        let executor = DBBDatabaseExecutor(db: manager.database)
-        guard let result = executor.runQuery(sql) else {
+        let options = DBBQueryOptions.queryOptionsWithConditions(["\(Keys.id) = \(id)"])
+        guard let object = instancesWithOptions(options, manager: manager)?.first else {
             os_log("Fetch from database failed")
             return nil
         }
-        let _ = result.next()
-        guard let resultDict = result.resultDictionary else {
-            os_log("Results dictionary object is nil")
-            return nil
-        }
-        
-        return instanceFromResultsDictionary(resultDict,
-                                             manager: manager,
-                                             sparsePopulation: sparsePopulation,
-                                             options: nil)
+
+        return object
     }
     
     /**
