@@ -198,6 +198,7 @@ print(dbMgr.errorMessage())
 ```
 <a name="save-object-arrays"> </a>
 `public static func saveObjects(_ objects: [DBBTableObject], dbManager: DBBManager) -> Bool` 
+
 A static method for saving an array of DBTableObject subclass instances to the database file
 
 _objects_: A homogenous array of DBBTableObject subclass types. If you pass in an array of different types, the method will abort before saving anything.
