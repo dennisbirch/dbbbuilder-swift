@@ -21,6 +21,8 @@ class Person: DBBTableObject {
         static let spouse = "spouse"
         static let employer = "employer"
         static let suppliers = "suppliers"
+        static let willSaveCount = "willSaveCount"
+        static let didSaveCount = "didSaveCount"
     }
     
     @objc var firstName: String = ""
@@ -33,6 +35,8 @@ class Person: DBBTableObject {
     @objc var spouse: Person?
     @objc var employer: Company?
     @objc var suppliers: [Company]?
+    @objc var willSaveCount = 0
+    @objc var didSaveCount = 0
     
     private let personMap: [String : DBBPropertyPersistence] = [Keys.firstName : DBBPropertyPersistence(type: .string),
                                                                 Keys.lastName : DBBPropertyPersistence(type: .string),
@@ -43,7 +47,9 @@ class Person: DBBTableObject {
                                                                 Keys.nicknames : DBBPropertyPersistence(type: .stringArray),
                                                                 Keys.spouse : DBBPropertyPersistence(type: .dbbObject(objectType: Person.self)),
                                                                 Keys.employer: DBBPropertyPersistence(type: .dbbObject(objectType: Company.self)),
-                                                                Keys.suppliers: DBBPropertyPersistence(type: .dbbObjectArray(objectType: Company.self))]
+                                                                Keys.suppliers: DBBPropertyPersistence(type: .dbbObjectArray(objectType: Company.self)),
+                                                                Keys.willSaveCount : DBBPropertyPersistence(type: .int),
+                                                                Keys.didSaveCount : DBBPropertyPersistence(type: .int)]
     
     init(firstName: String, lastName: String, age: Int, dbManager: DBBManager) {
         super.init(dbManager: dbManager)
@@ -54,6 +60,14 @@ class Person: DBBTableObject {
         
         configurePersistenceMap()
         attributesDictionary = ["firstName" : DBBBuilder.ColumnAttribute.notNull]
+    }
+    
+    override func performPreSaveActions() {
+        willSaveCount += 1
+    }
+    
+    override func performPostSaveActions() {
+        didSaveCount += 1
     }
     
     required init(dbManager: DBBManager) {

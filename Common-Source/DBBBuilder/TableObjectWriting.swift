@@ -34,20 +34,6 @@ extension DBBTableObject {
     }
     
     /**
-     Public method you can call from DBTableObject subclasses or from external types to perform any actions required before saving to the database.
-    */
-    public func performPreSaveActions() {
-        // subclasses can override, or external types can call this if pre-save action is required
-    }
-    
-    /**
-     Public method you can call from DBTableObject subclasses or from external types to perform any actions required after saving to the database.
-     */
-    public func performPostSaveActions() {
-        // subclasses can override, or external types can call this if post-save action is required
-    }
-    
-    /**
      Public static method for saving an array of DBTableObject subclass instances to the database file
      - Parameters:
          - objects: A homogenous array of DBBTableObject subclass types.

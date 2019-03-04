@@ -100,7 +100,21 @@ typealias ParamsAndValues = (params: [String], values: [String])
         }
         dbManager.initializePersistenceContents(DBBTableObject.defaultPropertiesMap, forTableNamed: shortName)
     }
+        
+    /**
+     Public method you can call from DBTableObject subclasses or from external types to perform any actions required before saving to the database.
+     */
+    open func performPreSaveActions() {
+        // subclasses can override, or external types can call this if pre-save action is required
+    }
     
+    /**
+     Public method you can call from DBTableObject subclasses or from external types to perform any actions required after saving to the database.
+     */
+    open func performPostSaveActions() {
+        // subclasses can override, or external types can call this if post-save action is required
+    }
+
     /**
      A static method to delete an instance of a DBBTableObject subclass.
      
