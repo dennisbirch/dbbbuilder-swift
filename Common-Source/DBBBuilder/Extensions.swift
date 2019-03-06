@@ -16,11 +16,15 @@ extension String {
 }
 
 extension Date {
-    static func dbb_dateFromTimeInterval(_ interval: TimeInterval) -> Date {
+    public static func dbb_dateFromTimeInterval(_ interval: TimeInterval) -> Date {
         return Date(timeIntervalSinceReferenceDate: interval)
     }
     
-    func dbb_timeIntervalForDate() -> TimeInterval {
+    public func dbb_timeIntervalForDate() -> TimeInterval {
         return self.timeIntervalSinceReferenceDate
+    }
+    
+    public func dbb_dateComparisonString() -> String {
+        return String(self.dbb_timeIntervalForDate())
     }
 }

@@ -403,3 +403,45 @@ If you ever want to delete an index from a database file, you can call this meth
 
 _indexName_: The name of the index to drop.
 
+__Date Extensions__
+
+`public func dbb_dateComparisonString() -> String`
+
+When called on a Date instance, this method returns a string you can use in conditional clauses comparing dates.
+
+Example usage:
+
+```
+let lastOccurrence = Date()addingTimeInterval(-lastOccurrenceTimeInterval)
+let conditions = ["\(entryDate.dbb_DateComparisonString()) > \(lastOccurrence.dbb_DateComparisonString())"]
+let options = DBBQueryOptions.queryOptionsWithConditions([conditions])
+if let recentEvents = Event.instancesWithOptions(options, manager: manager) as? [Event] {
+    // continue with additional steps
+}
+```
+
+`func dbb_dateFromTimeInterval(_ interval: TimeInterval)`
+
+For the greatest accuracy, DBBBuilder stores dates in its SQLite files as TimeIntervals (Doubles). You probably should not need to use this method to directly translate an underlying value to a Date, but it's available if required.
+
+`static func dbb_dateFromTimeInterval(_ interval: TimeInterval) -> Date`
+
+This static function on Date provides the inverse functionality, returning a Date instance from the TimeInterval passed in as its single argument.
+
+__Date Extensions__
+
+extension String {
+public func dbb_SQLEscaped() -> String {
+let sqlified = self.replacingOccurrences(of: "''", with: "''''")
+return "'\(sqlified)'"
+}
+}
+
+extension Date {
+
+public func dbb_timeIntervalForDate() -> TimeInterval {
+return self.timeIntervalSinceReferenceDate
+}
+
+public func dbb_dateComparisonString() -> String {
+
