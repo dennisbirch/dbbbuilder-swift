@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import FMDB
 import os.log
 
 private typealias JoinStatementsAndValues = (statement: String, args: [Any]?)

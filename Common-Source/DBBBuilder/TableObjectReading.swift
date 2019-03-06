@@ -457,10 +457,17 @@ extension DBBTableObject {
     }
     
     private static func buildDistinctClauseWorkaround(options: DBBQueryOptions, tableName: String) -> String {
-        guard let columns = options.propertyNames?.joined(separator: ", ") else {
-            return ""
+        var columnString = ""
+        if let columns = options.propertyNames {
+            columnString = columns.joined(separator: ", ")
         }
-        let distinctClause = "\(Keys.id) IN (SELECT MAX(\(Keys.id)) FROM \(tableName) GROUP BY \(columns))"
+        var distinctClause = "\(Keys.id) IN (SELECT MAX(\(Keys.id)) FROM \(tableName)"
+        if columnString.isEmpty == false {
+            distinctClause += " GROUP BY \(columnString)"
+        }
+        
+        distinctClause += ")"
+        
         return distinctClause
     }
     
