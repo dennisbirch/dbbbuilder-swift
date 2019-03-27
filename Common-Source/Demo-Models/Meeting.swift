@@ -52,7 +52,7 @@ class Meeting: DBBTableObject {
             return
         }
         
-        if let index = participants.index(of: person) {
+        if let index = participants.firstIndex(of: person) {
             participants.remove(at: index)
             self.participants = participants
         }

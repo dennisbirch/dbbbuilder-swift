@@ -55,7 +55,7 @@ class ContainerViewController: NSViewController {
     }
     
     private func addViewToSelf(viewToPin: NSView) {
-        if let currentVC = currentChildViewController, let index = children.index(of: currentVC) {
+        if let currentVC = currentChildViewController, let index = children.firstIndex(of: currentVC) {
             removeChild(at: index)
             for subview in containerView.subviews {
                 subview.removeFromSuperview()

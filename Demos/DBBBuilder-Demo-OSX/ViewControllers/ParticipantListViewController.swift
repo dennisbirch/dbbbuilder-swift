@@ -61,7 +61,7 @@ class ParticipantListViewController: NSViewController, NSTableViewDelegate, NSTa
             let check = NSButton()
             check.tag = row
             check.setButtonType(.switch)
-            if let mtg = meeting, let _ = mtg.participants?.index(of: person) {
+            if let mtg = meeting, let _ = mtg.participants?.firstIndex(of: person) {
                 check.state = .on
             }
             check.target = self

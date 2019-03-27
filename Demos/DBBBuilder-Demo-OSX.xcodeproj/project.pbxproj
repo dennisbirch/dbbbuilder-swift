@@ -24,8 +24,6 @@
 		9570C3AA21FADBD800450E3B /* ContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9570C3A921FADBD800450E3B /* ContainerViewController.swift */; };
 		9570C3AD21FB898600450E3B /* EditMeetingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9570C3AB21FB898600450E3B /* EditMeetingViewController.swift */; };
 		9578B3BA21F82CF600219E8A /* DBBBuilder.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9578B3B921F82CF600219E8A /* DBBBuilder.framework */; };
-		9588E1DB2220E29D00944D18 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9588E1DA2220E29C00944D18 /* Info.plist */; };
-		9588E1DE2220E51200944D18 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9588E1DD2220E51200944D18 /* Info.plist */; };
 		959EB6B4222D9BC600BEFFE1 /* PreAndPostSaveActionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 959EB6B3222D9BC600BEFFE1 /* PreAndPostSaveActionTests.swift */; };
 		95C1E80E222F69730082F926 /* DistinctTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95C1E80C222F69630082F926 /* DistinctTests.swift */; };
 		95E304E221FA42AD00CF99B6 /* MeetingListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95E304E121FA42AD00CF99B6 /* MeetingListViewController.swift */; };
@@ -272,12 +270,12 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1010;
-				LastUpgradeCheck = 1010;
+				LastUpgradeCheck = 1020;
 				ORGANIZATIONNAME = "Dennis Birch";
 				TargetAttributes = {
 					95F9A1C621E2918A00E8E068 = {
 						CreatedOnToolsVersion = 10.1;
-						LastSwiftMigration = 1010;
+						LastSwiftMigration = 1020;
 						SystemCapabilities = {
 							com.apple.Sandbox = {
 								enabled = 0;
@@ -286,7 +284,7 @@
 					};
 					95F9A1D821E2918B00E8E068 = {
 						CreatedOnToolsVersion = 10.1;
-						LastSwiftMigration = 1010;
+						LastSwiftMigration = 1020;
 						TestTargetID = 95F9A1C621E2918A00E8E068;
 					};
 				};
@@ -324,8 +322,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9588E1DE2220E51200944D18 /* Info.plist in Resources */,
-				9588E1DB2220E29D00944D18 /* Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -546,7 +542,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.dennisbirch.DBBBuilder;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -566,7 +562,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.dennisbirch.DBBBuilder;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};
@@ -594,7 +590,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/DBBBuilder-Demo-OSX.app/Contents/MacOS/DBBBuilder-Demo-OSX";
 			};
 			name = Debug;
@@ -622,7 +618,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.dennisbirch.DBBBuilderTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/DBBBuilder-Demo-OSX.app/Contents/MacOS/DBBBuilder-Demo-OSX";
 			};
 			name = Release;

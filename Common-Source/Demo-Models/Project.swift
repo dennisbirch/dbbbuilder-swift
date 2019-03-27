@@ -53,7 +53,7 @@ class Project: DBBTableObject {
     }
     
     func removeMeeting(_ meeting: Meeting) {
-        guard let index = meetings.index(of: meeting) else {
+        guard let index = meetings.firstIndex(of: meeting) else {
             os_log("Meeting to remove not found in meetings array")
             return
         }

@@ -59,7 +59,7 @@ DBBManagerConsumer {
             let check = NSButton()
             check.tag = row
             check.setButtonType(.switch)
-            if let proj = project, let _ = proj.meetings.index(of: meeting) {
+            if let proj = project, let _ = proj.meetings.firstIndex(of: meeting) {
                 check.state = .on
             }
             check.target = self

@@ -181,6 +181,7 @@
 				TargetAttributes = {
 					958089C121E94B3100CE7219 = {
 						CreatedOnToolsVersion = 10.1;
+						LastSwiftMigration = 1020;
 					};
 				};
 			};
@@ -190,6 +191,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				Base,
 			);
 			mainGroup = 958089B821E94B3100CE7219;
 			productRefGroup = 958089C321E94B3100CE7219 /* Products */;
@@ -385,7 +387,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.dennisbirch.DBBBuilder-OSX";
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -416,7 +418,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.dennisbirch.DBBBuilder-OSX";
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};

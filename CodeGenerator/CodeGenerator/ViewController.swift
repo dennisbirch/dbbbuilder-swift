@@ -92,17 +92,28 @@ class ViewController: NSViewController, NSTextViewDelegate {
         
         let initMethod =
         """
-        required init(dbManager: DBBManager) {
-        super.init(dbManager: dbManager)
-        
-        let map: [String : DBBPropertyPersistence] = [\(mapString)]
-        
-        dbManager.addPersistenceMapContents(map, forTableNamed: shortName)
-    }
+required init(dbManager: DBBManager) {
+super.init(dbManager: dbManager)
+
+let map: [String : DBBPropertyPersistence] = [\(mapString)]
+
+dbManager.addPersistenceMapContents(map, forTableNamed: shortName)
+}
 """
-        return "class \(className): DBBTableObject {\n struct Keys {\n" + keyText.joined(separator: "\n") + "\n}" + "\n\n" +
-            varText.joined(separator: "\n") + "\n\n" + initMethod + "\n}"
-        
+        let joinedKeyText = keyText.joined(separator: "\n")
+        let joinedVarText = varText.joined(separator: "\n")
+//        return "class \(className): DBBTableObject {\n struct Keys {\n \(joinedKeyText)\n}\n\n\(joinedVarText)\n\n\(initMethod)\n}"
+        return """
+class \(className): DBBTableObject {
+struct Keys {
+\(joinedKeyText)
+}
+
+\(joinedVarText)
+
+\(initMethod)
+}
+"""
     }
     
     private func dbbType(forTypeOption type: TypeOption) -> DBBGenerationStorageType {
