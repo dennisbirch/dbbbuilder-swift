@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		95329B9B22F8A76A00384AA7 /* ExceptionCatcher.h in Headers */ = {isa = PBXBuildFile; fileRef = 95329B9A22F8A76A00384AA7 /* ExceptionCatcher.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		954DDF7D2221B35C00E0BD05 /* FMDB.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 954DDF7C2221B35C00E0BD05 /* FMDB.framework */; };
 		954E22E221EA5F0700AE389A /* DBBBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 954E22E121EA5F0700AE389A /* DBBBuilder.swift */; };
 		955305BD2203AE100076D402 /* DBBIndexer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 955305BC2203AE100076D402 /* DBBIndexer.swift */; };
@@ -23,11 +24,11 @@
 		958089FC21E9594E00CE7219 /* DBBManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 958089E721E9594E00CE7219 /* DBBManager.swift */; };
 		958089FD21E9594E00CE7219 /* DBBTableBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 958089E821E9594E00CE7219 /* DBBTableBuilder.swift */; };
 		958089FF21E9594E00CE7219 /* DBBDatabaseValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 958089EA21E9594E00CE7219 /* DBBDatabaseValidator.swift */; };
-		95808A3E21E960ED00CE7219 /* ExceptionCatcher.h in Headers */ = {isa = PBXBuildFile; fileRef = 95808A3D21E960ED00CE7219 /* ExceptionCatcher.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		95DC085B21F4244000D14EF3 /* DBBQueryOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95DC085A21F4244000D14EF3 /* DBBQueryOptions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		95329B9A22F8A76A00384AA7 /* ExceptionCatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExceptionCatcher.h; sourceTree = "<group>"; };
 		954DDF782221B2A200E0BD05 /* FMDB.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FMDB.framework; path = "../DBBBuilder-iOS/Carthage/Build/Mac/FMDB.framework"; sourceTree = "<group>"; };
 		954DDF7C2221B35C00E0BD05 /* FMDB.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FMDB.framework; path = ../Carthage/Build/Mac/FMDB.framework; sourceTree = "<group>"; };
 		954DDFBC2222362B00E0BD05 /* Cartfile */ = {isa = PBXFileReference; lastKnownFileType = text; name = Cartfile; path = ../../Cartfile; sourceTree = "<group>"; };
@@ -49,7 +50,6 @@
 		958089E721E9594E00CE7219 /* DBBManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DBBManager.swift; sourceTree = "<group>"; };
 		958089E821E9594E00CE7219 /* DBBTableBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DBBTableBuilder.swift; sourceTree = "<group>"; };
 		958089EA21E9594E00CE7219 /* DBBDatabaseValidator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DBBDatabaseValidator.swift; sourceTree = "<group>"; };
-		95808A3D21E960ED00CE7219 /* ExceptionCatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ExceptionCatcher.h; path = "DBBBuilder-OSX/ExceptionCatcher.h"; sourceTree = SOURCE_ROOT; };
 		9588E1F422211F9A00944D18 /* FMDB.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FMDB.framework; path = Carthage/Build/Mac/FMDB.framework; sourceTree = "<group>"; };
 		95DC085A21F4244000D14EF3 /* DBBQueryOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DBBQueryOptions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -130,8 +130,8 @@
 				958089E521E9594E00CE7219 /* DBBDatabaseExecutor.swift */,
 				958089E421E9594E00CE7219 /* DBBPersistenceMap.swift */,
 				956774C921EDC62900FFA682 /* DBBJoinMap.swift */,
-				95808A3D21E960ED00CE7219 /* ExceptionCatcher.h */,
 				95748FBB220381E40089A231 /* Extensions.swift */,
+				95329B9A22F8A76A00384AA7 /* ExceptionCatcher.h */,
 			);
 			name = DBBBuilder;
 			path = "../../Common-Source/DBBBuilder";
@@ -145,7 +145,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				958089C721E94B3100CE7219 /* DBBBuilder.h in Headers */,
-				95808A3E21E960ED00CE7219 /* ExceptionCatcher.h in Headers */,
+				95329B9B22F8A76A00384AA7 /* ExceptionCatcher.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
