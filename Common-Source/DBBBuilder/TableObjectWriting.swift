@@ -70,9 +70,13 @@ extension DBBTableObject {
             os_log("Can't get database URL", log: logger, type: defaultLogType)
             return false
         }
-        
-        var success = true
 
+        // make sure all DBBTableObject properties have been saved
+        saveDBTableProperties(forObjects: objects, dbManager: dbManager)
+        
+        // now save scalar properties
+        var success = true
+        
         let queue = FMDatabaseQueue(url: databaseURL)
         queue?.inTransaction({ (database, rollback) in
             for instance in objects {
@@ -90,9 +94,9 @@ extension DBBTableObject {
                 let placeholders = instance.sqlPlaceholders(count: instanceComponents.params.count)
                 let columnNamesString = instanceComponents.params.joined(separator: ", ")
                 let statement = "INSERT INTO \(instance.shortName) (\(columnNamesString)) VALUES (\(placeholders))"
-               
+                
                 let executor = DBBDatabaseExecutor(db: database)
-
+                
                 do {
                     try executor.executeUpdate(sql: statement, withArgumentsIn: instanceComponents.values)
                     success = success && true
@@ -121,6 +125,36 @@ extension DBBTableObject {
         
         return success
     }
+    
+    private static func saveDBTableProperties(forObjects objects: [DBBTableObject], dbManager: DBBManager) {
+        let map = dbManager.joinMapDict
+        var propertiesToSave = [String]()
+        
+        // gather up a list of the object's join properties
+        if let firstObject = objects.first {
+            let className = firstObject.shortName
+            if let joinMap = map[className] {
+                for (key, _) in joinMap {
+                    if propertiesToSave.contains(key) == false {
+                        propertiesToSave.append(key)
+                    }
+                }
+            }
+        }
+        
+        // now check each object to see if it has unsaved iVars or arrays of DBBTableObjects
+        if propertiesToSave.count > 0 {
+            for object in objects {
+                for property in propertiesToSave {
+                    if let iVar = object.value(forKey: property) as? DBBTableObject, iVar.id == 0 {
+                        let _ = iVar.saveToDB()
+                    } else if let iVar = object.value(forKey: property) as? [DBBTableObject] {
+                        let _ = saveObjects(iVar, dbManager: dbManager)
+                    }
+                }
+            }
+        }
+    }
 
     private static func updateObjects(_ objects: [DBBTableObject], dbManager: DBBManager) -> Bool {
         if objects.count == 0 {
@@ -133,6 +167,8 @@ extension DBBTableObject {
             os_log("Can't get database URL", log: logger, type: defaultLogType)
             return false
         }
+        
+        saveDBTableProperties(forObjects: objects, dbManager: dbManager)
         
         var success = true
         

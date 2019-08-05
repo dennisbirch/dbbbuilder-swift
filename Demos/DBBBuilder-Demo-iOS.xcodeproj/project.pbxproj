@@ -36,7 +36,6 @@
 		9578B3EF21F8330400219E8A /* EditButtonTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9578B3DA21F8330400219E8A /* EditButtonTableViewCell.swift */; };
 		9578B3F221F8344500219E8A /* DBBBuilder.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9578B3F121F8344500219E8A /* DBBBuilder.framework */; };
 		9578B3F621F834F200219E8A /* FMDB.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9578B3F521F834F200219E8A /* FMDB.framework */; };
-		957978481A337488007329CC /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 957978471A337488007329CC /* libsqlite3.dylib */; };
 		959EB6B6222D9EED00BEFFE1 /* PreAndPostSaveActionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 959EB6B5222D9EED00BEFFE1 /* PreAndPostSaveActionTests.swift */; };
 		95C1E80B222F69560082F926 /* DistinctTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95C1E80A222F69560082F926 /* DistinctTests.swift */; };
 		95C5D079221DCC2D00B1C938 /* FMDB.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9578B3F521F834F200219E8A /* FMDB.framework */; };
@@ -87,7 +86,6 @@
 		9578B3DB21F8330400219E8A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9578B3F121F8344500219E8A /* DBBBuilder.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = DBBBuilder.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9578B3F521F834F200219E8A /* FMDB.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FMDB.framework; path = "DBBBuilder-iOS/Carthage/Build/iOS/FMDB.framework"; sourceTree = "<group>"; };
-		957978471A337488007329CC /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
 		959EB6B5222D9EED00BEFFE1 /* PreAndPostSaveActionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PreAndPostSaveActionTests.swift; path = "../../Common-Source/Unit-Tests/PreAndPostSaveActionTests.swift"; sourceTree = "<group>"; };
 		95C1E80A222F69560082F926 /* DistinctTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DistinctTests.swift; path = "../../Common-Source/Unit-Tests/DistinctTests.swift"; sourceTree = "<group>"; };
 		95C5D06F221DCC0600B1C938 /* DBBBuilder-Demo-iOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "DBBBuilder-Demo-iOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -110,7 +108,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				9578B3F221F8344500219E8A /* DBBBuilder.framework in Frameworks */,
-				957978481A337488007329CC /* libsqlite3.dylib in Frameworks */,
 				9578B3F621F834F200219E8A /* FMDB.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -187,7 +184,6 @@
 				9578B3BB21F82F3000219E8A /* DBBBuilder.framework */,
 				956575CB21F7A5AE00540CF0 /* DBBBuilder.framework */,
 				956575CA21F7A5AE00540CF0 /* FMDB.framework */,
-				957978471A337488007329CC /* libsqlite3.dylib */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
