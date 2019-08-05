@@ -125,12 +125,12 @@ DBBManagerConsumer {
             return
         }
         
-        guard let id = projectToEdit?.idNum, let project = Project.instanceWithIDNumber(id, manager: manager) as? Project else {
-            os_log("Can't load project to edit")
-            return
+        var editableProject: Project? = nil
+        if let id = projectToEdit?.idNum, let project = Project.instanceWithIDNumber(id, manager: manager) as? Project {
+            editableProject = project
         }
         
-        editViewController.project = project
+        editViewController.project = editableProject
         
         if let parentVC = parent as? ContainerViewController {
             parentVC.showChildViewController(editViewController)
