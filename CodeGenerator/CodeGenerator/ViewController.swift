@@ -84,7 +84,8 @@ class ViewController: NSViewController, NSTextViewDelegate {
             return ""
         }
         
-        let rawText = text.split(separator: separator)
+        let rawText = (separator == "\n") ? cleanText(text) : text.split(separator: separator).map{ String($0) }
+        
         let keyText = rawText.map{ return "static let \($0) = \"\($0)\"" }
         let varText = rawText.map{ return "@objc var \($0) = \(defaultVarValue(forTypeOption: typeOption))" }
         let mapText = rawText.map{ return "Keys.\($0) : DBBPropertyPersistence(type: \(storageType))" }
@@ -102,7 +103,6 @@ dbManager.addPersistenceMapContents(map, forTableNamed: shortName)
 """
         let joinedKeyText = keyText.joined(separator: "\n")
         let joinedVarText = varText.joined(separator: "\n")
-//        return "class \(className): DBBTableObject {\n struct Keys {\n \(joinedKeyText)\n}\n\n\(joinedVarText)\n\n\(initMethod)\n}"
         return """
 class \(className): DBBTableObject {
 struct Keys {
@@ -114,6 +114,38 @@ struct Keys {
 \(initMethod)
 }
 """
+    }
+    
+    private func cleanText(_ text: String) -> [String] {
+        var output = text.replacingOccurrences(of: "var", with: "")
+        output = output.replacingOccurrences(of: "@objc", with: "")
+        output = output.replacingOccurrences(of: "weak", with: "")
+        output = output.replacingOccurrences(of: "=", with: "")
+        
+        var lines = output.split(separator: "\n").map {
+            return String($0)
+        }
+
+        let cleanLineArray: [String] = lines.map {
+            let line = cleanLine(cleanLine(cleanLine($0, limitCharacter: ":"), limitCharacter: "="), limitCharacter: "\"")
+            return line
+        }
+        
+        lines = cleanLineArray
+        
+        return lines
+    }
+    
+    private func cleanLine(_ line: String, limitCharacter: String) -> String {
+        var output = line
+        if let range = output.range(of: limitCharacter) {
+            let distance = output.distance(from: output.startIndex, to: range.lowerBound)
+            let startIndex = output.startIndex
+            let endIndex = output.index(output.startIndex, offsetBy: distance)
+            output = String(output[startIndex..<endIndex]).trimmingCharacters(in: CharacterSet.whitespaces)
+        }
+        
+        return output.trimmingCharacters(in: CharacterSet.whitespaces)
     }
     
     private func dbbType(forTypeOption type: TypeOption) -> DBBGenerationStorageType {
