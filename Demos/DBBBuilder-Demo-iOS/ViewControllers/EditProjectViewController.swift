@@ -149,8 +149,7 @@ class EditProjectViewController: UITableViewController, UITextFieldDelegate, Dat
     
     @IBAction func subProjectButtonTapped(sender: AnyObject) {
         // clear subproject
-        if let _: Project = project?.subProject
-        {
+        if let _: Project = project?.subProject {
             project?.subProject = nil
             project?.makeDirty(true)
             setupSubProjectControls()

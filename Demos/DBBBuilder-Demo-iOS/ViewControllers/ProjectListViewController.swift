@@ -120,6 +120,7 @@ class ProjectListViewController : UIViewController, UITableViewDelegate, UITable
         if parentProject != nil {
             let project:Project = projects[indexPath.row]
             parentProject?.subProject = project
+            parentProject?.isDirty = true
             dismiss(animated: true, completion: nil)
         }
     }
