@@ -217,7 +217,12 @@ class EditProjectViewController: NSViewController, NSTextFieldDelegate, NSTableV
             return
         }
         
-        projectListVC.setupForSubprojectSelection(withParentProject: parentProject, delegate: self)
+        guard let dbManager = self.dbManager else {
+            os_log("DBManager is nil")
+            return
+        }
+
+        projectListVC.setupForSubprojectSelection(withParentProject: parentProject, delegate: self, dbManager: dbManager)
         let winController = NSWindowController(window: NSWindow(contentViewController: projectListVC))
         winController.showWindow(nil)
     }

@@ -82,9 +82,10 @@ DBBManagerConsumer {
     }
     
     
-    func setupForSubprojectSelection(withParentProject parentProject: Project, delegate: ProjectListDelegate) {
+    func setupForSubprojectSelection(withParentProject parentProject: Project, delegate: ProjectListDelegate, dbManager: DBBManager) {
         self.parentProject = parentProject
         self.delegate = delegate
+        self.dbManager = dbManager
         loadProjects()
     }
     
