@@ -38,6 +38,30 @@ public struct DBBQueryOptions {
     public init() {}
     
     // MARK: - Convenience Methods
+
+    /**
+     Convenience method to create a DBBQueryOptions instance with conditions, property name, and sorting arrays, or any combination thereof.
+     
+     - Parameters:
+     - conditions: A string array with the conditions that should be met. Optional.
+     - properties: A string array with the names of properties to include in query results. Optional.
+     - sortColumns: A string array with the names of columns results should be sorted on, in priority order. Optional.
+     - ascendingSort: A Bool value indicating whether columns should be sorted in ascending order. Optional. The default value is True.
+     - distinct: An optional Bool value specifying whether it should be a DISTINCT fetch. Optional. The default value is False.
+     
+     - Returns: A DBBQueryOptions instance with the specified options set to the input received.
+     */
+    public static func options(withConditions conditions: [String]? = nil, properties: [String]? = nil, sortColumns: [String]? = nil, ascendingSort: Bool = true, distinct: Bool = false) -> DBBQueryOptions {
+        var options = DBBQueryOptions()
+        options.propertyNames = properties
+        options.conditions = conditions
+        options.sorting = sortColumns
+        let sortOrder = (ascendingSort == true) ? ColumnSorting.ascending : ColumnSorting.descending
+        options.sorting?.append(sortOrder)
+        options.distinct = distinct
+        return options
+    }
+    
     /**
      Convenience method to create a DBBQueryOptions instance with the specified property names array.
      
@@ -47,6 +71,7 @@ public struct DBBQueryOptions {
      
      - Returns: A DBBQueryOptions instance with the `propertyNames` option set to the input received.
     */
+    @available(*, deprecated, message: "Use options(withConditions:properties:sortColumns:ascendingSort:distinct:) instead")
     public static func queryOptionsWithPropertyNames(_ properties: [String], distinct: Bool = false) -> DBBQueryOptions {
         var options = DBBQueryOptions()
         options.propertyNames = properties
@@ -63,6 +88,7 @@ public struct DBBQueryOptions {
      
      - Returns: A DBBQueryOptions instance with the `sorting` option set to the input received.
      */
+    @available(*, deprecated, message: "Use options(withConditions:properties:sortColumns:ascendingSort:distinct:) instead")
     public static func queryOptionsWithAscendingSortForColumns(_ columnNames: [String]) -> DBBQueryOptions {
         var options = DBBQueryOptions()
         options.sorting = columnNames
@@ -79,6 +105,7 @@ public struct DBBQueryOptions {
      
      - Returns: A DBBQueryOptions instance with the `sorting` option set to the input received.
      */
+    @available(*, deprecated, message: "Use options(withConditions:properties:sortColumns:ascendingSort:distinct:) instead")
     public static func queryOptionsWithDescendingSortForColumns(_ columnNames: [String]) -> DBBQueryOptions {
         var options = DBBQueryOptions()
         options.sorting = columnNames
@@ -95,6 +122,7 @@ public struct DBBQueryOptions {
      
      - Returns: A DBBQueryOptions instance with the `sorting` option set to the input received.
      */
+    @available(*, deprecated, message: "Use options(withConditions:properties:sortColumns:ascendingSort:distinct:) instead")
     public static func queryOptionsWithConditions(_ conditions: [String], distinct: Bool = false) -> DBBQueryOptions {
         var options = DBBQueryOptions()
         options.conditions = conditions

@@ -69,8 +69,7 @@ class ProjectListViewController : UIViewController, UITableViewDelegate, UITable
         }
 
         // select all meetings, sorted by start date
-        var queryOptions = DBBQueryOptions.queryOptionsWithAscendingSortForColumns(["startDate"])
-        queryOptions.propertyNames = ["name"]
+        let queryOptions = DBBQueryOptions.options(properties: ["name"], sortColumns: ["startDate"])
         if let result = Project.instancesWithOptions(queryOptions, manager: mgr) as? [Project] {
             projects = result
             tableView.reloadData()

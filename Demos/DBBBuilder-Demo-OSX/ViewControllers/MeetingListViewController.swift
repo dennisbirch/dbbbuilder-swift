@@ -92,7 +92,7 @@ DBBManagerConsumer {
         }
         
         // get all projects, sorted by start date
-        let options = DBBQueryOptions.queryOptionsWithAscendingSortForColumns(["startTime"])
+        let options = DBBQueryOptions.options(sortColumns: ["startTime"])
         guard let results = Meeting.instancesWithOptions(options, manager: manager) as? [Meeting] else {
             os_log("Meetings array is nil")
             return

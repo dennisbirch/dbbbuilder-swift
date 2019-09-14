@@ -87,7 +87,7 @@ class ParticipantListViewController: NSViewController, NSTableViewDelegate, NSTa
             return
         }
         
-        let options = DBBQueryOptions.queryOptionsWithAscendingSortForColumns(["lastName"])
+        let options = DBBQueryOptions.options(sortColumns: ["lastName"])
         guard let people = Person.instancesWithOptions(options, manager: manager) as? [Person] else {
             os_log("Can't fetch people")
             return

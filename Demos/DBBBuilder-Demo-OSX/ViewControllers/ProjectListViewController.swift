@@ -97,8 +97,7 @@ DBBManagerConsumer {
             return
         }
 
-        var options = DBBQueryOptions.queryOptionsWithAscendingSortForColumns(["startDate"])
-        options.propertyNames = ["name"]
+        let options = DBBQueryOptions.options(properties: ["name"], sortColumns: ["startDate"])
         guard let projects = Project.instancesWithOptions(options, manager: manager) as? [Project] else {
             return
         }

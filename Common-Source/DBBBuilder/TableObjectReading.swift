@@ -134,7 +134,7 @@ extension DBBTableObject {
      ```
      */
     public static func instanceWithIDNumber(_ id: Int64, manager: DBBManager, sparsePopulation: Bool = false) -> DBBTableObject? {
-        let options = DBBQueryOptions.queryOptionsWithConditions(["\(Keys.id) = \(id)"])
+        let options = DBBQueryOptions.options(withConditions: ["\(Keys.id) = \(id)"])
         guard let object = instancesWithOptions(options, manager: manager)?.first else {
             os_log("Fetch from database failed")
             return nil
