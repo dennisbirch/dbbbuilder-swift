@@ -89,6 +89,17 @@ public enum DBBStorageType {
             return self.name()
         }
     }
+    
+    func isSavedToJoinTableType() -> Bool {
+        switch self {
+        case .boolArray, .intArray, .floatArray, .dateArray, .stringArray, .binary:
+            return true
+        case .bool, .int, .float, .date, .string:
+            return false
+        default:
+            return false
+        }
+    }
 }
 
 struct TypeNames {

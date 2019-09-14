@@ -256,7 +256,7 @@ Soon her eye fell on a little glass box that was lying under the table: she open
         XCTAssertEqual(sortedPerson.firstName, "Sally")
 
         // test that retrieving only firstName does not populate lastName property
-        queryOptions = DBBQueryOptions.queryOptionsWithPropertyNames([Person.Keys.firstName])
+        queryOptions = DBBQueryOptions.options(properties: [Person.Keys.firstName])
         guard let firstOnlyPeople = Person.instancesWithOptions(queryOptions, manager: manager) as? [Person] else {
             XCTFail()
             return

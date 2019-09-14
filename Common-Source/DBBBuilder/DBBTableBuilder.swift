@@ -38,7 +38,7 @@ class DBBTableBuilder {
             
             // check to make sure that the property can be read and written to with KVO and log any discrepancies in Debug mode
             if exception != nil {
-                os_log("***********\nEncountered an exception checking the type '%@' from the persistence map: : %@. \nThis is probably because it is 1) not included in the DBBTableObject class, 2) is not marked as @objc, or 3) its type does not match the DBBStorageType specificed in its class's persistenceMap.\n***********", log: logger, type: defaultLogType, propertyName, String(describing: exception))
+                os_log("***********\nEncountered an exception checking the type '%@' from the persistence map: : %@. \nThis is probably because it is 1) not included in the DBBTableObject class, 2) is not marked as @objc, or 3) its type does not match the DBBStorageType specified in its class's persistenceMap.\n***********", log: logger, type: defaultLogType, propertyName, String(describing: exception))
                 continue
             }
             

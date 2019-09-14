@@ -15,9 +15,9 @@
 	<key>CFBundlePackageType</key>
 	<string>FMWK</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.0.7</string>
+	<string>1.1</string>
 	<key>CFBundleVersion</key>
-	<string>1007</string>
+	<string>1008</string>
 	<key>NSHumanReadableCopyright</key>
 	<string>Copyright © 2019 Dennis Birch. All rights reserved.</string>
 </dict>

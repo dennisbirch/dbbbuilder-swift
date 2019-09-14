@@ -63,8 +63,7 @@ class DistinctTests: XCTestCase {
         saved = daddy.saveToDB()
         XCTAssertTrue(saved)
         
-        var options = DBBQueryOptions.queryOptionsWithAscendingSortForColumns([Person.Keys.lastName])
-        options.distinct = true
+        var options = DBBQueryOptions.options(sortColumns: [Person.Keys.lastName], distinct: true)
         guard let results = Person.instancesWithOptions(options, manager: manager) as? [Person] else {
             XCTFail()
             return

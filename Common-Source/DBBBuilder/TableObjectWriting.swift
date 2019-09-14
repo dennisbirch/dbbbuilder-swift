@@ -135,6 +135,11 @@ extension DBBTableObject {
             let className = firstObject.shortName
             if let joinMap = map[className] {
                 for (key, _) in joinMap {
+                    if let propertyType = joinMap[key]?.propertyType,
+                        propertyType.isSavedToJoinTableType() == true {
+                        continue
+                    }
+
                     if propertiesToSave.contains(key) == false {
                         propertiesToSave.append(key)
                     }
