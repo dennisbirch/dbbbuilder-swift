@@ -140,6 +140,7 @@ class SaveAtomicTypesTests: XCTestCase {
             return
         }
         
+        // test that retrieved values are equal to saved object's values
         XCTAssertEqual(newInstance.boolTestVar, testBool)
         XCTAssertEqual(newInstance.intTestVar, testInt)
         XCTAssertEqual(newInstance.floatTestVar, testFloat)
