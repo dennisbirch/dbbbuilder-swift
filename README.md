@@ -72,6 +72,8 @@ _table_: A String defining the name of the DBBTableObject subclass. You can use 
 
 _indexer_: An optional argument that takes an instance of a `DBBIndexer` struct, with information on building indexes for properties belonging to this subclass. See the discussion of DBBIndexer [below](#dbbindexer). 
 
+_isSubclass_: An optional Boolean argument with a default of _false_ that indicates whether the class being mapped is a subclass of another DBBTableObject subclass.  For instance, if you have a "Person" DBBTableObject subclass and want to have a "FamilyMember" subclass of Person with a property like "relationship", call this method with the isSubclass argument value as true for the FamilyMember class.
+
 It is best practice to call this method in your DBBTableObject subclass instances. [See below.](#complete-init)
 
 #### DBBTableObject

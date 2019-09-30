@@ -70,10 +70,12 @@ import os.log
      - Parameters:
         - contents: A [String : DBBPropertyPersistence] dictionary that maps out the storage required for each property in the subclass.
         - forTableNamed: The name of the subclass/database table that the mapped properties belong to.
+        - indexer: An optional DBBIndexer argument that defaults to nil. If you want to index any of the properties being mapped, include them in a DBBIndexer instance and pass that indexer in this argument.
+        - isSubclass: An optional Boolean argument that defaults to false, indicating whether the class being mapped is a subclass of a DBBTableObject subclass. It must be passed with a value of true in order for a subclass's properties to be included in its database table. For instance, if you have a "Person" DBBTableObject subclass and want to have a "FamilyMember" subclass of Person with a property like "relationship", call this method with the isSubclass argument value as true for the FamilyMember class.
      */
-    public func addPersistenceMapContents(_ contents: [String : DBBPropertyPersistence], forTableNamed table: String, indexer: DBBIndexer? = nil) {
+    public func addPersistenceMapContents(_ contents: [String : DBBPropertyPersistence], forTableNamed table: String, indexer: DBBIndexer? = nil, isSubclass: Bool? = false) {
         // only need to add the mapping info once
-        if let currentMap = persistenceMap[table], currentMap.map.count > DBBTableObject.defaultPropertiesMap.count {
+        if let currentMap = persistenceMap[table], currentMap.map.count > DBBTableObject.defaultPropertiesMap.count && isSubclass == false {
             return
         }
         
