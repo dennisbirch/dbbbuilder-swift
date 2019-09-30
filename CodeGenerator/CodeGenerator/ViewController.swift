@@ -71,7 +71,7 @@ class ViewController: NSViewController, NSTextViewDelegate {
         let storageType = "\(dbbType(forTypeOption: typeOption).name())"
         
         var inputSeparator: String?
-        let separators = [",", "\n", " "]
+        let separators = ["\n", ",", " "]
         for sep in separators {
             if text.contains(sep) {
                 inputSeparator = sep
@@ -117,23 +117,44 @@ struct Keys {
     }
     
     private func cleanText(_ text: String) -> [String] {
-        var output = text.replacingOccurrences(of: "var", with: "")
-        output = output.replacingOccurrences(of: "@objc", with: "")
-        output = output.replacingOccurrences(of: "weak", with: "")
-        output = output.replacingOccurrences(of: "=", with: "")
+        let isObjectiveCPropertyList = text.contains("@property")
+        
+        let terms = ["var", "@objc", "weak", "=", "(", ")", ",", "@property", "nonatomic", "@IBOutlet", "weak", "strong", "assign", "copy", "strong", "@", "*", ";"]
+        var output = text
+        for term in terms {
+            output = output.replacingOccurrences(of: term, with: "")
+        }
         
         var lines = output.split(separator: "\n").map {
             return String($0)
         }
-
-        let cleanLineArray: [String] = lines.map {
-            let line = cleanLine(cleanLine(cleanLine($0, limitCharacter: ":"), limitCharacter: "="), limitCharacter: "\"")
-            return line
+        
+        if isObjectiveCPropertyList {
+            return cleanupObjectiveCProperties(lines: lines)
+        } else {
+            
+            let cleanLineArray: [String] = lines.map {
+                let line = cleanLine(cleanLine(cleanLine($0, limitCharacter: ":"), limitCharacter: "="), limitCharacter: "\"")
+                return line
+            }
+            
+            lines = cleanLineArray
+            
+            return lines
+        }
+    }
+    
+    private func cleanupObjectiveCProperties(lines: [String]) -> [String] {
+        let lastWordArray: [String] = lines.compactMap{
+            let spaceSeparatedComponents = $0.split(separator: " ")
+            if let substring = (spaceSeparatedComponents.last) {
+                return String(substring)
+            } else {
+                return nil
+            }
         }
         
-        lines = cleanLineArray
-        
-        return lines
+        return lastWordArray
     }
     
     private func cleanLine(_ line: String, limitCharacter: String) -> String {

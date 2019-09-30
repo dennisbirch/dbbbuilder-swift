@@ -7,7 +7,7 @@ Hit the "Generate Code" button and the project will populate the "Output" text v
 
 You can copy this code to the clipboard by hitting the "Copy Code" button, and then paste it into your DBBTableObject subclass code file. Be sure to change the property declarations and persistence map types for any properties that were not of the default type you selected in the generator default type popup.
 
-NEW: You can now paste a code snippet of your return-delimited iVar declarations into the Input field and the Code Generator should be able to clean it up properly.
+NEW: You can now paste a code snippet of your return-delimited iVar declarations into the Input field and the Code Generator should be able to clean it up properly. You can also paste in Objective-C property declarations.
 
 For example, the Test class declared with a default type of String and this input:
 
@@ -17,6 +17,16 @@ For example, the Test class declared with a default type of String and this inpu
 @objc var startTime: Date?
 @objc var finishTime: Date?
 @objc var scheduledHours: Float = 0
+
+...or this Objective-C input:
+
+@property (nullable, nonatomic, weak) DBBProject *project;
+@property (nullable, nonatomic, strong) NSArray *participants;
+@property (nullable, nonatomic, copy) NSString *purpose;
+@property (nullable, nonatomic, strong) NSDate *startTime;
+@property (nullable, nonatomic, strong) NSDate *finishTime;
+@property (nonatomic, assign) double scheduledHours;
+
 
 ...comes out as:
 
