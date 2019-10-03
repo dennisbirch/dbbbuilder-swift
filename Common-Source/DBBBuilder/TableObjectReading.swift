@@ -211,8 +211,8 @@ extension DBBTableObject {
                 let persistenceMap = instance.dbManager.persistenceMap[instance.shortName],
                 let propertyName = persistenceMap.propertyForColumn(named: keyString),
                 let propertyPersistence = persistenceMap.map[propertyName] else {
-                os_log("Cannot get column type in instanceFromResultsDictionary", log: DBBBuilder.logger(withCategory: "TableObjectReading"), type: defaultLogType)
-                return nil
+                    os_log("Cannot get column type in instanceFromResultsDictionary", log: DBBBuilder.logger(withCategory: "TableObjectReading"), type: defaultLogType)
+                    return nil
             }
             
             let type = propertyPersistence.storageType
@@ -221,8 +221,12 @@ extension DBBTableObject {
                     let valueDate = Date.dbb_dateFromTimeInterval(dateInterval)
                     instance.setValue(valueDate, forKey: String(describing: propertyName))
                 }
-            } else if type.name() == TypeNames.bool, let boolValue = value as? Int {
-                instance.setValue(boolValue == 1, forKey: String(describing: propertyName))
+            } else if type.name() == TypeNames.bool {
+                if let boolValue = value as? Int {
+                    instance.setValue(boolValue == 1, forKey: String(describing: propertyName))
+                } else {
+                    instance.setValue(false, forKey: String(describing: propertyName))
+                }
             } else {
                 instance.setValue(value, forKey: String(describing: propertyName))
             }
@@ -238,7 +242,7 @@ extension DBBTableObject {
         
         return instance
     }
-        
+
     private static func sqlString(withOptions options: DBBQueryOptions, manager: DBBManager) -> String {
         let instance = self.init(dbManager: manager)
         let tableName = instance.shortName
