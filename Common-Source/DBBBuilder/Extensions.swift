@@ -10,7 +10,7 @@ import Foundation
 
 extension String {
     public func dbb_SQLEscaped() -> String {
-        let sqlified = self.replacingOccurrences(of: "''", with: "''''")
+        let sqlified = self.replacingOccurrences(of: "'", with: "''")
         return "'\(sqlified)'"
     }
 }

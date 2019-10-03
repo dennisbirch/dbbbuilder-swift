@@ -113,6 +113,16 @@ class DBBDatabaseSetupTests: XCTestCase {
         deleteFile()
     }
     
+    func testSQLifyString() {
+        let testString1 = "Buds"
+        let testString2 = "Bud's"
+        let sqlify1 = testString1.dbb_SQLEscaped()
+        let sqlify2 = testString2.dbb_SQLEscaped()
+        
+        XCTAssertEqual(sqlify1, "'Buds'")
+        XCTAssertEqual(sqlify2, "'Bud''s'")
+    }
+    
     // MARK: - Helpers
         
     private func deleteFile() {
