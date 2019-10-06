@@ -159,12 +159,24 @@ extension DBBTableObject {
      */
     public static func instancesWithIDNumbers(_ ids: [Int64], manager: DBBManager) -> [DBBTableObject] {
         var instances = [DBBTableObject]()
-        for id in ids {
-            if let instance = self.instanceWithIDNumber(id, manager: manager) {
-                instances.append(instance)
-            }
+        let instance = self.init(dbManager: manager)
+        let idNumString = ids.map{ String($0) }
+        let sql = "SELECT * FROM \(instance.shortName) WHERE \(Keys.id) IN (\(idNumString.joined(separator: ",")))"
+        let executor = DBBDatabaseExecutor(db: manager.database)
+        guard let results = executor.runQuery(sql) else {
+            os_log("Fetch failed with error: %@ for SQL: %@", log: DBBBuilder.logger(withCategory: "TableObjectReading"), type: defaultLogType, manager.errorMessage(), sql)
+            return instances
         }
         
+        while results.next() {
+            if let resultsDict = results.resultDictionary,
+                let obj = instanceFromResultsDictionary(resultsDict, manager: manager,
+                                                        sparsePopulation: false,
+                                                        options: nil) {
+                instances.append(obj)
+            }
+        }
+
         return instances
     }
 
