@@ -74,8 +74,10 @@ public enum DBBStorageType {
             return DBBStorageType.string.name()
         case .dateArray:
             return DBBStorageType.date.name()
-        case .dbbObject, .dbbObjectArray:
+        case .dbbObject:
             return TypeNames.dbbObj
+        case .dbbObjectArray:
+            return TypeNames.dbbObjArray
         default:
             return self.name()
         }
@@ -97,6 +99,16 @@ public enum DBBStorageType {
         case .bool, .int, .float, .date, .string:
             return false
         default:
+            // should be DBBTableObjectArray
+            return true
+        }
+    }
+    
+    func isArray() -> Bool {
+        switch self {
+        case  .boolArray, .intArray, .floatArray, .dateArray, .stringArray, .dbbObjectArray:
+            return true
+        case .bool, .int, .float, .date, .string, .binary, .dbbObject:
             return false
         }
     }
@@ -110,5 +122,6 @@ struct TypeNames {
     static let timeStamp = "DateTimeStamp"
     static let blob = "BLOB"
     static let dbbObj = "ObjectReference"
+    static let dbbObjArray = "ObjectArray"
 }
 

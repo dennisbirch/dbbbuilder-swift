@@ -164,7 +164,7 @@ __initialization:__ `public init(columnsToIndex: [String], unique: Bool = false)
 
 _columnsToIndex_: A String array of names of properties that should be indexed in the database file.
 
-_unique_: A Bool value telling DBBBuilder to create UNIQUE indexes. It is set to False by default.
+_unique_: An optional Bool value telling DBBBuilder to create UNIQUE indexes. It is set to False by default.
 
 #### DBBStorageType <a name="dbbstoragetype"> </a>
 
@@ -201,7 +201,7 @@ print(dbMgr.errorMessage())
 <a name="save-object-arrays"> </a>
 `public static func saveObjects(_ objects: [DBBTableObject], dbManager: DBBManager) -> Bool` 
 
-A static method for saving an array of DBTableObject subclass instances to the database file
+A static method for saving an array of DBTableObject subclass instances to the database file.
 
 _objects_: A homogenous array of DBBTableObject subclass types. If you pass in an array of different types, the method will abort before saving anything.
          
@@ -258,6 +258,10 @@ _manager_: A DBBManager instance that owns the FMDB instance/SQLite file being r
 _sparsePopulation_: An optional Boolean value indicating whether you would like returned objects to be populated only with their id and created and modified dates. The default value is False.
 
 _Returns_: An optional array of instances that meet the parameters passed in as options.
+
+__Note:__ You can query the database for objects that match the ID(s) of a property that is of type DBBTableObject. To do so, include a condition in the _options_ argument with the _name_ of the property and the ID number it should match. For example, if you have a Meeting DBBTableObject that has as a 'project' property, which is a Project DBBTableObject subclass, you could include a condition like "project = \(projectID)" (where 'projectID' is an Integer value). If the property is represented as an array of DBBTableObjects, you should use "IN" syntax: "project IN (\(idsArray))" (where 'idsArray' is an array of Integer values). 
+
+See the _testMeeting_ method in the _MeetingTests.swift_ file for examples of these usages.
 
 `public static func getInstancesFromQueue(withOptions options: DBBQueryOptions,
                                              manager: DBBManager,

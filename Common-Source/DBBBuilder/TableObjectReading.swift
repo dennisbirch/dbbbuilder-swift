@@ -51,11 +51,32 @@ extension DBBTableObject {
      ```
      - SeeAlso:
         DBBQueryOptions struct
+     
+     - __Note:__ You can query the database for objects that match the ID(s) of a property that is of type DBBTableObject. To do so, include a condition in the _options_ argument with the _name_ of the property and the ID number it should match. For example, if you have a Meeting DBBTableObject that has as a 'project' property, which is a Project DBBTableObject subclass, you could include a condition like "project = \(projectID)" (where 'projectID' is an Integer value). If the property is represented as an array of DBBTableObjects, you should use "IN" syntax: "project IN (\(idsArray))" (where 'idsArray' is an array of Integer values).
     */
+        
     public static func instancesWithOptions(_ options: DBBQueryOptions,
                                             manager: DBBManager,
                                             sparsePopulation: Bool = false) -> [DBBTableObject]? {
-        let sql = sqlString(withOptions: options, manager: manager)
+        
+        var joinMaps = [String : DBBJoinMap]()
+
+        // see if we're extracting values based on matching a DBBTableObject equality condition
+        let typeObj = self.init(dbManager: manager)
+        if let properties = manager.joinMapDict[typeObj.shortName],
+            let conditions = options.conditions {
+            for condition in conditions {
+                if  let spaceIndex = condition.firstIndex(of: " ")  {
+                    let propertyToMatch = String(condition[condition.startIndex..<spaceIndex]).trimmingCharacters(in: CharacterSet.whitespaces)
+                    if let map = properties[propertyToMatch] {
+                        joinMaps[propertyToMatch] = map
+                    }
+                }
+            }
+        }
+        
+        let sql = sqlString(withOptions: options, manager: manager, joinMaps: joinMaps)
+
         let executor = DBBDatabaseExecutor(db: manager.database)
         guard let results = executor.runQuery(sql) else {
             os_log("Fetch failed with error: %@ for SQL: %@", log: DBBBuilder.logger(withCategory: "TableObjectReading"), type: defaultLogType, manager.errorMessage(), sql)
@@ -255,7 +276,7 @@ extension DBBTableObject {
         return instance
     }
 
-    private static func sqlString(withOptions options: DBBQueryOptions, manager: DBBManager) -> String {
+    private static func sqlString(withOptions options: DBBQueryOptions, manager: DBBManager, joinMaps: [String : DBBJoinMap] = [String : DBBJoinMap]()) -> String {
         let instance = self.init(dbManager: manager)
         let tableName = instance.shortName
         var sql = (options.distinct) ? "SELECT DISTINCT " : "SELECT "
@@ -280,7 +301,7 @@ extension DBBTableObject {
         }
         sql += columnString + " FROM \(tableName)"
         
-        sql += conditionsString(options: options, tableName: tableName)
+        sql += conditionsString(options: options, tableName: tableName, joinMaps: joinMaps)
         
         if let sorting = options.sorting, sorting.isEmpty == false {
             sql += " ORDER BY \(orderString(orderArray: sorting))"
@@ -438,7 +459,7 @@ extension DBBTableObject {
         }
     }
 
-    private static func conditionsString(options: DBBQueryOptions, tableName: String) -> String {
+    private static func conditionsString(options: DBBQueryOptions, tableName: String, joinMaps: [String : DBBJoinMap]) -> String {
         var conditionsArray = [String]()
         var conjunction = ""
         if let conditions = options.conditions, conditions.isEmpty == false {
@@ -468,8 +489,26 @@ extension DBBTableObject {
             return ""
         }
         
-        let conditionsString = " WHERE (\(conditionsArray.joined(separator: conjunction)))"
-        return conditionsString
+        if joinMaps.count > 0 {
+            var whereItems = [String]()
+            for condition in conditionsArray {
+                if  let spaceIndex = condition.firstIndex(of: " ")  {
+                    let propertyToMatch = String(condition[condition.startIndex..<spaceIndex]).trimmingCharacters(in: CharacterSet.whitespaces)
+                    if let map = joinMaps[propertyToMatch] {
+                        let type = map.propertyType
+                        let comparison = (type.isArray() == true) ? " IN " : " = "
+                        whereItems.append("\(DBBTableObject.Keys.id) \(comparison) (SELECT \(map.parentJoinColumn) FROM \(map.joinTableName) WHERE \(condition))")
+                    }
+                }
+                
+                return " WHERE \(whereItems.joined(separator: " AND "))"
+            }
+        } else {
+            let conditionsString = " WHERE (\(conditionsArray.joined(separator: conjunction)))"
+            return conditionsString
+        }
+        
+        return ""
     }
     
     private static func buildDistinctClauseWorkaround(options: DBBQueryOptions, tableName: String) -> String {
