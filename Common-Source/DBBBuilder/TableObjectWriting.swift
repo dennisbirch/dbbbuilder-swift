@@ -101,6 +101,7 @@ extension DBBTableObject {
                     try executor.executeUpdate(sql: statement, withArgumentsIn: instanceComponents.values)
                     success = success && true
                 } catch {
+                    success = false
                     os_log("Insert failed with error message: %@", log: logger, type: defaultLogType, error.localizedDescription)
                     rollback.pointee = true
                 }
