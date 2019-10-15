@@ -498,6 +498,8 @@ extension DBBTableObject {
                         let type = map.propertyType
                         let comparison = (type.isArray() == true) ? " IN " : " = "
                         whereItems.append("\(DBBTableObject.Keys.id) \(comparison) (SELECT \(map.parentJoinColumn) FROM \(map.joinTableName) WHERE \(condition))")
+                    } else {
+                        whereItems.append(condition)
                     }
                 }
                 
