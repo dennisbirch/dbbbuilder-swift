@@ -9,14 +9,14 @@
 - Generates and updates SQLite database files and tables automatically based on your class definitions
 - Can be used to work with existing SQLite database files
 - Carthage-enabled
-- Swift 4.2
+- Swift 5
 - Xcode 10.1 or higher
 
 ### Overview
 
 DBBBuilder is a Swift project that makes it easy to work with first-class objects that are persisted to an SQLite database with the FMDB framework in your iOS or Mac projects.
 
-DBBBuilder takes care of creating the database file if needed, and all database tables and indexes, at runtime, based on your class definitions and other configuration steps.
+DBBBuilder takes care of creating and updating the database file, including all tables and indexes if needed, at runtime, based on your class definitions and other configuration steps.
 
 ### Installation
 
@@ -60,7 +60,7 @@ After initializing a DBBManager instance, tell it what DBBTableObject subclasses
 
 ```
 let dbManager = DBBManager(databaseURL: dbFileURL)
-let tableTypes = [Person.self, Project.self, Meeting.self]
+let tableClasses = [Person.self, Project.self, Meeting.self]
 dbManager.addTableClasses(tableClasses)
 ```
 
@@ -72,8 +72,6 @@ _table_: A String defining the name of the DBBTableObject subclass. You can use 
 
 _indexer_: An optional argument that takes an instance of a `DBBIndexer` struct, with information on building indexes for properties belonging to this subclass. See the discussion of DBBIndexer [below](#dbbindexer). 
 
-_isSubclass_: An optional Boolean argument with a default of _false_ that indicates whether the class being mapped is a subclass of another DBBTableObject subclass.  For instance, if you have a "Person" DBBTableObject subclass and want to have a "FamilyMember" subclass of Person with a property like "relationship", call this method with the isSubclass argument value as true for the FamilyMember class.
-
 It is best practice to call this method in your DBBTableObject subclass instances. [See below.](#complete-init)
 
 #### DBBTableObject
@@ -83,7 +81,7 @@ __Defining properties:__ Because DBBBuilder uses Key Value Observing to assign v
 For example:
 
 ```
-class Project: DBBTableObject {
+final class Project: DBBTableObject {
     @objc var name = ""
     @objc var code = ""
     @objc var startDate: Date?
@@ -131,6 +129,8 @@ You can see more examples of DBBTableObject initialization in the demo projects 
 In addition, there is an Xcode project in the workspace named _CodeGenerator_ that can automatically generate much of the boilerplate for a DBBTableObject subclass, given the subclass name and a list of properties. See the README in its folder for usage directions.
 
 _Adding indexes_: If you want to include an index for any column (i.e. property), create a DBBIndex instance with that property's name in the indexer's _columNames_ String array property, and include that as the optional __indexer__ argument in the addPersistenceMapContents(contents, table, indexer) method call. You can add indexes for any property in a DBBTableObject subclass. If a property is defined as a DBBTableObject type or as an array, DBBBuilder stores data in a join table and automatically indexes that table.
+
+__NOTE:__ Subclassing a DBBTableObject subclass does not work at this time. It is recommended to define DBBTableObject subclasses as _final_ to enforce their non-inheritable status at compile time. 
 
 __Additional properties__: DBBTableObject has two other properties you may want to take advantage of in different situations.
 

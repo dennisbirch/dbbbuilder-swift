@@ -10,7 +10,7 @@ import Foundation
 import DBBBuilder
 import os.log
 
-class Meeting: DBBTableObject {
+final class Meeting: DBBTableObject {
     private struct Keys {
         static let project = "project"
         static let participants = "participants"

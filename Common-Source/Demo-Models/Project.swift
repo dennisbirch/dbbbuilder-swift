@@ -10,7 +10,7 @@ import Foundation
 import DBBBuilder
 import os.log
 
-class Project: DBBTableObject {
+final class Project: DBBTableObject {
     private struct Keys {
         static let name = "name"
         static let code = "code"

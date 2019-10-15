@@ -9,7 +9,7 @@
 import Foundation
 import DBBBuilder
 
-class Person: DBBTableObject {
+final class Person: DBBTableObject {
     struct Keys {
         static let firstName = "firstName"
         static let middleInitial = "middleInitial"

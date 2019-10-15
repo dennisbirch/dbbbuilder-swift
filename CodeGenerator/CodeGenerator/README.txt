@@ -30,7 +30,7 @@ For example, the Test class declared with a default type of String and this inpu
 
 ...comes out as:
 
-class Test: DBBTableObject {
+final class Test: DBBTableObject {
     struct Keys {
         static let project = "project"
         static let participants = "participants"
