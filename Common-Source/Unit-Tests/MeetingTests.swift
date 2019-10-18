@@ -90,6 +90,7 @@ class MeetingTests: XCTestCase {
         XCTAssertEqual(m1p1.lastName, m2p1.lastName)
         XCTAssertEqual(m1p1.department, m2p1.department)
         
+        // test retrieving objects with DBBTableObject properties that match requirements
         let meeting2 = Meeting(dbManager: manager)
         meeting2.purpose = "Test finding a meeting by participants"
         let newPerson = Person(dbManager: manager)
@@ -101,13 +102,35 @@ class MeetingTests: XCTestCase {
         let mtg2ID = meeting2.idNum
         XCTAssertTrue(success)
         
+        let meeting3 = Meeting(dbManager: manager)
+        meeting3.participants = [newPerson]
+        success = meeting3.saveToDB()
+        XCTAssertTrue(success)
+        
+        let mtg3ID = meeting3.idNum
+        
         let newPersonConditions = ["participants IN (\(newPersonID))"]
         let newPersonOptions = DBBQueryOptions.options(withConditions: newPersonConditions)
-        guard let meetingWithNewPerson = Meeting.instancesWithOptions(newPersonOptions, manager: manager)?.first as? Meeting else {
+        guard let meetingsWithNewPerson = Meeting.instancesWithOptions(newPersonOptions, manager: manager) as? [Meeting] else {
             XCTFail()
             return
         }
-        XCTAssertEqual(meetingWithNewPerson.idNum, mtg2ID)
+        
+        XCTAssertEqual(meetingsWithNewPerson.count, 2)
+        
+        guard let firstMeetingWithNewPerson = meetingsWithNewPerson.first else {
+            XCTFail()
+            return
+        }
+        
+        XCTAssertEqual(firstMeetingWithNewPerson.idNum, mtg2ID)
+        
+        guard let lastMeetingWithNewPerson = meetingsWithNewPerson.last else {
+            XCTFail()
+            return
+        }
+        
+        XCTAssertEqual(lastMeetingWithNewPerson.idNum, mtg3ID)
         
         let project = Project(dbManager: manager)
         project.name = "Project to test finding a meeting by Project ID"
@@ -148,7 +171,7 @@ class MeetingTests: XCTestCase {
             return
         }
         
-        XCTAssertEqual(meetingsFoundWithCompoundConditions.count, 1)
+        XCTAssertEqual(meetingsFoundWithCompoundConditions.count, 2)
         
         guard let meetingFoundWithProjectAndParticipants = meetingsFoundWithCompoundConditions.first as? Meeting else {
             XCTFail()
@@ -157,7 +180,7 @@ class MeetingTests: XCTestCase {
         
         XCTAssertEqual(meetingFoundWithProjectAndParticipants.idNum, mtg2ID)
         
-        success = Meeting.deleteInstance(meetingWithNewPerson, manager: manager)
+        success = Meeting.deleteMultipleInstances(meetingsWithNewPerson, manager: manager)
         XCTAssertTrue(success)
         
         let lastPersonID = p2.idNum

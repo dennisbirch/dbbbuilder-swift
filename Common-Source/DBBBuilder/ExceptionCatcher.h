@@ -9,7 +9,7 @@
 
 // FROM: https://stackoverflow.com/questions/34956002/how-to-properly-handle-nsfilehandle-exceptions-in-swift-2-0/35003095#35003095
 
-#import <Foundation/Foundation.h>
+@import Foundation;
 
 NS_INLINE NSException * _Nullable tryBlock(void(^_Nonnull tryBlock)(void)) {
     @try {

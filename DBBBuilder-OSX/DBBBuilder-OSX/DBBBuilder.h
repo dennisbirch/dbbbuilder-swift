@@ -6,7 +6,7 @@
 //  Copyright © 2019 Dennis Birch. All rights reserved.
 //
 
-#import <Cocoa/Cocoa.h>
+@import Cocoa;
 
 //! Project version number for DBBBuilder_OSX.
 FOUNDATION_EXPORT double DBBBuilder_OSXVersionNumber;

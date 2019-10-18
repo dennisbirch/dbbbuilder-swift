@@ -495,9 +495,7 @@ extension DBBTableObject {
                 if  let spaceIndex = condition.firstIndex(of: " ")  {
                     let propertyToMatch = String(condition[condition.startIndex..<spaceIndex]).trimmingCharacters(in: CharacterSet.whitespaces)
                     if let map = joinMaps[propertyToMatch] {
-                        let type = map.propertyType
-                        let comparison = (type.isArray() == true) ? " IN " : " = "
-                        whereItems.append("\(DBBTableObject.Keys.id) \(comparison) (SELECT \(map.parentJoinColumn) FROM \(map.joinTableName) WHERE \(condition))")
+                        whereItems.append("\(DBBTableObject.Keys.id) IN (SELECT \(map.parentJoinColumn) FROM \(map.joinTableName) WHERE \(condition))")
                     } else {
                         whereItems.append(condition)
                     }
