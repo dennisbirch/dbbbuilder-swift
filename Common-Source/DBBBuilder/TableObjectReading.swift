@@ -500,15 +500,13 @@ extension DBBTableObject {
                         whereItems.append(condition)
                     }
                 }
-                
-                return " WHERE \(whereItems.joined(separator: " AND "))"
             }
+            
+            return " WHERE \(whereItems.joined(separator: " AND "))"
         } else {
             let conditionsString = " WHERE (\(conditionsArray.joined(separator: conjunction)))"
             return conditionsString
         }
-        
-        return ""
     }
     
     private static func buildDistinctClauseWorkaround(options: DBBQueryOptions, tableName: String) -> String {
