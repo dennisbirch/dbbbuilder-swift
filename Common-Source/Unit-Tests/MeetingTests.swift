@@ -132,14 +132,14 @@ class MeetingTests: XCTestCase {
         
         XCTAssertEqual(lastMeetingWithNewPerson.idNum, mtg3ID)
         
-        let project = Project(dbManager: manager)
-        project.name = "Project to test finding a meeting by Project ID"
-        success = project.saveToDB()
+        let projectIDProj = Project(dbManager: manager)
+        projectIDProj.name = "Project to test finding a meeting by Project ID"
+        success = projectIDProj.saveToDB()
         XCTAssertTrue(success)
         
-        let projectID = project.idNum
+        let projectID = projectIDProj.idNum
         
-        meeting2.project = project
+        meeting2.project = projectIDProj
         success = meeting2.saveToDB()
         XCTAssertTrue(success)
         
@@ -171,7 +171,7 @@ class MeetingTests: XCTestCase {
             return
         }
         
-        XCTAssertEqual(meetingsFoundWithCompoundConditions.count, 2)
+        XCTAssertEqual(meetingsFoundWithCompoundConditions.count, 1)
         
         guard let meetingFoundWithProjectAndParticipants = meetingsFoundWithCompoundConditions.first as? Meeting else {
             XCTFail()
