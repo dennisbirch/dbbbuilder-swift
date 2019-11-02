@@ -42,6 +42,10 @@ extension DBBTableObject {
      - Returns: Boolean value indicating successful execution
      */
     public static func saveObjects(_ objects: [DBBTableObject], dbManager: DBBManager) -> Bool {
+        guard objects.count > 0 else {
+            return true
+        }
+        
         if self.objectsAreOfSameType(objects) == false {
             os_log("Objects must all be of the same type", log: DBBBuilder.logger(withCategory: "TableObjectWriting"), type: defaultLogType)
             return false
