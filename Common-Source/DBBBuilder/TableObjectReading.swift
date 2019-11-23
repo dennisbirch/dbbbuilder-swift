@@ -76,7 +76,7 @@ extension DBBTableObject {
         }
         
         let sql = sqlString(withOptions: options, manager: manager, joinMaps: joinMaps)
-
+        os_log("Executing SQL: %@", sql)
         let executor = DBBDatabaseExecutor(db: manager.database)
         guard let results = executor.runQuery(sql) else {
             os_log("Fetch failed with error: %@ for SQL: %@", log: DBBBuilder.logger(withCategory: "TableObjectReading"), type: defaultLogType, manager.errorMessage(), sql)
@@ -116,6 +116,7 @@ extension DBBTableObject {
                                              sparsePopulation: Bool = false,
                                              completion: ([DBBTableObject], NSError?) -> Void) {
         let sql = sqlString(withOptions: options, manager: manager)
+        os_log("Executing SQL: %@", sql)
         let queue = FMDatabaseQueue(url: manager.database.databaseURL)
         queue?.inDatabase({ (db) in
             do {
