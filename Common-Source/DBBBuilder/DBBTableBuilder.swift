@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import ExceptionCatcher
 import os.log
 
 class DBBTableBuilder {
@@ -31,15 +32,15 @@ class DBBTableBuilder {
             let propertyName = item.key
             let columnName = (item.value.columnName.isEmpty == true) ? propertyName : item.value.columnName
             
-            let exception = tryBlock {
-                // check that property exists on class (without causing an exception at runtime that crashes the app)
-                let _ = self.tableObject.value(forKey: propertyName)
-            }
-            
-            // check to make sure that the property can be read and written to with KVO and log any discrepancies in Debug mode
-            if exception != nil {
-                os_log("***********\nEncountered an exception checking the type '%@' from the persistence map: : %@. \nThis is probably because it is 1) not included in the DBBTableObject class, 2) is not marked as @objc, or 3) its type does not match the DBBStorageType specified in its class's persistenceMap.\n***********", log: logger, type: defaultLogType, propertyName, String(describing: exception))
+            do {
+                try ExceptionCatcher.catchException {
+                    // check that property exists on class (without causing an exception at runtime that crashes the app)
+                    let _ = self.tableObject.value(forKey: propertyName)
+                }                
+            } catch {
+                os_log("***********\nEncountered an exception checking the type '%@' from the persistence map: : %@. \nThis is probably because it is 1) not included in the DBBTableObject class, 2) is not marked as @objc, or 3) its type does not match the DBBStorageType specified in its class's persistenceMap.\n***********", log: logger, type: defaultLogType, propertyName, String(describing: error))
                 continue
+
             }
             
             let type = item.value.storageType

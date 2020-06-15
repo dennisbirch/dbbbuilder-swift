@@ -8,6 +8,7 @@
 
 import Foundation
 import FMDB
+import ExceptionCatcher
 import os.log
 
 private typealias JoinStatementsAndValues = (statement: String, args: [Any]?)
@@ -318,24 +319,25 @@ extension DBBTableObject {
         var valuesArray: [Any]? = nil
         
         if isArray {
-            let exception = tryBlock { [weak self] in
-                guard let objects = self?.value(forKey: column) as? [Any] else {
-                    return
-                }
-                    valuesArray = objects
-            }
-            
-            if exception != nil {
+            do {
+                try ExceptionCatcher.catchException({ [weak self] in
+                    guard let objects = self?.value(forKey: column) as? [Any] else {
+                        return
+                    }
+                        valuesArray = objects
+                })
+            } catch {
                 return nil
             }
         } else {
-            let exception = tryBlock { [weak self] in
-                guard let object = self?.value(forKey: column) else {
-                    return
-                }
-                valuesArray = [object]
-            }
-            if exception != nil {
+            do {
+                try ExceptionCatcher.catchException({ [weak self] in
+                    guard let object = self?.value(forKey: column) else {
+                        return
+                    }
+                        valuesArray = [object]
+                })
+            } catch {
                 return nil
             }
         }

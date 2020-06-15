@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		95329B9D22F8A79200384AA7 /* ExceptionCatcher.h in Headers */ = {isa = PBXBuildFile; fileRef = 95329B9C22F8A79200384AA7 /* ExceptionCatcher.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		954DDFBB2222356F00E0BD05 /* FMDB.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 954DDF7A2221B34C00E0BD05 /* FMDB.framework */; };
 		955305BF2203E5A90076D402 /* DBBIndexer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 955305BE2203E5A90076D402 /* DBBIndexer.swift */; };
 		955305C12203E5CD0076D402 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 955305C02203E5CD0076D402 /* Extensions.swift */; };
@@ -25,10 +24,10 @@
 		95DC085D21F424E100D14EF3 /* DBBQueryOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95DC085C21F424E100D14EF3 /* DBBQueryOptions.swift */; };
 		95E7A02B21F6E7D900BA1F7E /* TableObjectReading.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95E7A02921F6E7D900BA1F7E /* TableObjectReading.swift */; };
 		95E7A02C21F6E7D900BA1F7E /* TableObjectWriting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95E7A02A21F6E7D900BA1F7E /* TableObjectWriting.swift */; };
+		D8CBF18424981B900035CDE1 /* ExceptionCatcher.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8CBF18324981B900035CDE1 /* ExceptionCatcher.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		95329B9C22F8A79200384AA7 /* ExceptionCatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExceptionCatcher.h; sourceTree = "<group>"; };
 		954DDF7A2221B34C00E0BD05 /* FMDB.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FMDB.framework; path = ../Carthage/Build/iOS/FMDB.framework; sourceTree = "<group>"; };
 		954DDFBE2222363E00E0BD05 /* Cartfile */ = {isa = PBXFileReference; lastKnownFileType = text; name = Cartfile; path = ../Cartfile; sourceTree = "<group>"; };
 		954DDFBF2222363E00E0BD05 /* Cartfile.resolved */ = {isa = PBXFileReference; lastKnownFileType = text; name = Cartfile.resolved; path = ../Cartfile.resolved; sourceTree = "<group>"; };
@@ -51,6 +50,8 @@
 		95DC085C21F424E100D14EF3 /* DBBQueryOptions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DBBQueryOptions.swift; sourceTree = "<group>"; };
 		95E7A02921F6E7D900BA1F7E /* TableObjectReading.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableObjectReading.swift; sourceTree = "<group>"; };
 		95E7A02A21F6E7D900BA1F7E /* TableObjectWriting.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableObjectWriting.swift; sourceTree = "<group>"; };
+		D8CBF16E249806240035CDE1 /* ExceptionCatcher.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = ExceptionCatcher.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D8CBF18324981B900035CDE1 /* ExceptionCatcher.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = ExceptionCatcher.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,6 +60,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				954DDFBB2222356F00E0BD05 /* FMDB.framework in Frameworks */,
+				D8CBF18424981B900035CDE1 /* ExceptionCatcher.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -68,6 +70,8 @@
 		954E22F421EA7DBB00AE389A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D8CBF18324981B900035CDE1 /* ExceptionCatcher.framework */,
+				D8CBF16E249806240035CDE1 /* ExceptionCatcher.framework */,
 				954DDF7A2221B34C00E0BD05 /* FMDB.framework */,
 				9588E1F222211F1E00944D18 /* FMDB.framework */,
 			);
@@ -129,7 +133,6 @@
 				95808A0E21E9596A00CE7219 /* DBBPersistenceMap.swift */,
 				956774CB21EDC6B900FFA682 /* DBBJoinMap.swift */,
 				955305C02203E5CD0076D402 /* Extensions.swift */,
-				95329B9C22F8A79200384AA7 /* ExceptionCatcher.h */,
 			);
 			name = DBBBuilder;
 			path = "../../Common-Source/DBBBuilder";
@@ -143,7 +146,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				958089DC21E94B5000CE7219 /* DBBBuilder.h in Headers */,
-				95329B9D22F8A79200384AA7 /* ExceptionCatcher.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

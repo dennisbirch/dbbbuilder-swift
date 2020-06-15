@@ -11,6 +11,12 @@
       location = "group:DBBBuilder-OSX/DBBBuilder-OSX.xcodeproj">
    </FileRef>
    <FileRef
+      location = "group:/Users/dennisbirch/Documents/Projects/dbbbuilder-swift/ExceptionCatcher/ExceptionCatcher-iOS.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:ExceptionCatcher-OSX/ExceptionCatcher-OSX.xcodeproj">
+   </FileRef>
+   <FileRef
       location = "group:Demos/DBBBuilder-Demo-iOS.xcodeproj">
    </FileRef>
    <FileRef

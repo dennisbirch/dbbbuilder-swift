@@ -15,6 +15,5 @@ FOUNDATION_EXPORT double DBBBuilder_OSXVersionNumber;
 FOUNDATION_EXPORT const unsigned char DBBBuilder_OSXVersionString[];
 
 #import <FMDB/FMDatabase.h>
-#import "ExceptionCatcher.h"
 
 
