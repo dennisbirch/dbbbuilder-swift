@@ -31,16 +31,14 @@ class DBBTableBuilder {
         for item in persistenceMap.map {
             let propertyName = item.key
             let columnName = (item.value.columnName.isEmpty == true) ? propertyName : item.value.columnName
-            
             do {
-                try ExceptionCatcher.catchException {
+                try ExceptionCatcher.catchException( {
                     // check that property exists on class (without causing an exception at runtime that crashes the app)
                     let _ = self.tableObject.value(forKey: propertyName)
-                }                
+                })
             } catch {
-                os_log("***********\nEncountered an exception checking the type '%@' from the persistence map: : %@. \nThis is probably because it is 1) not included in the DBBTableObject class, 2) is not marked as @objc, or 3) its type does not match the DBBStorageType specified in its class's persistenceMap.\n***********", log: logger, type: defaultLogType, propertyName, String(describing: error))
+                os_log("\n\n***********\nEncountered an exception checking the property '%@' from the persistence map for table/class '%@'. \nThis is probably because it is 1) not included in the DBBTableObject class, 2) is not marked as @objc, or 3) its type does not match the DBBStorageType specified in its class's persistenceMap.\n***********\n", log: logger, type: defaultLogType, propertyName, tableName)
                 continue
-
             }
             
             let type = item.value.storageType

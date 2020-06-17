@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import ExceptionCatcher
 import  os.log
 
 struct DBBDatabaseValidator {
@@ -82,22 +83,34 @@ struct DBBDatabaseValidator {
         createIndexIfNecessary()
         
         var alterStatements = [String]()
+        let theClass = self.tableClass
         for missing in missingComponents {
+            do {
+                try ExceptionCatcher.catchException( {
+                    // check that property exists on class (without causing an exception at runtime that crashes the app)
+                    let _ = theClass.value(forKey: missing.propertyName)
+                })
+            } catch {
+                os_log("\n\n***********\nEncountered an exception checking the property '%@' from the persistence map for table/class '%@'. \nThis is probably because it is 1) not included in the DBBTableObject class, 2) is not marked as @objc, or 3) its type does not match the DBBStorageType specified in its class's persistenceMap.\n***********\n", log: logger, type: defaultLogType, missing.propertyName, tableName)
+                continue
+            }
+
             if let type = typeForColumn(missing.propertyName) {
                 let alterSQL = "ALTER TABLE \(tableName) ADD COLUMN \(missing.columnName) \(type);"
                 alterStatements.append(alterSQL)
             }
         }
         
-        if alterStatements.count > 0 {
+        if alterStatements.isEmpty == false {
             let joinedStatements = alterStatements.joined()
             let success = executor.executeStatements(joinedStatements)
             if success == false {
                 os_log("Execute failed with error message: %@", log: logger, type: defaultLogType, tableClass.dbManager.errorMessage())
+            } else {
+                os_log("Alter table statements %@ succeeded: %@", log: logger, type: defaultLogType, joinedStatements, (success == true) ? "true" : "false")
             }
-            os_log("Alter table statements %@ succeeded: %@", log: logger, type: defaultLogType, joinedStatements, (success == true) ? "true" : "false")
         }
-        
+                
         if joinColumns.count > 0 {
             validateJoinTables(joinColumns, tableName: tableName)
         }

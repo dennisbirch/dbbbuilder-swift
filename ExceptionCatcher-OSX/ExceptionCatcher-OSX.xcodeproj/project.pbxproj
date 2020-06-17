@@ -7,15 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		D8CBF1A924981DAB0035CDE1 /* ExceptionCatcher.h in Headers */ = {isa = PBXBuildFile; fileRef = D8CBF1A724981DAB0035CDE1 /* ExceptionCatcher.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D8CBF1AA24981DAB0035CDE1 /* ExceptionCatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = D8CBF1A824981DAB0035CDE1 /* ExceptionCatcher.m */; };
+		D8CBF206249852AE0035CDE1 /* ExceptionCatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = D8CBF204249852AE0035CDE1 /* ExceptionCatcher.m */; };
+		D8CBF207249852AE0035CDE1 /* ExceptionCatcher.h in Headers */ = {isa = PBXBuildFile; fileRef = D8CBF205249852AE0035CDE1 /* ExceptionCatcher.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		D8CBF19624981D1A0035CDE1 /* ExceptionCatcher.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ExceptionCatcher.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		D8CBF19A24981D1A0035CDE1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		D8CBF1A724981DAB0035CDE1 /* ExceptionCatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ExceptionCatcher.h; path = ../../ExceptionCatcher/ExceptionCatcher/ExceptionCatcher.h; sourceTree = "<group>"; };
-		D8CBF1A824981DAB0035CDE1 /* ExceptionCatcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ExceptionCatcher.m; path = ../../ExceptionCatcher/ExceptionCatcher/ExceptionCatcher.m; sourceTree = "<group>"; };
+		D8CBF204249852AE0035CDE1 /* ExceptionCatcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExceptionCatcher.m; sourceTree = "<group>"; };
+		D8CBF205249852AE0035CDE1 /* ExceptionCatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExceptionCatcher.h; sourceTree = "<group>"; };
+		D8CBF208249853C80035CDE1 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -32,7 +32,8 @@
 		D8CBF18C24981D1A0035CDE1 = {
 			isa = PBXGroup;
 			children = (
-				D8CBF19824981D1A0035CDE1 /* ExceptionCatcher-OSX */,
+				D8CBF208249853C80035CDE1 /* Info.plist */,
+				D8CBF203249852AE0035CDE1 /* ExceptionCatcher */,
 				D8CBF19724981D1A0035CDE1 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -45,14 +46,14 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		D8CBF19824981D1A0035CDE1 /* ExceptionCatcher-OSX */ = {
+		D8CBF203249852AE0035CDE1 /* ExceptionCatcher */ = {
 			isa = PBXGroup;
 			children = (
-				D8CBF1A724981DAB0035CDE1 /* ExceptionCatcher.h */,
-				D8CBF1A824981DAB0035CDE1 /* ExceptionCatcher.m */,
-				D8CBF19A24981D1A0035CDE1 /* Info.plist */,
+				D8CBF205249852AE0035CDE1 /* ExceptionCatcher.h */,
+				D8CBF204249852AE0035CDE1 /* ExceptionCatcher.m */,
 			);
-			path = "ExceptionCatcher-OSX";
+			name = ExceptionCatcher;
+			path = ../DBBBuilder/Sources/ExceptionCatcher;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -62,7 +63,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D8CBF1A924981DAB0035CDE1 /* ExceptionCatcher.h in Headers */,
+				D8CBF207249852AE0035CDE1 /* ExceptionCatcher.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -134,7 +135,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D8CBF1AA24981DAB0035CDE1 /* ExceptionCatcher.m in Sources */,
+				D8CBF206249852AE0035CDE1 /* ExceptionCatcher.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -266,7 +267,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = "ExceptionCatcher-OSX/Info.plist";
+				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -289,7 +290,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = "ExceptionCatcher-OSX/Info.plist";
+				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

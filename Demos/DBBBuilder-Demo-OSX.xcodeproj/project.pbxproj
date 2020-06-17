@@ -23,7 +23,6 @@
 		9554A15521F980CC004B778E /* EditProjectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9554A15421F980CC004B778E /* EditProjectViewController.swift */; };
 		9570C3AA21FADBD800450E3B /* ContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9570C3A921FADBD800450E3B /* ContainerViewController.swift */; };
 		9570C3AD21FB898600450E3B /* EditMeetingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9570C3AB21FB898600450E3B /* EditMeetingViewController.swift */; };
-		9578B3BA21F82CF600219E8A /* DBBBuilder.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9578B3B921F82CF600219E8A /* DBBBuilder.framework */; };
 		959EB6B4222D9BC600BEFFE1 /* PreAndPostSaveActionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 959EB6B3222D9BC600BEFFE1 /* PreAndPostSaveActionTests.swift */; };
 		95C1E80E222F69730082F926 /* DistinctTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95C1E80C222F69630082F926 /* DistinctTests.swift */; };
 		95E304E221FA42AD00CF99B6 /* MeetingListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95E304E121FA42AD00CF99B6 /* MeetingListViewController.swift */; };
@@ -35,6 +34,8 @@
 		95F9A1CB21E2918A00E8E068 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95F9A1CA21E2918A00E8E068 /* AppDelegate.swift */; };
 		95F9A1CF21E2918B00E8E068 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 95F9A1CE21E2918B00E8E068 /* Assets.xcassets */; };
 		95F9A1D221E2918B00E8E068 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 95F9A1D021E2918B00E8E068 /* Main.storyboard */; };
+		D871A14D249A80BB00DBE408 /* DBBBuilder.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D871A14C249A80BB00DBE408 /* DBBBuilder.framework */; };
+		D871A14E249A80BB00DBE408 /* DBBBuilder.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D871A14C249A80BB00DBE408 /* DBBBuilder.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,6 +55,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				D871A14E249A80BB00DBE408 /* DBBBuilder.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -95,6 +97,7 @@
 		95F9A1D321E2918B00E8E068 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		95F9A1D421E2918B00E8E068 /* DBBBuilder.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DBBBuilder.entitlements; sourceTree = "<group>"; };
 		95F9A1D921E2918B00E8E068 /* DBBBuilder-Demo-OSXTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "DBBBuilder-Demo-OSXTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		D871A14C249A80BB00DBE408 /* DBBBuilder.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = DBBBuilder.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,7 +105,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9578B3BA21F82CF600219E8A /* DBBBuilder.framework in Frameworks */,
+				D871A14D249A80BB00DBE408 /* DBBBuilder.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -146,6 +149,7 @@
 		95808A3621E959AD00CE7219 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D871A14C249A80BB00DBE408 /* DBBBuilder.framework */,
 				9578B3B921F82CF600219E8A /* DBBBuilder.framework */,
 				954E22EA21EA6FDE00AE389A /* FMDB.framework */,
 			);
