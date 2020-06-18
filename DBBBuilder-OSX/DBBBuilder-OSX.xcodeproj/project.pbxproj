@@ -10,7 +10,6 @@
 		954DDF7D2221B35C00E0BD05 /* FMDB.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 954DDF7C2221B35C00E0BD05 /* FMDB.framework */; };
 		958089C721E94B3100CE7219 /* DBBBuilder.h in Headers */ = {isa = PBXBuildFile; fileRef = 958089C521E94B3100CE7219 /* DBBBuilder.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D8CBF1AF24981EA90035CDE1 /* ExceptionCatcher.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8CBF18824981CC30035CDE1 /* ExceptionCatcher.framework */; };
-		D8CBF1B024981EA90035CDE1 /* ExceptionCatcher.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D8CBF18824981CC30035CDE1 /* ExceptionCatcher.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D8CBF1E124984E700035CDE1 /* DBBStorageType.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8CBF1D224984E700035CDE1 /* DBBStorageType.swift */; };
 		D8CBF1E224984E700035CDE1 /* DBBBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8CBF1D324984E700035CDE1 /* DBBBuilder.swift */; };
 		D8CBF1E324984E700035CDE1 /* TableObjectWriting.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8CBF1D424984E700035CDE1 /* TableObjectWriting.swift */; };
@@ -27,20 +26,6 @@
 		D8CBF1EE24984E700035CDE1 /* DBBDatabaseValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8CBF1DF24984E700035CDE1 /* DBBDatabaseValidator.swift */; };
 		D8CBF1EF24984E700035CDE1 /* DBBJoinMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8CBF1E024984E700035CDE1 /* DBBJoinMap.swift */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXCopyFilesBuildPhase section */
-		D8CBF1B124981EA90035CDE1 /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				D8CBF1B024981EA90035CDE1 /* ExceptionCatcher.framework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		954DDF782221B2A200E0BD05 /* FMDB.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FMDB.framework; path = "../DBBBuilder-iOS/Carthage/Build/Mac/FMDB.framework"; sourceTree = "<group>"; };
@@ -179,7 +164,6 @@
 				958089BE21E94B3100CE7219 /* Sources */,
 				958089BF21E94B3100CE7219 /* Frameworks */,
 				958089C021E94B3100CE7219 /* Resources */,
-				D8CBF1B124981EA90035CDE1 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);

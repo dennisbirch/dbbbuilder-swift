@@ -26,7 +26,7 @@ let package = Package(
             dependencies: ["FMDB", "ExceptionCatcher"]),
         .target(name: "ExceptionCatcher"),
         .testTarget(
-            name: "DBBBuilderTests",
+            name: "DBBBuilderPackageTests",
             dependencies: ["DBBBuilder"]),
     ]
 )

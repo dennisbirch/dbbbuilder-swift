@@ -8,12 +8,6 @@
 
 import XCTest
 @testable import DBBBuilder
-#if os(iOS)
-@testable import DBBBuilder_Demo_iOS
-#else
-@testable import DBBBuilder_Demo_OSX
-#endif
-
 
 class SaveAtomicTypesTests: XCTestCase {
 

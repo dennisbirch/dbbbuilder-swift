@@ -8,6 +8,7 @@
 
 import Foundation
 @testable import DBBBuilder
+import FMDB
 import os.log
 
 struct CommonTestTask {
