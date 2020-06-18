@@ -23,7 +23,9 @@ let package = Package(
         // Targets can depend on other targets in this package, and on products in packages which this package depends on.
         .target(
             name: "DBBBuilder",
-            dependencies: ["FMDB", "ExceptionCatcher"]),
+            dependencies: ["FMDB", "ExceptionCatcher"],
+            path: "Sources/DBBBuilder"
+        ),
         .target(name: "ExceptionCatcher"),
         .testTarget(
             name: "DBBBuilderPackageTests",
