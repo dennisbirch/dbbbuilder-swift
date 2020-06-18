@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -34,8 +34,7 @@
 		95F9A1CB21E2918A00E8E068 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95F9A1CA21E2918A00E8E068 /* AppDelegate.swift */; };
 		95F9A1CF21E2918B00E8E068 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 95F9A1CE21E2918B00E8E068 /* Assets.xcassets */; };
 		95F9A1D221E2918B00E8E068 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 95F9A1D021E2918B00E8E068 /* Main.storyboard */; };
-		D871A14D249A80BB00DBE408 /* DBBBuilder.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D871A14C249A80BB00DBE408 /* DBBBuilder.framework */; };
-		D871A14E249A80BB00DBE408 /* DBBBuilder.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D871A14C249A80BB00DBE408 /* DBBBuilder.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		D8A0EF01249BC41600E82380 /* DBBBuilder in Frameworks */ = {isa = PBXBuildFile; productRef = D8A0EF00249BC41600E82380 /* DBBBuilder */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,20 +46,6 @@
 			remoteInfo = DBBBuilder;
 		};
 /* End PBXContainerItemProxy section */
-
-/* Begin PBXCopyFilesBuildPhase section */
-		954E22EF21EA713700AE389A /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				D871A14E249A80BB00DBE408 /* DBBBuilder.framework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		954BF51C2222F45B0057C9B6 /* Meeting.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Meeting.swift; sourceTree = "<group>"; };
@@ -105,7 +90,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D871A14D249A80BB00DBE408 /* DBBBuilder.framework in Frameworks */,
+				D8A0EF01249BC41600E82380 /* DBBBuilder in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -238,13 +223,15 @@
 				95F9A1C421E2918A00E8E068 /* Frameworks */,
 				95F9A1C521E2918A00E8E068 /* Resources */,
 				954E22E921EA6D8F00AE389A /* ShellScript */,
-				954E22EF21EA713700AE389A /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			name = "DBBBuilder-Demo-OSX";
+			packageProductDependencies = (
+				D8A0EF00249BC41600E82380 /* DBBBuilder */,
+			);
 			productName = DBBBuilder;
 			productReference = 95F9A1C721E2918A00E8E068 /* DBBBuilder-Demo-OSX.app */;
 			productType = "com.apple.product-type.application";
@@ -349,7 +336,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "/usr/local/bin/carthage copy-frameworks\n";
+			shellScript = "#/usr/local/bin/carthage copy-frameworks\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -660,6 +647,13 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		D8A0EF00249BC41600E82380 /* DBBBuilder */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = DBBBuilder;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 95F9A1BF21E2918A00E8E068 /* Project object */;
 }

@@ -7,14 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		D8CBF206249852AE0035CDE1 /* ExceptionCatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = D8CBF204249852AE0035CDE1 /* ExceptionCatcher.m */; };
-		D8CBF207249852AE0035CDE1 /* ExceptionCatcher.h in Headers */ = {isa = PBXBuildFile; fileRef = D8CBF205249852AE0035CDE1 /* ExceptionCatcher.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D8A0EF08249BC5D100E82380 /* ExceptionCatcher.h in Headers */ = {isa = PBXBuildFile; fileRef = D8A0EF06249BC5D100E82380 /* ExceptionCatcher.h */; };
+		D8A0EF09249BC5D100E82380 /* ExceptionCatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = D8A0EF07249BC5D100E82380 /* ExceptionCatcher.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		D8A0EF06249BC5D100E82380 /* ExceptionCatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ExceptionCatcher.h; path = ../DBBBuilder/Sources/ExceptionCatcher/include/ExceptionCatcher.h; sourceTree = "<group>"; };
+		D8A0EF07249BC5D100E82380 /* ExceptionCatcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ExceptionCatcher.m; path = ../DBBBuilder/Sources/ExceptionCatcher/include/ExceptionCatcher.m; sourceTree = "<group>"; };
 		D8CBF19624981D1A0035CDE1 /* ExceptionCatcher.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ExceptionCatcher.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		D8CBF204249852AE0035CDE1 /* ExceptionCatcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExceptionCatcher.m; sourceTree = "<group>"; };
-		D8CBF205249852AE0035CDE1 /* ExceptionCatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExceptionCatcher.h; sourceTree = "<group>"; };
 		D8CBF208249853C80035CDE1 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -33,6 +33,8 @@
 			isa = PBXGroup;
 			children = (
 				D8CBF208249853C80035CDE1 /* Info.plist */,
+				D8A0EF06249BC5D100E82380 /* ExceptionCatcher.h */,
+				D8A0EF07249BC5D100E82380 /* ExceptionCatcher.m */,
 				D8CBF203249852AE0035CDE1 /* ExceptionCatcher */,
 				D8CBF19724981D1A0035CDE1 /* Products */,
 			);
@@ -49,8 +51,6 @@
 		D8CBF203249852AE0035CDE1 /* ExceptionCatcher */ = {
 			isa = PBXGroup;
 			children = (
-				D8CBF205249852AE0035CDE1 /* ExceptionCatcher.h */,
-				D8CBF204249852AE0035CDE1 /* ExceptionCatcher.m */,
 			);
 			name = ExceptionCatcher;
 			path = ../DBBBuilder/Sources/ExceptionCatcher;
@@ -63,7 +63,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D8CBF207249852AE0035CDE1 /* ExceptionCatcher.h in Headers */,
+				D8A0EF08249BC5D100E82380 /* ExceptionCatcher.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -135,7 +135,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D8CBF206249852AE0035CDE1 /* ExceptionCatcher.m in Sources */,
+				D8A0EF09249BC5D100E82380 /* ExceptionCatcher.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
