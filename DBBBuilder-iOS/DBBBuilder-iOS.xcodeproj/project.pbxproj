@@ -9,22 +9,22 @@
 /* Begin PBXBuildFile section */
 		954DDFBB2222356F00E0BD05 /* FMDB.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 954DDF7A2221B34C00E0BD05 /* FMDB.framework */; };
 		958089DC21E94B5000CE7219 /* DBBBuilder.h in Headers */ = {isa = PBXBuildFile; fileRef = 958089DA21E94B5000CE7219 /* DBBBuilder.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D8AD0E70249C047D005A6344 /* DBBStorageType.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8AD0E61249C047D005A6344 /* DBBStorageType.swift */; };
+		D8AD0E71249C047D005A6344 /* DBBBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8AD0E62249C047D005A6344 /* DBBBuilder.swift */; };
+		D8AD0E72249C047D005A6344 /* TableObjectWriting.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8AD0E63249C047D005A6344 /* TableObjectWriting.swift */; };
+		D8AD0E73249C047D005A6344 /* DBBPropertyPersistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8AD0E64249C047D005A6344 /* DBBPropertyPersistence.swift */; };
+		D8AD0E74249C047D005A6344 /* DBBPersistenceMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8AD0E65249C047D005A6344 /* DBBPersistenceMap.swift */; };
+		D8AD0E75249C047D005A6344 /* DBBIndexer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8AD0E66249C047D005A6344 /* DBBIndexer.swift */; };
+		D8AD0E76249C047D005A6344 /* DBBDatabaseExecutor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8AD0E67249C047D005A6344 /* DBBDatabaseExecutor.swift */; };
+		D8AD0E77249C047D005A6344 /* DBBTableObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8AD0E68249C047D005A6344 /* DBBTableObject.swift */; };
+		D8AD0E78249C047D005A6344 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8AD0E69249C047D005A6344 /* Extensions.swift */; };
+		D8AD0E79249C047D005A6344 /* DBBManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8AD0E6A249C047D005A6344 /* DBBManager.swift */; };
+		D8AD0E7A249C047D005A6344 /* DBBQueryOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8AD0E6B249C047D005A6344 /* DBBQueryOptions.swift */; };
+		D8AD0E7B249C047D005A6344 /* TableObjectReading.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8AD0E6C249C047D005A6344 /* TableObjectReading.swift */; };
+		D8AD0E7C249C047D005A6344 /* DBBTableBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8AD0E6D249C047D005A6344 /* DBBTableBuilder.swift */; };
+		D8AD0E7D249C047D005A6344 /* DBBDatabaseValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8AD0E6E249C047D005A6344 /* DBBDatabaseValidator.swift */; };
+		D8AD0E7E249C047D005A6344 /* DBBJoinMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8AD0E6F249C047D005A6344 /* DBBJoinMap.swift */; };
 		D8CBF18424981B900035CDE1 /* ExceptionCatcher.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8CBF18324981B900035CDE1 /* ExceptionCatcher.framework */; };
-		D8CBF1C224984E540035CDE1 /* DBBStorageType.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8CBF1B324984E540035CDE1 /* DBBStorageType.swift */; };
-		D8CBF1C324984E540035CDE1 /* DBBBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8CBF1B424984E540035CDE1 /* DBBBuilder.swift */; };
-		D8CBF1C424984E540035CDE1 /* TableObjectWriting.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8CBF1B524984E540035CDE1 /* TableObjectWriting.swift */; };
-		D8CBF1C524984E540035CDE1 /* DBBPropertyPersistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8CBF1B624984E540035CDE1 /* DBBPropertyPersistence.swift */; };
-		D8CBF1C624984E540035CDE1 /* DBBPersistenceMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8CBF1B724984E540035CDE1 /* DBBPersistenceMap.swift */; };
-		D8CBF1C724984E540035CDE1 /* DBBIndexer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8CBF1B824984E540035CDE1 /* DBBIndexer.swift */; };
-		D8CBF1C824984E540035CDE1 /* DBBDatabaseExecutor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8CBF1B924984E540035CDE1 /* DBBDatabaseExecutor.swift */; };
-		D8CBF1C924984E540035CDE1 /* DBBTableObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8CBF1BA24984E540035CDE1 /* DBBTableObject.swift */; };
-		D8CBF1CA24984E540035CDE1 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8CBF1BB24984E540035CDE1 /* Extensions.swift */; };
-		D8CBF1CB24984E540035CDE1 /* DBBManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8CBF1BC24984E540035CDE1 /* DBBManager.swift */; };
-		D8CBF1CC24984E540035CDE1 /* DBBQueryOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8CBF1BD24984E540035CDE1 /* DBBQueryOptions.swift */; };
-		D8CBF1CD24984E540035CDE1 /* TableObjectReading.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8CBF1BE24984E540035CDE1 /* TableObjectReading.swift */; };
-		D8CBF1CE24984E540035CDE1 /* DBBTableBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8CBF1BF24984E540035CDE1 /* DBBTableBuilder.swift */; };
-		D8CBF1CF24984E540035CDE1 /* DBBDatabaseValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8CBF1C024984E540035CDE1 /* DBBDatabaseValidator.swift */; };
-		D8CBF1D024984E540035CDE1 /* DBBJoinMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8CBF1C124984E540035CDE1 /* DBBJoinMap.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,23 +35,23 @@
 		958089DA21E94B5000CE7219 /* DBBBuilder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DBBBuilder.h; sourceTree = "<group>"; };
 		958089DB21E94B5000CE7219 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9588E1F222211F1E00944D18 /* FMDB.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FMDB.framework; path = Carthage/Build/iOS/FMDB.framework; sourceTree = "<group>"; };
+		D8AD0E61249C047D005A6344 /* DBBStorageType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DBBStorageType.swift; sourceTree = "<group>"; };
+		D8AD0E62249C047D005A6344 /* DBBBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DBBBuilder.swift; sourceTree = "<group>"; };
+		D8AD0E63249C047D005A6344 /* TableObjectWriting.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableObjectWriting.swift; sourceTree = "<group>"; };
+		D8AD0E64249C047D005A6344 /* DBBPropertyPersistence.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DBBPropertyPersistence.swift; sourceTree = "<group>"; };
+		D8AD0E65249C047D005A6344 /* DBBPersistenceMap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DBBPersistenceMap.swift; sourceTree = "<group>"; };
+		D8AD0E66249C047D005A6344 /* DBBIndexer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DBBIndexer.swift; sourceTree = "<group>"; };
+		D8AD0E67249C047D005A6344 /* DBBDatabaseExecutor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DBBDatabaseExecutor.swift; sourceTree = "<group>"; };
+		D8AD0E68249C047D005A6344 /* DBBTableObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DBBTableObject.swift; sourceTree = "<group>"; };
+		D8AD0E69249C047D005A6344 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		D8AD0E6A249C047D005A6344 /* DBBManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DBBManager.swift; sourceTree = "<group>"; };
+		D8AD0E6B249C047D005A6344 /* DBBQueryOptions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DBBQueryOptions.swift; sourceTree = "<group>"; };
+		D8AD0E6C249C047D005A6344 /* TableObjectReading.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableObjectReading.swift; sourceTree = "<group>"; };
+		D8AD0E6D249C047D005A6344 /* DBBTableBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DBBTableBuilder.swift; sourceTree = "<group>"; };
+		D8AD0E6E249C047D005A6344 /* DBBDatabaseValidator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DBBDatabaseValidator.swift; sourceTree = "<group>"; };
+		D8AD0E6F249C047D005A6344 /* DBBJoinMap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DBBJoinMap.swift; sourceTree = "<group>"; };
 		D8CBF16E249806240035CDE1 /* ExceptionCatcher.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = ExceptionCatcher.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D8CBF18324981B900035CDE1 /* ExceptionCatcher.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = ExceptionCatcher.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		D8CBF1B324984E540035CDE1 /* DBBStorageType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DBBStorageType.swift; sourceTree = "<group>"; };
-		D8CBF1B424984E540035CDE1 /* DBBBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DBBBuilder.swift; sourceTree = "<group>"; };
-		D8CBF1B524984E540035CDE1 /* TableObjectWriting.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableObjectWriting.swift; sourceTree = "<group>"; };
-		D8CBF1B624984E540035CDE1 /* DBBPropertyPersistence.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DBBPropertyPersistence.swift; sourceTree = "<group>"; };
-		D8CBF1B724984E540035CDE1 /* DBBPersistenceMap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DBBPersistenceMap.swift; sourceTree = "<group>"; };
-		D8CBF1B824984E540035CDE1 /* DBBIndexer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DBBIndexer.swift; sourceTree = "<group>"; };
-		D8CBF1B924984E540035CDE1 /* DBBDatabaseExecutor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DBBDatabaseExecutor.swift; sourceTree = "<group>"; };
-		D8CBF1BA24984E540035CDE1 /* DBBTableObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DBBTableObject.swift; sourceTree = "<group>"; };
-		D8CBF1BB24984E540035CDE1 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
-		D8CBF1BC24984E540035CDE1 /* DBBManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DBBManager.swift; sourceTree = "<group>"; };
-		D8CBF1BD24984E540035CDE1 /* DBBQueryOptions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DBBQueryOptions.swift; sourceTree = "<group>"; };
-		D8CBF1BE24984E540035CDE1 /* TableObjectReading.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableObjectReading.swift; sourceTree = "<group>"; };
-		D8CBF1BF24984E540035CDE1 /* DBBTableBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DBBTableBuilder.swift; sourceTree = "<group>"; };
-		D8CBF1C024984E540035CDE1 /* DBBDatabaseValidator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DBBDatabaseValidator.swift; sourceTree = "<group>"; };
-		D8CBF1C124984E540035CDE1 /* DBBJoinMap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DBBJoinMap.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -108,34 +108,34 @@
 		958089D921E94B5000CE7219 /* DBBBuilder-iOS */ = {
 			isa = PBXGroup;
 			children = (
-				D8CBF1B224984E540035CDE1 /* DBBBuilder */,
+				D8AD0E60249C047D005A6344 /* DBBBuilder */,
 				958089DA21E94B5000CE7219 /* DBBBuilder.h */,
 				958089DB21E94B5000CE7219 /* Info.plist */,
 			);
 			path = "DBBBuilder-iOS";
 			sourceTree = "<group>";
 		};
-		D8CBF1B224984E540035CDE1 /* DBBBuilder */ = {
+		D8AD0E60249C047D005A6344 /* DBBBuilder */ = {
 			isa = PBXGroup;
 			children = (
-				D8CBF1B324984E540035CDE1 /* DBBStorageType.swift */,
-				D8CBF1B424984E540035CDE1 /* DBBBuilder.swift */,
-				D8CBF1B524984E540035CDE1 /* TableObjectWriting.swift */,
-				D8CBF1B624984E540035CDE1 /* DBBPropertyPersistence.swift */,
-				D8CBF1B724984E540035CDE1 /* DBBPersistenceMap.swift */,
-				D8CBF1B824984E540035CDE1 /* DBBIndexer.swift */,
-				D8CBF1B924984E540035CDE1 /* DBBDatabaseExecutor.swift */,
-				D8CBF1BA24984E540035CDE1 /* DBBTableObject.swift */,
-				D8CBF1BB24984E540035CDE1 /* Extensions.swift */,
-				D8CBF1BC24984E540035CDE1 /* DBBManager.swift */,
-				D8CBF1BD24984E540035CDE1 /* DBBQueryOptions.swift */,
-				D8CBF1BE24984E540035CDE1 /* TableObjectReading.swift */,
-				D8CBF1BF24984E540035CDE1 /* DBBTableBuilder.swift */,
-				D8CBF1C024984E540035CDE1 /* DBBDatabaseValidator.swift */,
-				D8CBF1C124984E540035CDE1 /* DBBJoinMap.swift */,
+				D8AD0E61249C047D005A6344 /* DBBStorageType.swift */,
+				D8AD0E62249C047D005A6344 /* DBBBuilder.swift */,
+				D8AD0E63249C047D005A6344 /* TableObjectWriting.swift */,
+				D8AD0E64249C047D005A6344 /* DBBPropertyPersistence.swift */,
+				D8AD0E65249C047D005A6344 /* DBBPersistenceMap.swift */,
+				D8AD0E66249C047D005A6344 /* DBBIndexer.swift */,
+				D8AD0E67249C047D005A6344 /* DBBDatabaseExecutor.swift */,
+				D8AD0E68249C047D005A6344 /* DBBTableObject.swift */,
+				D8AD0E69249C047D005A6344 /* Extensions.swift */,
+				D8AD0E6A249C047D005A6344 /* DBBManager.swift */,
+				D8AD0E6B249C047D005A6344 /* DBBQueryOptions.swift */,
+				D8AD0E6C249C047D005A6344 /* TableObjectReading.swift */,
+				D8AD0E6D249C047D005A6344 /* DBBTableBuilder.swift */,
+				D8AD0E6E249C047D005A6344 /* DBBDatabaseValidator.swift */,
+				D8AD0E6F249C047D005A6344 /* DBBJoinMap.swift */,
 			);
 			name = DBBBuilder;
-			path = ../../DBBBuilder/Sources/DBBBuilder;
+			path = ../../Sources/DBBBuilder;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -219,21 +219,21 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D8CBF1CD24984E540035CDE1 /* TableObjectReading.swift in Sources */,
-				D8CBF1CE24984E540035CDE1 /* DBBTableBuilder.swift in Sources */,
-				D8CBF1CF24984E540035CDE1 /* DBBDatabaseValidator.swift in Sources */,
-				D8CBF1C724984E540035CDE1 /* DBBIndexer.swift in Sources */,
-				D8CBF1CA24984E540035CDE1 /* Extensions.swift in Sources */,
-				D8CBF1C824984E540035CDE1 /* DBBDatabaseExecutor.swift in Sources */,
-				D8CBF1C624984E540035CDE1 /* DBBPersistenceMap.swift in Sources */,
-				D8CBF1C424984E540035CDE1 /* TableObjectWriting.swift in Sources */,
-				D8CBF1C524984E540035CDE1 /* DBBPropertyPersistence.swift in Sources */,
-				D8CBF1C324984E540035CDE1 /* DBBBuilder.swift in Sources */,
-				D8CBF1D024984E540035CDE1 /* DBBJoinMap.swift in Sources */,
-				D8CBF1C924984E540035CDE1 /* DBBTableObject.swift in Sources */,
-				D8CBF1CB24984E540035CDE1 /* DBBManager.swift in Sources */,
-				D8CBF1C224984E540035CDE1 /* DBBStorageType.swift in Sources */,
-				D8CBF1CC24984E540035CDE1 /* DBBQueryOptions.swift in Sources */,
+				D8AD0E7B249C047D005A6344 /* TableObjectReading.swift in Sources */,
+				D8AD0E7C249C047D005A6344 /* DBBTableBuilder.swift in Sources */,
+				D8AD0E7D249C047D005A6344 /* DBBDatabaseValidator.swift in Sources */,
+				D8AD0E75249C047D005A6344 /* DBBIndexer.swift in Sources */,
+				D8AD0E78249C047D005A6344 /* Extensions.swift in Sources */,
+				D8AD0E76249C047D005A6344 /* DBBDatabaseExecutor.swift in Sources */,
+				D8AD0E74249C047D005A6344 /* DBBPersistenceMap.swift in Sources */,
+				D8AD0E72249C047D005A6344 /* TableObjectWriting.swift in Sources */,
+				D8AD0E73249C047D005A6344 /* DBBPropertyPersistence.swift in Sources */,
+				D8AD0E71249C047D005A6344 /* DBBBuilder.swift in Sources */,
+				D8AD0E7E249C047D005A6344 /* DBBJoinMap.swift in Sources */,
+				D8AD0E77249C047D005A6344 /* DBBTableObject.swift in Sources */,
+				D8AD0E79249C047D005A6344 /* DBBManager.swift in Sources */,
+				D8AD0E70249C047D005A6344 /* DBBStorageType.swift in Sources */,
+				D8AD0E7A249C047D005A6344 /* DBBQueryOptions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
