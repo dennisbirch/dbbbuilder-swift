@@ -24,7 +24,8 @@ let package = Package(
         .target(
             name: "DBBBuilder",
             dependencies: ["FMDB", "ExceptionCatcher"],
-            path: "Sources/DBBBuilder"
+            path: "Sources/DBBBuilder",
+            exclude: ["CodeGenerator", "DBBBuilder-iOS", "DBBBuilder-OSX", "Demos", "Cartfile", "Cartfile.resolved", "DBBBuilder-Bridging-Header.h", "DBBBuilder-Swift.xcworkspace"]
         ),
         .target(name: "ExceptionCatcher"),
         .testTarget(
