@@ -36,6 +36,11 @@ Then follow the [directions for adding frameworks to your project.](https://gith
 
 You should now be able to begin using DBBBuilder in your Xcode project.
 
+#### Swift Package Manager
+You can also use Swift Package Manager to add DBBBuilder to your iOS and macOS projects. To do so, with your project open in Xcode, choose File>Swift Packages>Add Package Dependency... and enter `https://github.com/dennisbirch/dbbbuilder-swift` in the text box of the _Choose Package Respository_ dialog that appears, then hit the _Next_ button on this and all subsequent screens until you see that the DBBBuilder library has been added to your project.
+
+
+
 ### Usage
 
 DBBBuilder has two main classes you need to be concerned with to use it properly.
