@@ -241,28 +241,29 @@ extension DBBTableObject {
                 continue
             }
             
-            guard let keyString = key as? String,
-                let persistenceMap = instance.dbManager.persistenceMap[instance.shortName],
-                let propertyName = persistenceMap.propertyForColumn(named: keyString),
-                let propertyPersistence = persistenceMap.map[propertyName] else {
-                    os_log("Cannot get column type in instanceFromResultsDictionary", log: DBBBuilder.logger(withCategory: "TableObjectReading"), type: defaultLogType)
+            guard let persistenceMap = instance.dbManager.persistenceMap[instance.shortName],
+                let keyString = key as? String else {
+                    os_log("Cannot get key as string in instanceFromResultsDictionary", log: DBBBuilder.logger(withCategory: "TableObjectReading"), type: defaultLogType)
                     return nil
             }
             
-            let type = propertyPersistence.storageType
-            if type.name() == TypeNames.timeStamp {
-                if let dateInterval = value as? TimeInterval {
-                    let valueDate = Date.dbb_dateFromTimeInterval(dateInterval)
-                    instance.setValue(valueDate, forKey: String(describing: propertyName))
-                }
-            } else if type.name() == TypeNames.bool {
-                if let boolValue = value as? Int {
-                    instance.setValue(boolValue == 1, forKey: String(describing: propertyName))
+            if let propertyName = persistenceMap.propertyForColumn(named: keyString),
+                let propertyPersistence = persistenceMap.map[propertyName] {
+                let type = propertyPersistence.storageType
+                if type.name() == TypeNames.timeStamp {
+                    if let dateInterval = value as? TimeInterval {
+                        let valueDate = Date.dbb_dateFromTimeInterval(dateInterval)
+                        instance.setValue(valueDate, forKey: String(describing: propertyName))
+                    }
+                } else if type.name() == TypeNames.bool {
+                    if let boolValue = value as? Int {
+                        instance.setValue(boolValue == 1, forKey: String(describing: propertyName))
+                    } else {
+                        instance.setValue(false, forKey: String(describing: propertyName))
+                    }
                 } else {
-                    instance.setValue(false, forKey: String(describing: propertyName))
+                    instance.setValue(value, forKey: String(describing: propertyName))
                 }
-            } else {
-                instance.setValue(value, forKey: String(describing: propertyName))
             }
         }
         
