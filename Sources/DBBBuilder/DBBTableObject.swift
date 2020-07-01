@@ -139,7 +139,7 @@ typealias ParamsAndValues = (params: [String], values: [String])
         let logger = DBBBuilder.logger(withCategory: "DBBTableObject")
         do {
             try executor.executeUpdate(sql: sql, withArgumentsIn: [idNum])
-            os_log("Executed DELETE statement with SQL: %@: true", log: logger, type: defaultLogType)
+            os_log("Executed DELETE statement with SQL: %@: (%d)", log: logger, type: defaultLogType, sql, idNum)
             success = true
         } catch  {
             os_log("Error deleting instance: %@", log: logger, type: defaultLogType, error.localizedDescription)
