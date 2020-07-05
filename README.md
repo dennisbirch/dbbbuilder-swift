@@ -315,6 +315,43 @@ _manager_: A DBBManager instance that owns the FMDB instance/SQLite file being r
 
 _Returns_: An array of Int64 values representing all the id values for the subclass you ran the request on.
 
+#### Deleting from the database <a name="deleting"> </a>
+
+There are three DBBTableObject static methods for deleting rows associated with object instances from their database tables. You call them on the DBBTableObject subclass type of the instance(s) you want to delete.
+
+`public static func deleteInstance(_ instance: DBBTableObject, manager: DBBManager) -> Bool`
+
+Deletes a single instance from the database. This method returns a Boolean value indicating whether the deletion succeeded. 
+
+_instance_: The instance of the DBBTableObject subclass type you want to delete.
+         
+ _dbManager_: The DBBManager instance managing the database the object values should be saved to.
+ 
+_Returns_: A Boolean indicating successful execution.
+
+In case of failure you can get an error message from the underlying database by calling the errorMessage function on your DBManager's instance. For example:
+
+```
+print(dbMgr.errorMessage())
+```
+`public static func deleteMultipleInstances(_ instances: [DBBTableObject], manager: DBBManager) -> Bool` 
+
+A static method for deleting an array of DBTableObject subclass instances from the database file.
+
+_instances_: A homogenous array of instances of the DBBTableObject subclass type you want to delete.
+         
+ _dbManager_: The DBBManager instance managing the database the object values should be saved to.
+ 
+_Returns_: A Boolean indicating successful execution.
+
+`public static func deleteAllInstances(manager: DBBManager) -> Bool`
+
+A static method for deleting all instances of a DBBTableObject type.
+
+ _dbManager_: The DBBManager instance managing the database the object values should be saved to.
+ 
+_Returns_: A Boolean indicating successful execution.
+
 #### DBBQueryOptions <a name="dbbqueryoptions"> </a>
 
 When retrieving objects from the database, some methods take a DBBQueryOptions argument to determine which and how objects should be returned.
