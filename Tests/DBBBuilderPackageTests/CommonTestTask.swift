@@ -81,7 +81,7 @@ struct CommonTestTask {
 }
 
 // a class for use with the testExecuteSQL function
-final class Testing: DBBTableObject {
+class Testing: DBBTableObject {
     @objc var name: String = ""
     @objc var age: Int = 0
     
@@ -96,7 +96,7 @@ final class Testing: DBBTableObject {
 }
 
 // a class for use with the testAlterTable function
-final class AlterTableTest: DBBTableObject {
+class AlterTableTest: DBBTableObject {
     @objc var name = ""
     @objc var date = Date()
     @objc var count = 0
@@ -113,7 +113,7 @@ final class AlterTableTest: DBBTableObject {
 }
 
 // a class for use with the testAlterTable function
-final class AlterJoinTest: DBBTableObject {
+class AlterJoinTest: DBBTableObject {
     @objc var name = ""
     @objc var date = Date()
     @objc var count = 0
@@ -130,7 +130,7 @@ final class AlterJoinTest: DBBTableObject {
 }
 
 // a class for testing persistence of all basic types
-final class AllTypesTestClass: DBBTableObject {
+class AllTypesTestClass: DBBTableObject {
     struct Keys {
         static let boolTestVar = "boolTestVar"
         static let intTestVar = "intTestVar"

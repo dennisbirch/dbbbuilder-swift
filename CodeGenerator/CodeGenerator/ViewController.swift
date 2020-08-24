@@ -98,7 +98,7 @@ super.init(dbManager: dbManager)
 
 let map: [String : DBBPropertyPersistence] = [\(mapString)]
 
-dbManager.addPersistenceMapContents(map, forTableNamed: shortName)
+dbManager.addPersistenceMapping(map, for: self)
 }
 """
         let joinedKeyText = keyText.joined(separator: "\n")

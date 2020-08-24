@@ -38,13 +38,13 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
 
     func setupDBManager() {
-//        guard let documentsFolder = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else {
-//            return
-//        }
-//
-//        let fileURL = documentsFolder.appendingPathComponent("DBBBuilderDemo.sqlite")
-//        dbManager = DBBManager(databaseURL: fileURL)
-//        dbManager?.addTableClasses([Person.self, Company.self, Project.self, Meeting.self])
+        guard let documentsFolder = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else {
+            return
+        }
+
+        let fileURL = documentsFolder.appendingPathComponent("DBBBuilderDemo.sqlite")
+        dbManager = DBBManager(databaseURL: fileURL)
+        dbManager?.addTableClasses([Person.self, Company.self, Project.self, Meeting.self])
     }
 }
 

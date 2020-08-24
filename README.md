@@ -69,11 +69,11 @@ let tableClasses = [Person.self, Project.self, Meeting.self]
 dbManager.addTableClasses(tableClasses)
 ```
 
-__Defining subclass properties:__ `func addPersistenceMapContents(_ contents: [String : DBBPropertyPersistence], forTableNamed table: String, indexer: DBBIndexer? = nil)`
+__Defining subclass properties:__ `func addPersistenceMapping(_ contents: [String : DBBPropertyPersistence], for tableObject: DBBTableObject, indexer: DBBIndexer? = nil)`
 
 _contents_: A [String : DBBPropertyPersistence] dictionary defining the name and type of each property in a DBBTableObject subclass that should be persisted to the database.
 
-_table_: A String defining the name of the DBBTableObject subclass. You can use the DBBTableObject's _shortName_ property to get this.
+_tableObject_: A DBBTableObject subclass. If you call this method from a DBBSubclass's init method, you can provide _self_ as the parameter.
 
 _indexer_: An optional argument that takes an instance of a `DBBIndexer` struct, with information on building indexes for properties belonging to this subclass. See the discussion of DBBIndexer [below](#dbbindexer). 
 
@@ -86,7 +86,7 @@ __Defining properties:__ Because DBBBuilder uses Key Value Observing to assign v
 For example:
 
 ```
-final class Project: DBBTableObject {
+class Project: DBBTableObject {
     @objc var name = ""
     @objc var code = ""
     @objc var startDate: Date?
@@ -104,7 +104,7 @@ _dbManager_: The DBBManager instance managing the database file that this subcla
 
 A DBBTableObject subclass must be initialized with this init method. 
 
-As part of the initialization process, you should call DBBManager's addPersistenceMapContents(contents, table, indexer) method to configure the manager with the metadata it needs for writing subclass property values to the database file.
+As part of the initialization process, you should call DBBManager's addPersistenceMapping(_contents: tableObject: indexer:) method to configure the manager with the metadata it needs for writing subclass property values to the database file.
 
 This method takes as its *contents* parameter, a [String : DBBPropertyPersistence] dictionary.
 The String key is the case-sensitive name of the property. DBBProperty is a simple struct that defines a database column name and its type as one of a member of the DBBStorageType enum. This allows you to assign a custom name for a property in your class so that the property name and databse column name can differ if necessary, for example if you're working with a pre-existing table where you want the property name to be different from the column name already defined.
@@ -125,7 +125,7 @@ A complete DBBTableObject subclass's init method might look like this: <a name="
                                                       "tags" : DBBPropertyPersistence(type: .stringArray),
                                                       "subProject" : DBBPropertyPersistence(type: .dbbObject(objectType: Project.self)),
                                                       "projectLead" : DBBPropertyPersistence(type: .dbbObject(objectType: Person.self))]
-        dbManager.addPersistenceMapContents(map, forTableNamed: shortName, indexer: indexer)
+        dbManager.addPersistenceMapping(map, for: self, indexer: indexer)
     }
 ```
 
@@ -133,9 +133,7 @@ You can see more examples of DBBTableObject initialization in the demo projects 
 
 In addition, there is an Xcode project in the workspace named _CodeGenerator_ that can automatically generate much of the boilerplate for a DBBTableObject subclass, given the subclass name and a list of properties. See the README in its folder for usage directions.
 
-_Adding indexes_: If you want to include an index for any column (i.e. property), create a DBBIndex instance with that property's name in the indexer's _columNames_ String array property, and include that as the optional __indexer__ argument in the addPersistenceMapContents(contents, table, indexer) method call. You can add indexes for any property in a DBBTableObject subclass. If a property is defined as a DBBTableObject type or as an array, DBBBuilder stores data in a join table and automatically indexes that table.
-
-__NOTE:__ Subclassing a DBBTableObject subclass does not work at this time. It is recommended to define DBBTableObject subclasses as _final_ to enforce their non-inheritable status at compile time. 
+_Adding indexes_: If you want to include an index for any column (i.e. property), create a DBBIndex instance with that property's name in the indexer's _columNames_ String array property, and include that as the optional __indexer__ argument in the addPersistenceMapping(_contents: table: indexer:) method call. You can add indexes for any property in a DBBTableObject subclass. If a property is defined as a DBBTableObject type or as an array, DBBBuilder stores data in a join table and automatically indexes that table.
 
 __Additional properties__: DBBTableObject has two other properties you may want to take advantage of in different situations.
 

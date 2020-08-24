@@ -10,7 +10,7 @@ import Foundation
 import DBBBuilder
 import os.log
 
-final class Meeting: DBBTableObject {
+class Meeting: DBBTableObject {
     private struct Keys {
         static let project = "project"
         static let participants = "participants"
@@ -35,7 +35,7 @@ final class Meeting: DBBTableObject {
                                                       Keys.startTime : DBBPropertyPersistence(type: .date),
                                                       Keys.finishTime : DBBPropertyPersistence(type: .date),
                                                       Keys.scheduledHours : DBBPropertyPersistence(type: .float)]
-        dbManager.addPersistenceMapContents(map, forTableNamed: shortName)
+        dbManager.addPersistenceMapping(map, for: self)
     }
     
     static func allMeetings(manager: DBBManager) -> [Meeting] {

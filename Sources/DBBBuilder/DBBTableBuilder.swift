@@ -37,7 +37,7 @@ class DBBTableBuilder {
                     let _ = self.tableObject.value(forKey: propertyName)
                 })
             } catch {
-                os_log("\n\n***********\nEncountered an exception checking the property '%@' from the persistence map for table/class '%@'. \nThis is probably because it is 1) not included in the DBBTableObject class, 2) is not marked as @objc, or 3) its type does not match the DBBStorageType specified in its class's persistenceMap.\n***********\n", log: logger, type: defaultLogType, propertyName, tableName)
+                showMissingProperty(propertyName, className: tableName, logger: logger)
                 continue
             }
             

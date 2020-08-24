@@ -10,7 +10,7 @@ import Foundation
 import DBBBuilder
 import os.log
 
-final class Project: DBBTableObject {
+class Project: DBBTableObject {
     private struct Keys {
         static let name = "name"
         static let code = "code"
@@ -45,7 +45,7 @@ final class Project: DBBTableObject {
                                                       Keys.tags : DBBPropertyPersistence(type: .stringArray),
                                                       Keys.subProject : DBBPropertyPersistence(type: .dbbObject(objectType: Project.self)),
                                                       Keys.projectLead : DBBPropertyPersistence(type: .dbbObject(objectType: Person.self))]
-        dbManager.addPersistenceMapContents(map, forTableNamed: shortName)
+        dbManager.addPersistenceMapping(map, for: self)
     }
     
     func addMeeting(_ meeting: Meeting) {

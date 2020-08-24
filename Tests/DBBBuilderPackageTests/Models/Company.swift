@@ -9,7 +9,7 @@
 import Foundation
 import DBBBuilder
 
-final class Company: DBBTableObject {
+class Company: DBBTableObject {
     private struct Keys {
         static let name = "name"
         static let address = "address"
@@ -51,6 +51,6 @@ final class Company: DBBTableObject {
     }
     
     private func configurePersistenceMap() {
-        dbManager.addPersistenceMapContents(companyMap, forTableNamed: shortName)
+        dbManager.addPersistenceMapping(companyMap, for: self)
     }
 }

@@ -47,3 +47,7 @@ struct DBBBuilder {
     }
 }
 
+func showMissingProperty(_ property: String, className: String, logger: OSLog) {
+    os_log("\n\n***********\nEncountered an exception checking the property '%@' from the persistence map for table/class '%@'. \nThis is probably because it is 1) not included in the DBBTableObject class, 2) is not marked as @objc, or 3) its type does not match the DBBStorageType specified in %@'s persistenceMap, or its key in the persistence map ('%@') does not match the property name — remember to check for case-sensitivity.\n***********\n", log: logger, type: defaultLogType, property, className, className, property)
+}
+

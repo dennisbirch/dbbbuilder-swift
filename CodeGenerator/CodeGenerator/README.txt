@@ -30,7 +30,7 @@ For example, the Test class declared with a default type of String and this inpu
 
 ...comes out as:
 
-final class Test: DBBTableObject {
+class Test: DBBTableObject {
     struct Keys {
         static let project = "project"
         static let participants = "participants"
@@ -57,6 +57,6 @@ final class Test: DBBTableObject {
         Keys.finishTime : DBBPropertyPersistence(type: .string),
         Keys.scheduledHours : DBBPropertyPersistence(type: .string)]
 
-        dbManager.addPersistenceMapContents(map, forTableNamed: shortName)
+        dbManager.addPersistenceMapping(map, for: self)
     }
 }

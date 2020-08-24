@@ -9,7 +9,7 @@
 import Foundation
 import DBBBuilder
 
-final class Person: DBBTableObject {
+class Person: DBBTableObject {
     struct Keys {
         static let firstName = "firstName"
         static let middleInitial = "middleInitial"
@@ -111,7 +111,7 @@ final class Person: DBBTableObject {
     }
     
     private func configurePersistenceMap() {
-        dbManager.addPersistenceMapContents(personMap, forTableNamed: shortName)
+        dbManager.addPersistenceMapping(personMap, for: self)
     }
     
     override func isEqual(_ object: Any?) -> Bool {
