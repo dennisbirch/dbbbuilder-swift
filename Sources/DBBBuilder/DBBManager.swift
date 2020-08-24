@@ -64,8 +64,32 @@ import os.log
         }
     }
     
+        /**
+         Public method to add persistence mapping for a DBBTableObject subclass. This mapping is required in order for any subclass to read and write data to and from the database.
+         
+         - Parameters:
+            - contents: A [String : DBBPropertyPersistence] dictionary that maps out the storage required for each property in the subclass.
+            - for: The DBBTableObject subclass whose table the mapped properties belong to.
+            - indexer: An optional DBBIndexer argument that defaults to nil. If you want to index any of the properties being mapped, include them in a DBBIndexer instance and pass that indexer in this argument.
+         */
+    public func addPersistenceMapping(_ contents: [String : DBBPropertyPersistence], for tableObject: DBBTableObject, indexer: DBBIndexer? = nil) {
+        if tableObject.superclass == NSObject.self {
+            return
+        }
+        
+        let tableName = tableObject.shortName
+        
+        // get the existing map for the DBBTableObject passed in, or a new instance
+        let map: DBBPersistenceMap = persistenceMap[tableName] ?? DBBPersistenceMap([String : DBBPropertyPersistence](), columnMap: [String : String]())
+        // add the new content
+        let newMap = map.appendDictionary(contents, indexer: indexer)
+        // and update the persistence map dictionary
+        persistenceMap[tableName] = newMap
+    }
+
+    @available(*, deprecated, message: "Please use addPersistenceMappin:_:for:indexer: instead")
     /**
-     Public method to add persistence mapping for a DBBTableObject subclass. This mapping is required in order for any subclass to read and write data to and from the database.
+     Public method to add the required persistence mapping for a DBBTableObject subclass. This method is deprecated and should be replaced with calls to addPersistenceMapping:_:forTableNamed:indexer:.
      
      - Parameters:
         - contents: A [String : DBBPropertyPersistence] dictionary that maps out the storage required for each property in the subclass.
@@ -85,7 +109,7 @@ import os.log
         // and update the persistence map dictionary
         persistenceMap[table] = newMap
     }
-    
+
     /**
      A convenience method for getting the count of objects for any DBBTableObject subclass type.
      

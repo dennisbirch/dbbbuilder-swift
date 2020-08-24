@@ -25,6 +25,7 @@
 		9578B3EF21F8330400219E8A /* EditButtonTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9578B3DA21F8330400219E8A /* EditButtonTableViewCell.swift */; };
 		9578B3F621F834F200219E8A /* FMDB.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9578B3F521F834F200219E8A /* FMDB.framework */; };
 		95C5D079221DCC2D00B1C938 /* FMDB.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9578B3F521F834F200219E8A /* FMDB.framework */; };
+		D83D3A5824F45D3F0019C1DD /* InheritanceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D83D3A5724F45D3F0019C1DD /* InheritanceTests.swift */; };
 		D8AD0F2F249C0DA4005A6344 /* Meeting.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8AD0F2B249C0DA4005A6344 /* Meeting.swift */; };
 		D8AD0F30249C0DA4005A6344 /* Person.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8AD0F2C249C0DA4005A6344 /* Person.swift */; };
 		D8AD0F31249C0DA4005A6344 /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8AD0F2D249C0DA4005A6344 /* Project.swift */; };
@@ -41,7 +42,6 @@
 		D8AD0F4C249C0DCF005A6344 /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8AD0F3D249C0DCE005A6344 /* Project.swift */; };
 		D8AD0F4D249C0DCF005A6344 /* Company.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8AD0F3E249C0DCE005A6344 /* Company.swift */; };
 		D8AD0F4E249C0DCF005A6344 /* MultiObjectSaveTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8AD0F3F249C0DCE005A6344 /* MultiObjectSaveTests.swift */; };
-		D8AD0F4F249C0DCF005A6344 /* XCTestManifests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8AD0F40249C0DCE005A6344 /* XCTestManifests.swift */; };
 		D8AD0F50249C0DCF005A6344 /* CommonTestTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8AD0F41249C0DCE005A6344 /* CommonTestTask.swift */; };
 		D8AD0F51249C0DCF005A6344 /* DBBDatabaseSetupTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8AD0F42249C0DCE005A6344 /* DBBDatabaseSetupTests.swift */; };
 /* End PBXBuildFile section */
@@ -82,6 +82,7 @@
 		95C5D06F221DCC0600B1C938 /* DBBBuilder-Demo-iOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "DBBBuilder-Demo-iOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		95C5D073221DCC0600B1C938 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A54DCCC71A322C8500D0A617 /* DBBBuilder-Demo-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "DBBBuilder-Demo-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		D83D3A5724F45D3F0019C1DD /* InheritanceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = InheritanceTests.swift; path = ../../Tests/DBBBuilderPackageTests/InheritanceTests.swift; sourceTree = "<group>"; };
 		D8AD0F2B249C0DA4005A6344 /* Meeting.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Meeting.swift; sourceTree = "<group>"; };
 		D8AD0F2C249C0DA4005A6344 /* Person.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Person.swift; sourceTree = "<group>"; };
 		D8AD0F2D249C0DA4005A6344 /* Project.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Project.swift; sourceTree = "<group>"; };
@@ -98,7 +99,6 @@
 		D8AD0F3D249C0DCE005A6344 /* Project.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Project.swift; sourceTree = "<group>"; };
 		D8AD0F3E249C0DCE005A6344 /* Company.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Company.swift; sourceTree = "<group>"; };
 		D8AD0F3F249C0DCE005A6344 /* MultiObjectSaveTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MultiObjectSaveTests.swift; path = ../../Tests/DBBBuilderPackageTests/MultiObjectSaveTests.swift; sourceTree = "<group>"; };
-		D8AD0F40249C0DCE005A6344 /* XCTestManifests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = XCTestManifests.swift; path = ../../Tests/DBBBuilderPackageTests/XCTestManifests.swift; sourceTree = "<group>"; };
 		D8AD0F41249C0DCE005A6344 /* CommonTestTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CommonTestTask.swift; path = ../../Tests/DBBBuilderPackageTests/CommonTestTask.swift; sourceTree = "<group>"; };
 		D8AD0F42249C0DCE005A6344 /* DBBDatabaseSetupTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DBBDatabaseSetupTests.swift; path = ../../Tests/DBBBuilderPackageTests/DBBDatabaseSetupTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -199,7 +199,7 @@
 				D8AD0F3F249C0DCE005A6344 /* MultiObjectSaveTests.swift */,
 				D8AD0F35249C0DCE005A6344 /* PreAndPostSaveActionTests.swift */,
 				D8AD0F33249C0DCE005A6344 /* SaveAtomicTypesTests.swift */,
-				D8AD0F40249C0DCE005A6344 /* XCTestManifests.swift */,
+				D83D3A5724F45D3F0019C1DD /* InheritanceTests.swift */,
 			);
 			path = "DBBBuilder-Demo-iOSTests";
 			sourceTree = "<group>";
@@ -392,7 +392,7 @@
 				D8AD0F4B249C0DCF005A6344 /* Person.swift in Sources */,
 				D8AD0F44249C0DCE005A6344 /* MeetingTests.swift in Sources */,
 				D8AD0F45249C0DCE005A6344 /* PreAndPostSaveActionTests.swift in Sources */,
-				D8AD0F4F249C0DCF005A6344 /* XCTestManifests.swift in Sources */,
+				D83D3A5824F45D3F0019C1DD /* InheritanceTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

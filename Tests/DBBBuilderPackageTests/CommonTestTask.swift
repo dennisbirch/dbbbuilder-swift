@@ -91,7 +91,7 @@ final class Testing: DBBTableObject {
         
         let map: [String : DBBPropertyPersistence] = ["name" : DBBPropertyPersistence(type: .string),
                                                       "age" : DBBPropertyPersistence(type: .int)]
-        dbManager.addPersistenceMapContents(map, forTableNamed: shortName)
+        dbManager.addPersistenceMapping(map, for: self)
     }    
 }
 
@@ -108,7 +108,7 @@ final class AlterTableTest: DBBTableObject {
         let map: [String : DBBPropertyPersistence] = ["name" : DBBPropertyPersistence(type: .string),
                                                       "date" : DBBPropertyPersistence(type: .date),
                                                       "count" : DBBPropertyPersistence(type: .int)]
-        dbManager.addPersistenceMapContents(map, forTableNamed: shortName)
+        dbManager.addPersistenceMapping(map, for: self)
     }
 }
 
@@ -125,7 +125,7 @@ final class AlterJoinTest: DBBTableObject {
         let map: [String : DBBPropertyPersistence] = ["name" : DBBPropertyPersistence(type: .string),
                                                       "date" : DBBPropertyPersistence(type: .date),
                                                       "count" : DBBPropertyPersistence(type: .int)]
-        dbManager.addPersistenceMapContents(map, forTableNamed: shortName)
+        dbManager.addPersistenceMapping(map, for: self)
     }
 }
 
@@ -172,7 +172,7 @@ final class AllTypesTestClass: DBBTableObject {
                    Keys.stringArrayTestVar : DBBPropertyPersistence(type: .stringArray),
                    Keys.dateArrayTestVar : DBBPropertyPersistence(type: .dateArray)]
         
-        dbManager.addPersistenceMapContents(map, forTableNamed: shortName)
+        dbManager.addPersistenceMapping(map, for: self)
     }
 }
 
@@ -234,6 +234,6 @@ class AllTypesCustomColumnsTestClass: DBBTableObject {
                    Keys.stringArrayTestVar : DBBPropertyPersistence(type: .stringArray, columnName: CustomColumnKeys.stringArrayTestCustom),
                    Keys.dateArrayTestVar : DBBPropertyPersistence(type: .dateArray, columnName: CustomColumnKeys.dateArrayTestCustom)]
         
-        dbManager.addPersistenceMapContents(map, forTableNamed: shortName)
+        dbManager.addPersistenceMapping(map, for: self)
     }
 }

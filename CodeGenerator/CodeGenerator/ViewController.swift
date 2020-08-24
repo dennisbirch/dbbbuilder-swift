@@ -104,7 +104,7 @@ dbManager.addPersistenceMapContents(map, forTableNamed: shortName)
         let joinedKeyText = keyText.joined(separator: "\n")
         let joinedVarText = varText.joined(separator: "\n")
         return """
-final class \(className): DBBTableObject {
+class \(className): DBBTableObject {
 struct Keys {
 \(joinedKeyText)
 }

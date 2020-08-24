@@ -88,7 +88,7 @@ class DBBDatabaseSetupTests: XCTestCase {
             return
         }
         let alterManager = DBBManager(databaseURL: url)
-        alterManager.addPersistenceMapContents(map, forTableNamed: instance.shortName)
+        alterManager.addPersistenceMapping(map, for: instance)
         alterManager.addTableClasses([AlterTableTest.self])
         guard let alteredColumns = CommonTestTask.tableColumnsDict(manager: alterManager) else {
             XCTFail()

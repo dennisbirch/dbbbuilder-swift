@@ -405,6 +405,22 @@ extension DBBTableObject {
             }
         }
         
+        // go up the class hierarchy (if exists) to get superclass properties
+        var superMirror = selfMirror.superclassMirror
+        while superMirror != nil && superMirror?.subjectType != DBBTableObject.self {
+            for case let (label?, value) in superMirror!.children {
+                let keyValue = (String(describing: label), String(describing: value))
+                if let type = persistenceMap.map[keyValue.0]?.storageType, type.name() == TypeNames.timeStamp, let date = value as? Date {
+                    let dateString = String(date.dbb_timeIntervalForDate())
+                    output.append((keyValue.0, dateString))
+                } else {
+                    output.append(keyValue)
+                }
+            }
+            
+            superMirror = superMirror?.superclassMirror
+        }
+        
         // add DBBTableObject properties
         if let createdTime = createdTime {
             output.append((Keys.createdTime, String(describing: createdTime.dbb_timeIntervalForDate())))
