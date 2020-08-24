@@ -99,7 +99,7 @@ class ParticipantListViewController: NSViewController, NSTableViewDelegate, NSTa
     
     @objc func editPersonForButton(_ sender: NSButton) {
         let row = sender.tag
-        guard allParticipants.count < row else {
+        guard allParticipants.count > row else {
             os_log("Out of range: row = %d, participants count = %d", row, allParticipants.count)
             return
         }
