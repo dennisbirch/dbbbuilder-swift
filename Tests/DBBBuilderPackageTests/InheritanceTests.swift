@@ -16,7 +16,8 @@ class InheritanceTests: XCTestCase {
     override func setUp() {
         super.setUp()
         
-        dbManager = CommonTestTask.defaultTestManager(tables: [Pet.self])
+        dbManager = CommonTestTask.defaultTestManager(tables: [Pet.self,
+                                                               Mammal.self])
     }
     
     
@@ -71,6 +72,73 @@ class InheritanceTests: XCTestCase {
         XCTAssertEqual(savedPuppy.legs, legs)
         XCTAssertEqual(savedPuppy.name, puppyName)
         XCTAssertEqual(savedPuppy.owner, owner)
+    }
+    
+    func testMultipleSubclasses() {
+        guard let manager = dbManager else {
+            XCTFail()
+            return
+        }
+        
+        let kitty = Pet(dbManager: manager)
+        let puppyName = "Homer"
+        let genus = "Cat"
+        let sex = "M"
+        let legs = 4
+        let age = 2
+        let owner = "Mom"
+        
+        kitty.genus = genus
+        kitty.sex = sex
+        kitty.legs = legs
+        kitty.age = age
+        kitty.name = puppyName
+        kitty.owner = owner
+        
+        var success = kitty.saveToDB()
+        XCTAssertTrue(success)
+        
+        let monkeyLegs = 3
+        let monkeyGenus = "Monkey"
+        let monkeySex = "N/A"
+        let monkey = Mammal(dbManager: manager)
+        monkey.genus = monkeyGenus
+        monkey.legs = monkeyLegs
+        monkey.sex = monkeySex
+        success = monkey.saveToDB()
+        XCTAssertTrue(success)
+        
+        let options = DBBQueryOptions.options(withConditions: ["\(Pet.Keys.Name) = \(puppyName.dbb_SQLEscaped())"])
+        let fetchedObject = Pet.instancesWithOptions(options, manager: manager)?.first
+        XCTAssertNotNil(fetchedObject)
+        let fetchedAnimal = fetchedObject as? Animal
+        XCTAssertNotNil(fetchedAnimal)
+        XCTAssertEqual(fetchedAnimal?.sex, sex)
+        let fetchedMammal = fetchedObject as? Mammal
+        XCTAssertNotNil(fetchedMammal)
+        XCTAssertEqual(fetchedMammal?.genus, genus)
+        XCTAssertEqual(fetchedMammal?.legs, legs)
+
+        guard let savedKitty = fetchedObject as? Pet else {
+            XCTFail()
+            return
+        }
+        
+        XCTAssertEqual(savedKitty.genus, genus)
+        XCTAssertEqual(savedKitty.sex, sex)
+        XCTAssertEqual(savedKitty.legs, legs)
+        XCTAssertEqual(savedKitty.name, puppyName)
+        XCTAssertEqual(savedKitty.owner, owner)
+
+        let fetchedMonkey = Mammal.allInstances(manager: manager).first as? Mammal
+        XCTAssertNotNil(fetchedMonkey)
+        guard let savedMonkey = fetchedMonkey else {
+            XCTFail()
+            return
+        }
+        XCTAssertEqual(savedMonkey.genus, monkeyGenus)
+        XCTAssertEqual(savedMonkey.legs, monkeyLegs)
+        XCTAssertEqual(savedMonkey.sex, monkeySex)
     }
 }
     
