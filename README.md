@@ -39,11 +39,11 @@ You should now be able to begin using DBBBuilder in your Xcode project.
 #### Swift Package Manager
 You can also use Swift Package Manager to add DBBBuilder to your iOS and macOS projects. To do so, with your project open in Xcode, choose File>Swift Packages>Add Package Dependency... and enter `https://github.com/dennisbirch/dbbbuilder-swift` in the text box of the _Choose Package Respository_ dialog that appears, then hit the _Next_ button on this and all subsequent screens until you see that the DBBBuilder library has been added to your project.
 
-###Using DBBBuilder Demos
+### Using DBBBuilder Demos
 
 The workspace in this repository includes demo projects and unit tests for iOS and macOS targets. You can examine the code in these projects to get guidance on using DBBBuilder. To run the projects and unit tests, you'll need to do some setup using either Carthage or the Swift Package Manager.
 
-####Carthage (default implementation):
+#### Carthage (default implementation):
 
 * Clone the repo
 * Install Carthage if necessary (see above)
@@ -53,7 +53,7 @@ The workspace in this repository includes demo projects and unit tests for iOS a
 * Select `DBBBuilder-Demo-OSX` or `DBBBuilder-Demo-iOS` scheme from scheme selector
 * Run unit tests or project
 
-####Swift Package Manager (requires Xcode 11.0 or higher):
+#### Swift Package Manager (requires Xcode 11.0 or higher):
 
 (The following actions must be performed separately for either scheme you want to work with, i.e. `DBBBuilder-Demo-OSX` or `DBBBuilder-Demo-iOS`)
 
