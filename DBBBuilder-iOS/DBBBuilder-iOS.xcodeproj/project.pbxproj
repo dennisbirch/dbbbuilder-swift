@@ -367,7 +367,7 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1016;
+				CURRENT_PROJECT_VERSION = 1017;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = B75Q6TLYBM;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -382,7 +382,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.4.0;
+				MARKETING_VERSION = 2.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.dennisbirch.DBBBuilder-iOS";
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
@@ -397,7 +397,7 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1016;
+				CURRENT_PROJECT_VERSION = 1017;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = B75Q6TLYBM;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -412,7 +412,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.4.0;
+				MARKETING_VERSION = 2.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.dennisbirch.DBBBuilder-iOS";
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
