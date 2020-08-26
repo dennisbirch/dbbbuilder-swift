@@ -22,6 +22,9 @@
 		D83D3A5524F420CE0019C1DD /* DBBBuilder.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D83D3A5424F420CE0019C1DD /* DBBBuilder.framework */; };
 		D83D3A5624F420CE0019C1DD /* DBBBuilder.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D83D3A5424F420CE0019C1DD /* DBBBuilder.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D83D3A5A24F45D4D0019C1DD /* InheritanceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D83D3A5924F45D4D0019C1DD /* InheritanceTests.swift */; };
+		D83D3A6D24F5DEDA0019C1DD /* ExceptionCatcher.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D83D3A6C24F5DEDA0019C1DD /* ExceptionCatcher.framework */; };
+		D83D3A6E24F5DEDA0019C1DD /* ExceptionCatcher.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D83D3A6C24F5DEDA0019C1DD /* ExceptionCatcher.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		D83D3A7024F5DF1A0019C1DD /* FMDB.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D83D3A6F24F5DF1A0019C1DD /* FMDB.framework */; };
 		D8AD0F0E249C0D0E005A6344 /* DBBDatabaseSetupTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8AD0EFE249C0D0E005A6344 /* DBBDatabaseSetupTests.swift */; };
 		D8AD0F0F249C0D0E005A6344 /* MeetingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8AD0EFF249C0D0E005A6344 /* MeetingTests.swift */; };
 		D8AD0F10249C0D0E005A6344 /* PreAndPostSaveActionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8AD0F00249C0D0E005A6344 /* PreAndPostSaveActionTests.swift */; };
@@ -60,6 +63,7 @@
 			dstSubfolderSpec = 10;
 			files = (
 				D83D3A5624F420CE0019C1DD /* DBBBuilder.framework in Embed Frameworks */,
+				D83D3A6E24F5DEDA0019C1DD /* ExceptionCatcher.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -87,6 +91,9 @@
 		95F9A1D921E2918B00E8E068 /* DBBBuilder-Demo-OSXTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "DBBBuilder-Demo-OSXTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D83D3A5424F420CE0019C1DD /* DBBBuilder.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = DBBBuilder.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D83D3A5924F45D4D0019C1DD /* InheritanceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = InheritanceTests.swift; path = ../../Tests/DBBBuilderPackageTests/InheritanceTests.swift; sourceTree = "<group>"; };
+		D83D3A6924F5DEC10019C1DD /* FMDB.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FMDB.framework; path = ../Carthage/Build/iOS/FMDB.framework; sourceTree = "<group>"; };
+		D83D3A6C24F5DEDA0019C1DD /* ExceptionCatcher.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = ExceptionCatcher.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D83D3A6F24F5DF1A0019C1DD /* FMDB.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FMDB.framework; path = ../Carthage/Build/Mac/FMDB.framework; sourceTree = "<group>"; };
 		D8AD0EFE249C0D0E005A6344 /* DBBDatabaseSetupTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DBBDatabaseSetupTests.swift; path = ../../Tests/DBBBuilderPackageTests/DBBDatabaseSetupTests.swift; sourceTree = "<group>"; };
 		D8AD0EFF249C0D0E005A6344 /* MeetingTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MeetingTests.swift; path = ../../Tests/DBBBuilderPackageTests/MeetingTests.swift; sourceTree = "<group>"; };
 		D8AD0F00249C0D0E005A6344 /* PreAndPostSaveActionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PreAndPostSaveActionTests.swift; path = ../../Tests/DBBBuilderPackageTests/PreAndPostSaveActionTests.swift; sourceTree = "<group>"; };
@@ -112,6 +119,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D83D3A6D24F5DEDA0019C1DD /* ExceptionCatcher.framework in Frameworks */,
+				D83D3A7024F5DF1A0019C1DD /* FMDB.framework in Frameworks */,
 				D83D3A5524F420CE0019C1DD /* DBBBuilder.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -143,6 +152,9 @@
 		95808A3621E959AD00CE7219 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D83D3A6F24F5DF1A0019C1DD /* FMDB.framework */,
+				D83D3A6C24F5DEDA0019C1DD /* ExceptionCatcher.framework */,
+				D83D3A6924F5DEC10019C1DD /* FMDB.framework */,
 				D83D3A5424F420CE0019C1DD /* DBBBuilder.framework */,
 			);
 			name = Frameworks;
@@ -563,10 +575,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = B75Q6TLYBM;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(PROJECT_DIR)/../Carthage/Build/Mac",
-					"$(PROJECT_DIR)/DBBBuilder-OSX/Carthage/Build/Mac",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/../Carthage/Build/Mac";
 				INFOPLIST_FILE = "$(SRCROOT)/DBBBuilder-Demo-OSX/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -589,10 +598,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = B75Q6TLYBM;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(PROJECT_DIR)/../Carthage/Build/Mac",
-					"$(PROJECT_DIR)/DBBBuilder-OSX/Carthage/Build/Mac",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/../Carthage/Build/Mac";
 				INFOPLIST_FILE = "$(SRCROOT)/DBBBuilder-Demo-OSX/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

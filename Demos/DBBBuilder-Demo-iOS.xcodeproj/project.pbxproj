@@ -23,9 +23,12 @@
 		9578B3ED21F8330400219E8A /* UIColorExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9578B3D721F8330400219E8A /* UIColorExtensions.swift */; };
 		9578B3EE21F8330400219E8A /* DBBDatePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9578B3D921F8330400219E8A /* DBBDatePickerView.swift */; };
 		9578B3EF21F8330400219E8A /* EditButtonTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9578B3DA21F8330400219E8A /* EditButtonTableViewCell.swift */; };
-		9578B3F621F834F200219E8A /* FMDB.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9578B3F521F834F200219E8A /* FMDB.framework */; };
-		95C5D079221DCC2D00B1C938 /* FMDB.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9578B3F521F834F200219E8A /* FMDB.framework */; };
 		D83D3A5824F45D3F0019C1DD /* InheritanceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D83D3A5724F45D3F0019C1DD /* InheritanceTests.swift */; };
+		D83D3A6124F5DD730019C1DD /* DBBBuilder.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D83D3A5B24F5D7750019C1DD /* DBBBuilder.framework */; };
+		D83D3A6224F5DD730019C1DD /* DBBBuilder.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D83D3A5B24F5D7750019C1DD /* DBBBuilder.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		D83D3A6424F5DD7D0019C1DD /* FMDB.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D83D3A5F24F5D8AA0019C1DD /* FMDB.framework */; };
+		D83D3A6724F5DE6C0019C1DD /* ExceptionCatcher.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D83D3A6624F5DE6C0019C1DD /* ExceptionCatcher.framework */; };
+		D83D3A6824F5DE6C0019C1DD /* ExceptionCatcher.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D83D3A6624F5DE6C0019C1DD /* ExceptionCatcher.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		D8AD0F2F249C0DA4005A6344 /* Meeting.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8AD0F2B249C0DA4005A6344 /* Meeting.swift */; };
 		D8AD0F30249C0DA4005A6344 /* Person.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8AD0F2C249C0DA4005A6344 /* Person.swift */; };
 		D8AD0F31249C0DA4005A6344 /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8AD0F2D249C0DA4005A6344 /* Project.swift */; };
@@ -56,11 +59,23 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		D83D3A6324F5DD730019C1DD /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				D83D3A6224F5DD730019C1DD /* DBBBuilder.framework in Embed Frameworks */,
+				D83D3A6824F5DE6C0019C1DD /* ExceptionCatcher.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		9554A0B421F8B92E004B778E /* DBBProjectExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DBBProjectExtensions.swift; sourceTree = "<group>"; };
-		956575CA21F7A5AE00540CF0 /* FMDB.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FMDB.framework; path = ../Frameworks/FMDB.framework; sourceTree = "<group>"; };
-		956575CB21F7A5AE00540CF0 /* DBBBuilder.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DBBBuilder.framework; path = ../Frameworks/DBBBuilder.framework; sourceTree = "<group>"; };
-		9578B3BB21F82F3000219E8A /* DBBBuilder.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = DBBBuilder.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9578B3C221F8330400219E8A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		9578B3C421F8330400219E8A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		9578B3C621F8330400219E8A /* MeetingListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeetingListViewController.swift; sourceTree = "<group>"; };
@@ -77,12 +92,13 @@
 		9578B3D921F8330400219E8A /* DBBDatePickerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DBBDatePickerView.swift; sourceTree = "<group>"; };
 		9578B3DA21F8330400219E8A /* EditButtonTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditButtonTableViewCell.swift; sourceTree = "<group>"; };
 		9578B3DB21F8330400219E8A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		9578B3F121F8344500219E8A /* DBBBuilder.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = DBBBuilder.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		9578B3F521F834F200219E8A /* FMDB.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FMDB.framework; path = "DBBBuilder-iOS/Carthage/Build/iOS/FMDB.framework"; sourceTree = "<group>"; };
 		95C5D06F221DCC0600B1C938 /* DBBBuilder-Demo-iOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "DBBBuilder-Demo-iOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		95C5D073221DCC0600B1C938 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A54DCCC71A322C8500D0A617 /* DBBBuilder-Demo-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "DBBBuilder-Demo-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D83D3A5724F45D3F0019C1DD /* InheritanceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = InheritanceTests.swift; path = ../../Tests/DBBBuilderPackageTests/InheritanceTests.swift; sourceTree = "<group>"; };
+		D83D3A5B24F5D7750019C1DD /* DBBBuilder.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = DBBBuilder.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D83D3A5F24F5D8AA0019C1DD /* FMDB.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FMDB.framework; path = ../Carthage/Build/iOS/FMDB.framework; sourceTree = "<group>"; };
+		D83D3A6624F5DE6C0019C1DD /* ExceptionCatcher.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = ExceptionCatcher.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D8AD0F2B249C0DA4005A6344 /* Meeting.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Meeting.swift; sourceTree = "<group>"; };
 		D8AD0F2C249C0DA4005A6344 /* Person.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Person.swift; sourceTree = "<group>"; };
 		D8AD0F2D249C0DA4005A6344 /* Project.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Project.swift; sourceTree = "<group>"; };
@@ -108,7 +124,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				95C5D079221DCC2D00B1C938 /* FMDB.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -116,7 +131,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9578B3F621F834F200219E8A /* FMDB.framework in Frameworks */,
+				D83D3A6724F5DE6C0019C1DD /* ExceptionCatcher.framework in Frameworks */,
+				D83D3A6124F5DD730019C1DD /* DBBBuilder.framework in Frameworks */,
+				D83D3A6424F5DD7D0019C1DD /* FMDB.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -175,11 +192,9 @@
 		957978491A33749C007329CC /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				9578B3F521F834F200219E8A /* FMDB.framework */,
-				9578B3F121F8344500219E8A /* DBBBuilder.framework */,
-				9578B3BB21F82F3000219E8A /* DBBBuilder.framework */,
-				956575CB21F7A5AE00540CF0 /* DBBBuilder.framework */,
-				956575CA21F7A5AE00540CF0 /* FMDB.framework */,
+				D83D3A6624F5DE6C0019C1DD /* ExceptionCatcher.framework */,
+				D83D3A5B24F5D7750019C1DD /* DBBBuilder.framework */,
+				D83D3A5F24F5D8AA0019C1DD /* FMDB.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -276,6 +291,7 @@
 				A54DCCC41A322C8500D0A617 /* Frameworks */,
 				A54DCCC51A322C8500D0A617 /* Resources */,
 				9578B3BE21F8303400219E8A /* ShellScript */,
+				D83D3A6324F5DD730019C1DD /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
