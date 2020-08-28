@@ -23,18 +23,18 @@
 		D8AD0ED5249C0B48005A6344 /* DBBDatabaseValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8AD0EC6249C0B48005A6344 /* DBBDatabaseValidator.swift */; };
 		D8AD0ED6249C0B48005A6344 /* DBBJoinMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8AD0EC7249C0B48005A6344 /* DBBJoinMap.swift */; };
 		D8CCA51A24F9A58800741D44 /* FMDB in Frameworks */ = {isa = PBXBuildFile; productRef = D8CCA51924F9A58800741D44 /* FMDB */; };
-		D8CCA52324F9A5B200741D44 /* ExceptionCatcher.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8CCA52224F9A5B200741D44 /* ExceptionCatcher.framework */; };
-		D8CCA52424F9A5B200741D44 /* ExceptionCatcher.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D8CCA52224F9A5B200741D44 /* ExceptionCatcher.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		D8D2EBD424F9C2B700B9C647 /* ExceptionCatcher_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D2EBD324F9C2B700B9C647 /* ExceptionCatcher_iOS.framework */; };
+		D8D2EBD524F9C2B700B9C647 /* ExceptionCatcher_iOS.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D8D2EBD324F9C2B700B9C647 /* ExceptionCatcher_iOS.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		D8CCA52524F9A5B200741D44 /* Embed Frameworks */ = {
+		D8D2EBD624F9C2B700B9C647 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				D8CCA52424F9A5B200741D44 /* ExceptionCatcher.framework in Embed Frameworks */,
+				D8D2EBD524F9C2B700B9C647 /* ExceptionCatcher_iOS.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -61,6 +61,7 @@
 		D8AD0EC6249C0B48005A6344 /* DBBDatabaseValidator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DBBDatabaseValidator.swift; sourceTree = "<group>"; };
 		D8AD0EC7249C0B48005A6344 /* DBBJoinMap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DBBJoinMap.swift; sourceTree = "<group>"; };
 		D8CCA52224F9A5B200741D44 /* ExceptionCatcher.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = ExceptionCatcher.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D8D2EBD324F9C2B700B9C647 /* ExceptionCatcher_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = ExceptionCatcher_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,7 +70,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D8CCA51A24F9A58800741D44 /* FMDB in Frameworks */,
-				D8CCA52324F9A5B200741D44 /* ExceptionCatcher.framework in Frameworks */,
+				D8D2EBD424F9C2B700B9C647 /* ExceptionCatcher_iOS.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -79,6 +80,7 @@
 		954E22F421EA7DBB00AE389A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D8D2EBD324F9C2B700B9C647 /* ExceptionCatcher_iOS.framework */,
 				D8CCA52224F9A5B200741D44 /* ExceptionCatcher.framework */,
 			);
 			name = Frameworks;
@@ -163,7 +165,7 @@
 				958089D321E94B5000CE7219 /* Sources */,
 				958089D421E94B5000CE7219 /* Frameworks */,
 				958089D521E94B5000CE7219 /* Resources */,
-				D8CCA52524F9A5B200741D44 /* Embed Frameworks */,
+				D8D2EBD624F9C2B700B9C647 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);

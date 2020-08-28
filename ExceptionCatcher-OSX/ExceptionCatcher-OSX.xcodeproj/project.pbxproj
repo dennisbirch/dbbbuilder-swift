@@ -14,7 +14,7 @@
 /* Begin PBXFileReference section */
 		D8AD0EFA249C0B8E005A6344 /* ExceptionCatcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ExceptionCatcher.m; path = ../Sources/ExceptionCatcher/include/ExceptionCatcher.m; sourceTree = "<group>"; };
 		D8AD0EFB249C0B8E005A6344 /* ExceptionCatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ExceptionCatcher.h; path = ../Sources/ExceptionCatcher/include/ExceptionCatcher.h; sourceTree = "<group>"; };
-		D8CBF19624981D1A0035CDE1 /* ExceptionCatcher.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ExceptionCatcher.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D8CBF19624981D1A0035CDE1 /* ExceptionCatcher_OSX.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ExceptionCatcher_OSX.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D8CBF208249853C80035CDE1 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -42,7 +42,7 @@
 		D8CBF19724981D1A0035CDE1 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				D8CBF19624981D1A0035CDE1 /* ExceptionCatcher.framework */,
+				D8CBF19624981D1A0035CDE1 /* ExceptionCatcher_OSX.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -61,9 +61,9 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		D8CBF19524981D1A0035CDE1 /* ExceptionCatcher */ = {
+		D8CBF19524981D1A0035CDE1 /* ExceptionCatcher-OSX */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = D8CBF19E24981D1A0035CDE1 /* Build configuration list for PBXNativeTarget "ExceptionCatcher" */;
+			buildConfigurationList = D8CBF19E24981D1A0035CDE1 /* Build configuration list for PBXNativeTarget "ExceptionCatcher-OSX" */;
 			buildPhases = (
 				D8CBF19124981D1A0035CDE1 /* Headers */,
 				D8CBF19224981D1A0035CDE1 /* Sources */,
@@ -74,9 +74,9 @@
 			);
 			dependencies = (
 			);
-			name = ExceptionCatcher;
+			name = "ExceptionCatcher-OSX";
 			productName = "ExceptionCatche-OSX";
-			productReference = D8CBF19624981D1A0035CDE1 /* ExceptionCatcher.framework */;
+			productReference = D8CBF19624981D1A0035CDE1 /* ExceptionCatcher_OSX.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 /* End PBXNativeTarget section */
@@ -106,7 +106,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				D8CBF19524981D1A0035CDE1 /* ExceptionCatcher */,
+				D8CBF19524981D1A0035CDE1 /* ExceptionCatcher-OSX */,
 			);
 		};
 /* End PBXProject section */
@@ -306,7 +306,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		D8CBF19E24981D1A0035CDE1 /* Build configuration list for PBXNativeTarget "ExceptionCatcher" */ = {
+		D8CBF19E24981D1A0035CDE1 /* Build configuration list for PBXNativeTarget "ExceptionCatcher-OSX" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D8CBF19F24981D1A0035CDE1 /* Debug */,

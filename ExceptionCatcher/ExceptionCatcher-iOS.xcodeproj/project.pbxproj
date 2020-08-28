@@ -14,7 +14,7 @@
 /* Begin PBXFileReference section */
 		D8AD0EF6249C0B7E005A6344 /* ExceptionCatcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ExceptionCatcher.m; path = ../Sources/ExceptionCatcher/include/ExceptionCatcher.m; sourceTree = "<group>"; };
 		D8AD0EF7249C0B7E005A6344 /* ExceptionCatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ExceptionCatcher.h; path = ../Sources/ExceptionCatcher/include/ExceptionCatcher.h; sourceTree = "<group>"; };
-		D8CBF15F249804E10035CDE1 /* ExceptionCatcher.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ExceptionCatcher.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D8CBF15F249804E10035CDE1 /* ExceptionCatcher_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ExceptionCatcher_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D8CBF1FF249851040035CDE1 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -42,7 +42,7 @@
 		D8CBF160249804E10035CDE1 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				D8CBF15F249804E10035CDE1 /* ExceptionCatcher.framework */,
+				D8CBF15F249804E10035CDE1 /* ExceptionCatcher_iOS.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -61,9 +61,9 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		D8CBF15E249804E10035CDE1 /* ExceptionCatcher */ = {
+		D8CBF15E249804E10035CDE1 /* ExceptionCatcher-iOS */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = D8CBF167249804E10035CDE1 /* Build configuration list for PBXNativeTarget "ExceptionCatcher" */;
+			buildConfigurationList = D8CBF167249804E10035CDE1 /* Build configuration list for PBXNativeTarget "ExceptionCatcher-iOS" */;
 			buildPhases = (
 				D8CBF15A249804E10035CDE1 /* Headers */,
 				D8CBF15B249804E10035CDE1 /* Sources */,
@@ -74,9 +74,9 @@
 			);
 			dependencies = (
 			);
-			name = ExceptionCatcher;
+			name = "ExceptionCatcher-iOS";
 			productName = ExceptionCatcher;
-			productReference = D8CBF15F249804E10035CDE1 /* ExceptionCatcher.framework */;
+			productReference = D8CBF15F249804E10035CDE1 /* ExceptionCatcher_iOS.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 /* End PBXNativeTarget section */
@@ -106,7 +106,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				D8CBF15E249804E10035CDE1 /* ExceptionCatcher */,
+				D8CBF15E249804E10035CDE1 /* ExceptionCatcher-iOS */,
 			);
 		};
 /* End PBXProject section */
@@ -261,6 +261,7 @@
 				"FRAMEWORK_SEARCH_PATHS[arch=*]" = ExceptionCatcher;
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -269,6 +270,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.dennisbirch.ExceptionCatcher;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
+				SUPPORTS_MACCATALYST = NO;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -284,6 +286,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -292,6 +295,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.dennisbirch.ExceptionCatcher;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
+				SUPPORTS_MACCATALYST = NO;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -308,7 +312,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		D8CBF167249804E10035CDE1 /* Build configuration list for PBXNativeTarget "ExceptionCatcher" */ = {
+		D8CBF167249804E10035CDE1 /* Build configuration list for PBXNativeTarget "ExceptionCatcher-iOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D8CBF168249804E10035CDE1 /* Debug */,
