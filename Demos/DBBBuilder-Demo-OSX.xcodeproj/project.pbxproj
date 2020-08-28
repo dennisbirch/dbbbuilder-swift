@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -38,6 +38,7 @@
 		D8AD0F27249C0D4E005A6344 /* Person.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8AD0F23249C0D4E005A6344 /* Person.swift */; };
 		D8AD0F28249C0D4E005A6344 /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8AD0F24249C0D4E005A6344 /* Project.swift */; };
 		D8AD0F29249C0D4E005A6344 /* Company.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8AD0F25249C0D4E005A6344 /* Company.swift */; };
+		D8CCA51724F9A4C400741D44 /* DBBBuilder in Frameworks */ = {isa = PBXBuildFile; productRef = D8CCA51624F9A4C400741D44 /* DBBBuilder */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -108,6 +109,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D8CCA51724F9A4C400741D44 /* DBBBuilder in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -258,6 +260,7 @@
 			);
 			name = "DBBBuilder-Demo-OSX";
 			packageProductDependencies = (
+				D8CCA51624F9A4C400741D44 /* DBBBuilder */,
 			);
 			productName = DBBBuilder;
 			productReference = 95F9A1C721E2918A00E8E068 /* DBBBuilder-Demo-OSX.app */;
@@ -316,6 +319,9 @@
 				Base,
 			);
 			mainGroup = 95F9A1BE21E2918A00E8E068;
+			packageReferences = (
+				D8CCA51524F9A4C400741D44 /* XCRemoteSwiftPackageReference "dbbbuilder-swift" */,
+			);
 			productRefGroup = 95F9A1C821E2918A00E8E068 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -683,6 +689,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		D8CCA51524F9A4C400741D44 /* XCRemoteSwiftPackageReference "dbbbuilder-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/dennisbirch/dbbbuilder-swift.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.1.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		D8CCA51624F9A4C400741D44 /* DBBBuilder */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D8CCA51524F9A4C400741D44 /* XCRemoteSwiftPackageReference "dbbbuilder-swift" */;
+			productName = DBBBuilder;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 95F9A1BF21E2918A00E8E068 /* Project object */;
 }
