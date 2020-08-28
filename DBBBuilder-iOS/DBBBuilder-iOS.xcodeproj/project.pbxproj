@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -22,7 +22,24 @@
 		D8AD0ED4249C0B48005A6344 /* DBBTableBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8AD0EC5249C0B48005A6344 /* DBBTableBuilder.swift */; };
 		D8AD0ED5249C0B48005A6344 /* DBBDatabaseValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8AD0EC6249C0B48005A6344 /* DBBDatabaseValidator.swift */; };
 		D8AD0ED6249C0B48005A6344 /* DBBJoinMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8AD0EC7249C0B48005A6344 /* DBBJoinMap.swift */; };
+		D8CCA51A24F9A58800741D44 /* FMDB in Frameworks */ = {isa = PBXBuildFile; productRef = D8CCA51924F9A58800741D44 /* FMDB */; };
+		D8CCA52324F9A5B200741D44 /* ExceptionCatcher.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8CCA52224F9A5B200741D44 /* ExceptionCatcher.framework */; };
+		D8CCA52424F9A5B200741D44 /* ExceptionCatcher.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D8CCA52224F9A5B200741D44 /* ExceptionCatcher.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		D8CCA52524F9A5B200741D44 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				D8CCA52424F9A5B200741D44 /* ExceptionCatcher.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		954DDFBE2222363E00E0BD05 /* Cartfile */ = {isa = PBXFileReference; lastKnownFileType = text; name = Cartfile; path = ../Cartfile; sourceTree = "<group>"; };
@@ -43,6 +60,7 @@
 		D8AD0EC5249C0B48005A6344 /* DBBTableBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DBBTableBuilder.swift; sourceTree = "<group>"; };
 		D8AD0EC6249C0B48005A6344 /* DBBDatabaseValidator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DBBDatabaseValidator.swift; sourceTree = "<group>"; };
 		D8AD0EC7249C0B48005A6344 /* DBBJoinMap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DBBJoinMap.swift; sourceTree = "<group>"; };
+		D8CCA52224F9A5B200741D44 /* ExceptionCatcher.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = ExceptionCatcher.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -50,6 +68,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D8CCA51A24F9A58800741D44 /* FMDB in Frameworks */,
+				D8CCA52324F9A5B200741D44 /* ExceptionCatcher.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -59,6 +79,7 @@
 		954E22F421EA7DBB00AE389A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D8CCA52224F9A5B200741D44 /* ExceptionCatcher.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -142,12 +163,16 @@
 				958089D321E94B5000CE7219 /* Sources */,
 				958089D421E94B5000CE7219 /* Frameworks */,
 				958089D521E94B5000CE7219 /* Resources */,
+				D8CCA52524F9A5B200741D44 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			name = DBBBuilder;
+			packageProductDependencies = (
+				D8CCA51924F9A58800741D44 /* FMDB */,
+			);
 			productName = "DBBBuilder-iOS";
 			productReference = 958089D721E94B5000CE7219 /* DBBBuilder.framework */;
 			productType = "com.apple.product-type.framework";
@@ -177,6 +202,9 @@
 				Base,
 			);
 			mainGroup = 958089CD21E94B5000CE7219;
+			packageReferences = (
+				D8CCA51824F9A58800741D44 /* XCRemoteSwiftPackageReference "fmdb" */,
+			);
 			productRefGroup = 958089D821E94B5000CE7219 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -426,6 +454,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		D8CCA51824F9A58800741D44 /* XCRemoteSwiftPackageReference "fmdb" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ccgus/fmdb";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.7.7;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		D8CCA51924F9A58800741D44 /* FMDB */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D8CCA51824F9A58800741D44 /* XCRemoteSwiftPackageReference "fmdb" */;
+			productName = FMDB;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 958089CE21E94B5000CE7219 /* Project object */;
 }
