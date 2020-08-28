@@ -24,11 +24,6 @@
 		9578B3EE21F8330400219E8A /* DBBDatePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9578B3D921F8330400219E8A /* DBBDatePickerView.swift */; };
 		9578B3EF21F8330400219E8A /* EditButtonTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9578B3DA21F8330400219E8A /* EditButtonTableViewCell.swift */; };
 		D83D3A5824F45D3F0019C1DD /* InheritanceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D83D3A5724F45D3F0019C1DD /* InheritanceTests.swift */; };
-		D83D3A6124F5DD730019C1DD /* DBBBuilder.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D83D3A5B24F5D7750019C1DD /* DBBBuilder.framework */; };
-		D83D3A6224F5DD730019C1DD /* DBBBuilder.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D83D3A5B24F5D7750019C1DD /* DBBBuilder.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		D83D3A6424F5DD7D0019C1DD /* FMDB.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D83D3A5F24F5D8AA0019C1DD /* FMDB.framework */; };
-		D83D3A6724F5DE6C0019C1DD /* ExceptionCatcher.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D83D3A6624F5DE6C0019C1DD /* ExceptionCatcher.framework */; };
-		D83D3A6824F5DE6C0019C1DD /* ExceptionCatcher.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D83D3A6624F5DE6C0019C1DD /* ExceptionCatcher.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		D8AD0F2F249C0DA4005A6344 /* Meeting.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8AD0F2B249C0DA4005A6344 /* Meeting.swift */; };
 		D8AD0F30249C0DA4005A6344 /* Person.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8AD0F2C249C0DA4005A6344 /* Person.swift */; };
 		D8AD0F31249C0DA4005A6344 /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8AD0F2D249C0DA4005A6344 /* Project.swift */; };
@@ -66,8 +61,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				D83D3A6224F5DD730019C1DD /* DBBBuilder.framework in Embed Frameworks */,
-				D83D3A6824F5DE6C0019C1DD /* ExceptionCatcher.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -96,9 +89,6 @@
 		95C5D073221DCC0600B1C938 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A54DCCC71A322C8500D0A617 /* DBBBuilder-Demo-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "DBBBuilder-Demo-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D83D3A5724F45D3F0019C1DD /* InheritanceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = InheritanceTests.swift; path = ../../Tests/DBBBuilderPackageTests/InheritanceTests.swift; sourceTree = "<group>"; };
-		D83D3A5B24F5D7750019C1DD /* DBBBuilder.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = DBBBuilder.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		D83D3A5F24F5D8AA0019C1DD /* FMDB.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FMDB.framework; path = ../Carthage/Build/iOS/FMDB.framework; sourceTree = "<group>"; };
-		D83D3A6624F5DE6C0019C1DD /* ExceptionCatcher.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = ExceptionCatcher.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D8AD0F2B249C0DA4005A6344 /* Meeting.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Meeting.swift; sourceTree = "<group>"; };
 		D8AD0F2C249C0DA4005A6344 /* Person.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Person.swift; sourceTree = "<group>"; };
 		D8AD0F2D249C0DA4005A6344 /* Project.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Project.swift; sourceTree = "<group>"; };
@@ -131,9 +121,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D83D3A6724F5DE6C0019C1DD /* ExceptionCatcher.framework in Frameworks */,
-				D83D3A6124F5DD730019C1DD /* DBBBuilder.framework in Frameworks */,
-				D83D3A6424F5DD7D0019C1DD /* FMDB.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -192,9 +179,6 @@
 		957978491A33749C007329CC /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				D83D3A6624F5DE6C0019C1DD /* ExceptionCatcher.framework */,
-				D83D3A5B24F5D7750019C1DD /* DBBBuilder.framework */,
-				D83D3A5F24F5D8AA0019C1DD /* FMDB.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";

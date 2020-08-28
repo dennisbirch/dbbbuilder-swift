@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		954DDF7D2221B35C00E0BD05 /* FMDB.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 954DDF7C2221B35C00E0BD05 /* FMDB.framework */; };
-		958089C721E94B3100CE7219 /* DBBBuilder.h in Headers */ = {isa = PBXBuildFile; fileRef = 958089C521E94B3100CE7219 /* DBBBuilder.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D8AD0EE7249C0B60005A6344 /* DBBStorageType.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8AD0ED8249C0B60005A6344 /* DBBStorageType.swift */; };
 		D8AD0EE8249C0B60005A6344 /* DBBBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8AD0ED9249C0B60005A6344 /* DBBBuilder.swift */; };
 		D8AD0EE9249C0B60005A6344 /* TableObjectWriting.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8AD0EDA249C0B60005A6344 /* TableObjectWriting.swift */; };
@@ -24,18 +22,12 @@
 		D8AD0EF3249C0B60005A6344 /* DBBTableBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8AD0EE4249C0B60005A6344 /* DBBTableBuilder.swift */; };
 		D8AD0EF4249C0B60005A6344 /* DBBDatabaseValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8AD0EE5249C0B60005A6344 /* DBBDatabaseValidator.swift */; };
 		D8AD0EF5249C0B60005A6344 /* DBBJoinMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8AD0EE6249C0B60005A6344 /* DBBJoinMap.swift */; };
-		D8CBF1AF24981EA90035CDE1 /* ExceptionCatcher.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8CBF18824981CC30035CDE1 /* ExceptionCatcher.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		954DDF782221B2A200E0BD05 /* FMDB.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FMDB.framework; path = "../DBBBuilder-iOS/Carthage/Build/Mac/FMDB.framework"; sourceTree = "<group>"; };
-		954DDF7C2221B35C00E0BD05 /* FMDB.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FMDB.framework; path = ../Carthage/Build/Mac/FMDB.framework; sourceTree = "<group>"; };
 		954DDFBC2222362B00E0BD05 /* Cartfile */ = {isa = PBXFileReference; lastKnownFileType = text; name = Cartfile; path = ../../Cartfile; sourceTree = "<group>"; };
-		954DDFBD2222362B00E0BD05 /* Cartfile.resolved */ = {isa = PBXFileReference; lastKnownFileType = text; name = Cartfile.resolved; path = ../../Cartfile.resolved; sourceTree = "<group>"; };
 		958089C221E94B3100CE7219 /* DBBBuilder.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DBBBuilder.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		958089C521E94B3100CE7219 /* DBBBuilder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DBBBuilder.h; sourceTree = "<group>"; };
 		958089C621E94B3100CE7219 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		9588E1F422211F9A00944D18 /* FMDB.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FMDB.framework; path = Carthage/Build/Mac/FMDB.framework; sourceTree = "<group>"; };
 		D8AD0ED8249C0B60005A6344 /* DBBStorageType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DBBStorageType.swift; sourceTree = "<group>"; };
 		D8AD0ED9249C0B60005A6344 /* DBBBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DBBBuilder.swift; sourceTree = "<group>"; };
 		D8AD0EDA249C0B60005A6344 /* TableObjectWriting.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableObjectWriting.swift; sourceTree = "<group>"; };
@@ -51,9 +43,6 @@
 		D8AD0EE4249C0B60005A6344 /* DBBTableBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DBBTableBuilder.swift; sourceTree = "<group>"; };
 		D8AD0EE5249C0B60005A6344 /* DBBDatabaseValidator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DBBDatabaseValidator.swift; sourceTree = "<group>"; };
 		D8AD0EE6249C0B60005A6344 /* DBBJoinMap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DBBJoinMap.swift; sourceTree = "<group>"; };
-		D8CBF172249817F00035CDE1 /* ExceptionCatcher.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = ExceptionCatcher.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		D8CBF18824981CC30035CDE1 /* ExceptionCatcher.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = ExceptionCatcher.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		D8CBF1AB24981DC70035CDE1 /* ExceptionCatcher_OSX.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = ExceptionCatcher_OSX.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,8 +50,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				954DDF7D2221B35C00E0BD05 /* FMDB.framework in Frameworks */,
-				D8CBF1AF24981EA90035CDE1 /* ExceptionCatcher.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -72,12 +59,6 @@
 		954E22E521EA6C4600AE389A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				D8CBF1AB24981DC70035CDE1 /* ExceptionCatcher_OSX.framework */,
-				D8CBF18824981CC30035CDE1 /* ExceptionCatcher.framework */,
-				D8CBF172249817F00035CDE1 /* ExceptionCatcher.framework */,
-				954DDF7C2221B35C00E0BD05 /* FMDB.framework */,
-				954DDF782221B2A200E0BD05 /* FMDB.framework */,
-				9588E1F422211F9A00944D18 /* FMDB.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -86,7 +67,6 @@
 			isa = PBXGroup;
 			children = (
 				954DDFBC2222362B00E0BD05 /* Cartfile */,
-				954DDFBD2222362B00E0BD05 /* Cartfile.resolved */,
 			);
 			name = "Carthage support";
 			sourceTree = "<group>";
@@ -112,7 +92,6 @@
 			isa = PBXGroup;
 			children = (
 				954E22F221EA723400AE389A /* Carthage support */,
-				958089C521E94B3100CE7219 /* DBBBuilder.h */,
 				958089C621E94B3100CE7219 /* Info.plist */,
 				D8AD0ED7249C0B60005A6344 /* DBBBuilder */,
 			);
@@ -149,7 +128,6 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				958089C721E94B3100CE7219 /* DBBBuilder.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
