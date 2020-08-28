@@ -39,28 +39,44 @@ You should now be able to begin using DBBBuilder in your Xcode project.
 #### Swift Package Manager
 You can also use Swift Package Manager to add DBBBuilder to your iOS and macOS projects. To do so, with your project open in Xcode, choose File>Swift Packages>Add Package Dependency... and enter `https://github.com/dennisbirch/dbbbuilder-swift` in the text box of the _Choose Package Respository_ dialog that appears, then hit the _Next_ button on this and all subsequent screens until you see that the DBBBuilder library has been added to your project.
 
-### Using DBBBuilder Demos
+###Setup for building frameworks and running demos
 
 The workspace in this repository includes demo projects and unit tests for iOS and macOS targets. You can examine the code in these projects to get guidance on using DBBBuilder. To run the projects and unit tests, you'll need to do some setup using either Carthage or the Swift Package Manager.
 
-#### Carthage (default implementation):
+####Using Carthage (default implementation):
 
 * Clone the repo
-* Install Carthage if necessary (see above)
-* In terminal app, cd into the dbbbuilder-swift directory
-* Run `carthage update`
-* Open the DBBBuilder-Swift.workspace file in Xcode
-* Select `DBBBuilder-Demo-OSX` or `DBBBuilder-Demo-iOS` scheme from scheme selector
-* Run unit tests or project
-
-#### Swift Package Manager (requires Xcode 11.0 or higher):
+* Install Carthage if necessary
+* In terminal app, CD into the dbbbuilder-swift directory
+* Run 'carthage update'
+* Open DBBBuilder-Swift.workspace in Xcode
 
 (The following actions must be performed separately for either scheme you want to work with, i.e. `DBBBuilder-Demo-OSX` or `DBBBuilder-Demo-iOS`)
 
-* On the General tab for the target, remove the DBBBuilder, FMDB and ExceptionCatcher frameworks from the `Frameworks, Libraries and Embedded Content` section.
-* Remove the same frameworks from the `Frameworks` group in the Project navigator
-* On the `Build Phases` tab, remove the Run Script (whose code is: "/usr/local/bin/carthage copy-frameworks")
-* Configure the project with the Swift package (from https://github.com/dennisbirch/dbbbuilder-swift) [following the directions available from Apple] (https://developer.apple.com/documentation/xcode/adding_package_dependencies_to_your_app).
+* Enable building the iOS or OSX framework you're interested in working with:
+    * Select `DBBBuilder-OSX` or `DBBBuilder-iOS` in the project navigator
+    * On the General tab of the Project editor panel, add the ExceptionCatcher.framework in the `Frameworks and Libraries` section
+
+    ![Adding the ExceptionCatcher framework to the DBBBuilder-OSX target](images/Add-exception-catcher-framework.png)
+    
+    * At this point you should be able to successfully build the selected framework
+* Enable running the demo project:
+    * In the Project navigator, select the corresponding demo project (i.e. `DBBBuilder-Demo-OSX` or `DBBBuilder-Demo-iOS`) 
+    * Add the DBBBuilder.framework in the `Frameworks, Libraries and Embedded Content` section
+     
+    ![Adding the DBBBuilder framework to the DBBBuilder-Demo-OSX target](images/Add-dbbbuilder-framework.png)
+* Select the appropriate `DBBBuilder-Demo-OSX` or `DBBBuilder-Demo-iOS` scheme from scheme selector and run the project or unit tests
+
+
+####Using Swift Package Manager (requires Xcode 11.0 or higher):
+
+(The following actions must be performed separately for either scheme you want to work with, i.e. `DBBBuilder-Demo-OSX` or `DBBBuilder-Demo-iOS`)
+
+* Enable building the iOS or OSX framework you're interested in working with (__only required if you want to build the framework separately__):
+    * Select `DBBBuilder-OSX` or `DBBBuilder-iOS` in the project navigator
+    * On the General tab of the Project editor panel, add the ExceptionCatcher.framework in the `Frameworks and Libraries` section as displayed above
+* Enable running the demo project:
+    * Configure the project with the Swift package (from https://github.com/dennisbirch/dbbbuilder-swift) following the directions available at https://developer.apple.com/documentation/xcode/adding_package_dependencies_to_your_app.
 * Run unit tests or project
 
 
