@@ -15,8 +15,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "D8CBF15E249804E10035CDE1"
-               BuildableName = "ExceptionCatcher_iOS.framework"
-               BlueprintName = "ExceptionCatcher-iOS"
+               BuildableName = "ExceptionCatcher.framework"
+               BlueprintName = "ExceptionCatcher"
                ReferencedContainer = "container:ExceptionCatcher-iOS.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -51,8 +51,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "D8CBF15E249804E10035CDE1"
-            BuildableName = "ExceptionCatcher_iOS.framework"
-            BlueprintName = "ExceptionCatcher-iOS"
+            BuildableName = "ExceptionCatcher.framework"
+            BlueprintName = "ExceptionCatcher"
             ReferencedContainer = "container:ExceptionCatcher-iOS.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
