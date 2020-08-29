@@ -8,7 +8,7 @@
 - Builds frameworks for iOS and Mac projects
 - Generates and updates SQLite database files and tables automatically based on your class definitions
 - Can be used with existing SQLite database files
-- Install with Carthage or use as a Swift Package with SPM
+- Install with Swift Package Manager or Carthage
 - Swift 5
 - Xcode 10.1 or higher
 
@@ -20,11 +20,14 @@ DBBBuilder takes care of creating and updating the database file, including all 
 
 ### Installation
 
+#### Swift Package Manager
+You can use Swift Package Manager to add DBBBuilder to your iOS, WatchOS and macOS projects. To do so, with your project open in Xcode, choose File>Swift Packages>Add Package Dependency... and enter `https://github.com/dennisbirch/dbbbuilder-swift` in the text box of the _Choose Package Respository_ dialog that appears. Then hit the _Next_ or _Finish__ button on this and all subsequent screens until you see that the DBBBuilder library has been added to your project.
+
 #### Carthage
 
-You can add DBBBuilder to your Xcode project using the [Carthage](https://github.com/Carthage/Carthage) dependency manager.
+You can also add DBBBuilder to your Xcode project using the [Carthage](https://github.com/Carthage/Carthage) dependency manager.
 
-After [installing Carthage](https://github.com/Carthage/Carthage#quick-start), add a dependency statement for DBBBuilder to your Cartfile:
+Start by [installing Carthage](https://github.com/Carthage/Carthage#quick-start), if necessary. Add a Cartfile to your project folder if necessary. Then add a dependency statement for DBBBuilder to your Cartfile:
 
 `github "https://github.com/dennisbirch/dbbbuilder-swift/"`
 
@@ -32,12 +35,9 @@ Then in Terminal, cd into your project directory and run Carthage update:
 
 `carthage update`
 
-Then follow the [directions for adding frameworks to your project.](https://github.com/Carthage/Carthage#adding-frameworks-to-an-application) Be sure to add the FMDB and DBBBuilder frameworks to your "Link Binary with Libraries" list in the Build Phases of the target setup pane. Also be sure to add the "libsqlite3.tbd" library.
+Then follow the [directions for adding frameworks to your project.](https://github.com/Carthage/Carthage#adding-frameworks-to-an-application) Be sure to add the FMDB, DBBBuilder, and ExceptionCatcher frameworks to your "Link Binary with Libraries" list in the Build Phases of the target setup pane.
 
 You should now be able to begin using DBBBuilder in your Xcode project.
-
-#### Swift Package Manager
-You can also use Swift Package Manager to add DBBBuilder to your iOS and macOS projects. To do so, with your project open in Xcode, choose File>Swift Packages>Add Package Dependency... and enter `https://github.com/dennisbirch/dbbbuilder-swift` in the text box of the _Choose Package Respository_ dialog that appears, then hit the _Next_ button on this and all subsequent screens until you see that the DBBBuilder library has been added to your project.
 
 ### Setup for building frameworks and running demos
 
