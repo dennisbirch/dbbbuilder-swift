@@ -5,7 +5,7 @@ import PackageDescription
 
 let package = Package(
     name: "DBBBuilder",
-    platforms: [.iOS(.v11),
+    platforms: [.iOS(.v10),
                 .macOS(.v10_12),
                 .watchOS(.v4)],
     products: [
