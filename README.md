@@ -35,7 +35,9 @@ Then in Terminal, cd into your project directory and run Carthage update:
 
 `carthage update`
 
-Then follow the [directions for adding frameworks to your project.](https://github.com/Carthage/Carthage#adding-frameworks-to-an-application) Be sure to add the FMDB, DBBBuilder, and ExceptionCatcher frameworks to your "Link Binary with Libraries" list in the Build Phases of the target setup pane.
+Then add a Run Script step to your target's Build Phases section. Be sure to add the FMDB, DBBBuilder, and ExceptionCatcher frameworks.
+
+![Configuring a project to use DBBBuilder with Carthage](images/carthage-build-phase.png)
 
 You should now be able to begin using DBBBuilder in your Xcode project.
 
