@@ -14,7 +14,7 @@
 /* Begin PBXFileReference section */
 		D8AD0EF6249C0B7E005A6344 /* ExceptionCatcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ExceptionCatcher.m; path = ../Sources/ExceptionCatcher/include/ExceptionCatcher.m; sourceTree = "<group>"; };
 		D8AD0EF7249C0B7E005A6344 /* ExceptionCatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ExceptionCatcher.h; path = ../Sources/ExceptionCatcher/include/ExceptionCatcher.h; sourceTree = "<group>"; };
-		D8CBF15F249804E10035CDE1 /* ExceptionCatcher_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ExceptionCatcher_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D8CBF15F249804E10035CDE1 /* ExceptionCatcher.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ExceptionCatcher.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D8CBF1FF249851040035CDE1 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -42,7 +42,7 @@
 		D8CBF160249804E10035CDE1 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				D8CBF15F249804E10035CDE1 /* ExceptionCatcher_iOS.framework */,
+				D8CBF15F249804E10035CDE1 /* ExceptionCatcher.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -76,7 +76,7 @@
 			);
 			name = "ExceptionCatcher-iOS";
 			productName = ExceptionCatcher;
-			productReference = D8CBF15F249804E10035CDE1 /* ExceptionCatcher_iOS.framework */;
+			productReference = D8CBF15F249804E10035CDE1 /* ExceptionCatcher.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 /* End PBXNativeTarget section */
@@ -268,7 +268,7 @@
 					"@loader_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.dennisbirch.ExceptionCatcher;
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PRODUCT_NAME = ExceptionCatcher;
 				SKIP_INSTALL = YES;
 				SUPPORTS_MACCATALYST = NO;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -293,7 +293,7 @@
 					"@loader_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.dennisbirch.ExceptionCatcher;
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PRODUCT_NAME = ExceptionCatcher;
 				SKIP_INSTALL = YES;
 				SUPPORTS_MACCATALYST = NO;
 				TARGETED_DEVICE_FAMILY = "1,2";
