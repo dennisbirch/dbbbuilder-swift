@@ -142,12 +142,12 @@ extension DBBTableObject {
             if let joinMap = map[className] {
                 for (key, _) in joinMap {
                     if let propertyType = joinMap[key]?.propertyType,
-                        propertyType.isSavedToJoinTableType() == true {
-                        continue
-                    }
-
-                    if propertiesToSave.contains(key) == false {
-                        propertiesToSave.append(key)
+                        propertyType.isSavedToJoinTableType() == true,
+                        let propertyColumnMap = dbManager.persistenceMap[className]?.propertyColumnMap,
+                        let propertyName = propertyColumnMap[key],
+                        propertiesToSave.contains(propertyName) == false
+                    {
+                        propertiesToSave.append(propertyName)
                     }
                 }
             }

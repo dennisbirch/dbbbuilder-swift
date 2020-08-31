@@ -99,7 +99,7 @@ public enum DBBStorageType {
         case .bool, .int, .float, .date, .string:
             return false
         default:
-            // should be DBBTableObjectArray
+            // should be DBBTableObject or DBBTableObjectArray
             return true
         }
     }

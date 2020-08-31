@@ -39,7 +39,32 @@ class InheritanceTests: XCTestCase {
         let sex = "F"
         let legs = 4
         let age = 1
-        let owner = "Me"
+        let foods = ["Small Dog Kibble", "Puppy Chow"]
+        let diet = "Anything"
+        let owner = Mammal(dbManager: manager)
+        owner.genus = "Human"
+        owner.legs = 2
+        
+        let brotherName = "Cosmo"
+        let sisterName = "Poppy"
+        
+        let brother = Pet(dbManager: manager)
+        brother.name = brotherName
+        brother.genus = genus
+        brother.legs = legs
+        
+        let sister = Pet(dbManager: manager)
+        sister.name = sisterName
+        sister.genus = genus
+        sister.legs = legs
+        
+        var success = brother.saveToDB()
+        XCTAssertTrue(success)
+        let brotherID = brother.idNum
+
+        success = sister.saveToDB()
+        XCTAssertTrue(success)
+        let sisterID = sister.idNum
         
         puppy.genus = genus
         puppy.sex = sex
@@ -47,8 +72,11 @@ class InheritanceTests: XCTestCase {
         puppy.age = age
         puppy.name = puppyName
         puppy.owner = owner
+        puppy.foods = foods
+        puppy.diet = diet
+        puppy.siblings = [sister, brother]
         
-        let success = puppy.saveToDB()
+        success = puppy.saveToDB()
         XCTAssertTrue(success)
         
         let options = DBBQueryOptions.options(withConditions: ["\(Pet.Keys.Name) = \(puppyName.dbb_SQLEscaped())"])
@@ -71,7 +99,26 @@ class InheritanceTests: XCTestCase {
         XCTAssertEqual(savedPuppy.sex, sex)
         XCTAssertEqual(savedPuppy.legs, legs)
         XCTAssertEqual(savedPuppy.name, puppyName)
-        XCTAssertEqual(savedPuppy.owner, owner)
+        XCTAssertEqual(savedPuppy.diet, diet)
+        XCTAssertEqual(savedPuppy.foods, foods)
+        XCTAssertNotNil(savedPuppy.owner)
+        guard let savedOwner = savedPuppy.owner else {
+            XCTFail()
+            return
+        }
+        XCTAssertEqual(savedOwner.genus, owner.genus)
+        XCTAssertEqual(savedOwner.legs, owner.legs)
+        
+        let savedSiblings = savedPuppy.siblings
+        let savedSister = savedSiblings.first(where: {$0.idNum == sisterID})
+        XCTAssertNotNil(savedSister)
+        
+        let savedBrother = savedSiblings.first(where: {$0.idNum == brotherID})
+        XCTAssertNotNil(savedBrother)
+        
+        XCTAssertEqual(savedSister?.name, sisterName)
+        
+        XCTAssertEqual(savedBrother?.name, brotherName)
     }
     
     func testMultipleSubclasses() {
@@ -86,8 +133,10 @@ class InheritanceTests: XCTestCase {
         let sex = "M"
         let legs = 4
         let age = 2
-        let owner = "Mom"
-        
+        let owner = Mammal(dbManager: manager)
+        owner.genus = "Human"
+        owner.legs = 2
+
         kitty.genus = genus
         kitty.sex = sex
         kitty.legs = legs
@@ -107,6 +156,7 @@ class InheritanceTests: XCTestCase {
         monkey.sex = monkeySex
         success = monkey.saveToDB()
         XCTAssertTrue(success)
+        let monkeyID = monkey.idNum
         
         let options = DBBQueryOptions.options(withConditions: ["\(Pet.Keys.Name) = \(puppyName.dbb_SQLEscaped())"])
         let fetchedObject = Pet.instancesWithOptions(options, manager: manager)?.first
@@ -128,17 +178,24 @@ class InheritanceTests: XCTestCase {
         XCTAssertEqual(savedKitty.sex, sex)
         XCTAssertEqual(savedKitty.legs, legs)
         XCTAssertEqual(savedKitty.name, puppyName)
-        XCTAssertEqual(savedKitty.owner, owner)
 
-        let fetchedMonkey = Mammal.allInstances(manager: manager).first as? Mammal
+        let fetchedMonkey = Mammal.instanceWithIDNumber(monkeyID, manager: manager)
         XCTAssertNotNil(fetchedMonkey)
-        guard let savedMonkey = fetchedMonkey else {
+        guard let savedMonkey = fetchedMonkey as? Mammal else {
             XCTFail()
             return
         }
         XCTAssertEqual(savedMonkey.genus, monkeyGenus)
         XCTAssertEqual(savedMonkey.legs, monkeyLegs)
         XCTAssertEqual(savedMonkey.sex, monkeySex)
+        
+        XCTAssertNotNil(savedKitty.owner)
+        guard let kittyOwner = savedKitty.owner else {
+            XCTFail()
+            return
+        }
+        XCTAssertEqual(kittyOwner.genus, owner.genus)
+        XCTAssertEqual(kittyOwner.legs, owner.legs)
     }
 }
     
@@ -146,15 +203,18 @@ class InheritanceTests: XCTestCase {
 class Animal: DBBTableObject {
     struct Keys {
         static let Sex = "sex"
+        static let Diet = "diet"
     }
     
     @objc var sex = ""
-    
+    @objc var diet = ""
+
     required init(dbManager: DBBManager) {
         super.init(dbManager: dbManager)
         
-        let map: [String : DBBPropertyPersistence] = [Keys.Sex : DBBPropertyPersistence(type: .string)]
-        
+        let map: [String : DBBPropertyPersistence] = [Keys.Sex : DBBPropertyPersistence(type: .string),
+                                                      Keys.Diet : DBBPropertyPersistence(type: .string)]
+
         dbManager.addPersistenceMapping(map, for: self)
     }
 }
@@ -183,21 +243,24 @@ class Pet: Mammal {
         static let Name = "name"
         static let Age = "age"
         static let Owner = "owner"
-        static let Diet = "diet"
+        static let Foods = "foods"
+        static let Siblings = "siblings"
     }
     
     @objc var name = ""
     @objc var age = 0
-    @objc var owner = ""
-    @objc var diet = ""
+    @objc var owner: Mammal?
+    @objc var foods = [String]()
+    @objc var siblings = [Pet]()
     
     required init(dbManager: DBBManager) {
         super.init(dbManager: dbManager)
         
         let map: [String : DBBPropertyPersistence] = [Keys.Name : DBBPropertyPersistence(type: .string),
                                                       Keys.Age : DBBPropertyPersistence(type: .int),
-                                                      Keys.Owner : DBBPropertyPersistence(type: .string),
-                                                      Keys.Diet : DBBPropertyPersistence(type: .string)]
+                                                      Keys.Owner : DBBPropertyPersistence(type: .dbbObject(objectType: Mammal.self)),
+                                                      Keys.Foods : DBBPropertyPersistence(type: .stringArray),
+                                                      Keys.Siblings : DBBPropertyPersistence(type: .dbbObjectArray(objectType: Pet.self))]
         
         dbManager.addPersistenceMapping(map, for: self)
     }
