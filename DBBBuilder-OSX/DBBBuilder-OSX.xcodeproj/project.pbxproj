@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 52;
+	objectVersion = 50;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -22,7 +22,6 @@
 		D8AD0EF3249C0B60005A6344 /* DBBTableBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8AD0EE4249C0B60005A6344 /* DBBTableBuilder.swift */; };
 		D8AD0EF4249C0B60005A6344 /* DBBDatabaseValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8AD0EE5249C0B60005A6344 /* DBBDatabaseValidator.swift */; };
 		D8AD0EF5249C0B60005A6344 /* DBBJoinMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8AD0EE6249C0B60005A6344 /* DBBJoinMap.swift */; };
-		D8CCA51D24F9A59800741D44 /* FMDB in Frameworks */ = {isa = PBXBuildFile; productRef = D8CCA51C24F9A59800741D44 /* FMDB */; };
 		D8D2EBE324F9D91600B9C647 /* ExceptionCatcher.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D2EBE224F9D91600B9C647 /* ExceptionCatcher.framework */; };
 		D8D2EBE424F9D91600B9C647 /* ExceptionCatcher.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D8D2EBE224F9D91600B9C647 /* ExceptionCatcher.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
@@ -69,7 +68,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D8CCA51D24F9A59800741D44 /* FMDB in Frameworks */,
 				D8D2EBE324F9D91600B9C647 /* ExceptionCatcher.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -173,7 +171,6 @@
 			);
 			name = DBBBuilder;
 			packageProductDependencies = (
-				D8CCA51C24F9A59800741D44 /* FMDB */,
 			);
 			productName = "DBBBuilder-OSX";
 			productReference = 958089C221E94B3100CE7219 /* DBBBuilder.framework */;
@@ -204,7 +201,6 @@
 			);
 			mainGroup = 958089B821E94B3100CE7219;
 			packageReferences = (
-				D8CCA51B24F9A59800741D44 /* XCRemoteSwiftPackageReference "fmdb" */,
 			);
 			productRefGroup = 958089C321E94B3100CE7219 /* Products */;
 			projectDirPath = "";
@@ -460,25 +456,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCRemoteSwiftPackageReference section */
-		D8CCA51B24F9A59800741D44 /* XCRemoteSwiftPackageReference "fmdb" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/ccgus/fmdb";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 2.7.7;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		D8CCA51C24F9A59800741D44 /* FMDB */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = D8CCA51B24F9A59800741D44 /* XCRemoteSwiftPackageReference "fmdb" */;
-			productName = FMDB;
-		};
-/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 958089B921E94B3100CE7219 /* Project object */;
 }
