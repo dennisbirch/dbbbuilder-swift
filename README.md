@@ -21,21 +21,21 @@ DBBBuilder takes care of creating and updating the database file, including all 
 ### Installation
 
 #### Swift Package Manager
-You can use Swift Package Manager to add DBBBuilder to your iOS, WatchOS and macOS projects. To do so, with your project open in Xcode, choose File>Swift Packages>Add Package Dependency... and enter `https://github.com/dennisbirch/dbbbuilder-swift` in the text box of the _Choose Package Respository_ dialog that appears. Then hit the _Next_ or _Finish__ button on this and all subsequent screens until you see that the DBBBuilder library has been added to your project.
+You can use Swift Package Manager to add DBBBuilder to your iOS, WatchOS and macOS projects. To do so, with your project open in Xcode, choose File>Swift Packages>Add Package Dependency... and enter `https://github.com/dennisbirch/dbbbuilder-swift` in the text box of the _Choose Package Respository_ dialog that appears. Then hit the _Next_ or _Finish_ button on this and all subsequent screens until you see that the DBBBuilder library has been added to your project.
 
 #### Carthage
 
 You can also add DBBBuilder to your Xcode project using the [Carthage](https://github.com/Carthage/Carthage) dependency manager.
 
-Start by [installing Carthage](https://github.com/Carthage/Carthage#quick-start), if necessary. Add a Cartfile to your project folder if necessary. Then add a dependency statement for DBBBuilder to your Cartfile:
+Start by [installing Carthage](https://github.com/Carthage/Carthage#quick-start) on your Mac if necessary. Add a Cartfile to your project folder if necessary. Then add a dependency statement for DBBBuilder to your Cartfile:
 
 `github "https://github.com/dennisbirch/dbbbuilder-swift/"`
 
-Then in Terminal, cd into your project directory and run Carthage update:
+In your terminal application, cd into your project directory and run Carthage update:
 
 `carthage update`
 
-Then add a Run Script step to your target's Build Phases section. Be sure to add the FMDB, DBBBuilder, and ExceptionCatcher frameworks.
+Finally, add a Run Script step to your target's Build Phases section. Be sure to add the FMDB, DBBBuilder, and ExceptionCatcher frameworks to the Input and Output files sections.
 
 ![Configuring a project to use DBBBuilder with Carthage](images/carthage-build-phase.png)
 
@@ -43,13 +43,24 @@ You should now be able to begin using DBBBuilder in your Xcode project.
 
 ### Setup for building frameworks and running demos
 
-The workspace in this repository includes demo projects and unit tests for iOS and macOS targets. You can examine the code in these projects to get guidance on using DBBBuilder. To run the projects and unit tests, you'll need to do some setup using either Carthage or the Swift Package Manager.
+The workspace in this repository includes demo projects and unit tests for iOS and macOS targets. You can examine the code in these projects to get guidance on using DBBBuilder. To run the projects and unit tests, you'll need to do some setup with Carthage, and with the Swift Package Manager if you want to build the framework target by itself.
 
-#### Using Carthage (default implementation):
+#### Using Swift Package Manager (default implementation - requires Xcode 11.0 or higher):
+
+(The following actions must be performed separately for either scheme you want to work with, i.e. `DBBBuilder-Demo-OSX` or `DBBBuilder-Demo-iOS`)
+
+* Enable building the iOS or OSX framework you're interested in working with (__only required if you want to build the framework separately__):
+    * Select `DBBBuilder-OSX` or `DBBBuilder-iOS` in the project navigator
+    * On the General tab of the Project editor panel, add the ExceptionCatcher.framework in the `Frameworks and Libraries` section as displayed above
+    * Add the FMDB package as described in the _Installation_ section above (but setting the URL to https://github.com/ccgus/fmdb)
+* Run unit tests or project
+
+
+#### Using Carthage:
 
 * Clone the repo
 * Install Carthage if necessary
-* In terminal app, CD into the dbbbuilder-swift directory
+* In your terminal app, cd into the dbbbuilder-swift directory
 * Run 'carthage update'
 * Open DBBBuilder-Swift.workspace in Xcode
 
@@ -67,24 +78,13 @@ The workspace in this repository includes demo projects and unit tests for iOS a
     * Add the DBBBuilder.framework in the `Frameworks, Libraries and Embedded Content` section
      
     ![Adding the DBBBuilder framework to the DBBBuilder-Demo-OSX target](images/Add-dbbbuilder-framework.png)
+* Uncomment the Run Script on the Build Phases tab of the selected target's Project editor panel by deleting the leading "#" character
 * Select the appropriate `DBBBuilder-Demo-OSX` or `DBBBuilder-Demo-iOS` scheme from scheme selector and run the project or unit tests
-
-
-#### Using Swift Package Manager (requires Xcode 11.0 or higher):
-
-(The following actions must be performed separately for either scheme you want to work with, i.e. `DBBBuilder-Demo-OSX` or `DBBBuilder-Demo-iOS`)
-
-* Enable building the iOS or OSX framework you're interested in working with (__only required if you want to build the framework separately__):
-    * Select `DBBBuilder-OSX` or `DBBBuilder-iOS` in the project navigator
-    * On the General tab of the Project editor panel, add the ExceptionCatcher.framework in the `Frameworks and Libraries` section as displayed above
-* Enable running the demo project:
-    * Configure the project with the Swift package (from https://github.com/dennisbirch/dbbbuilder-swift) following the directions available at https://developer.apple.com/documentation/xcode/adding_package_dependencies_to_your_app.
-* Run unit tests or project
 
 
 ### Usage
 
-DBBBuilder has two main classes you need to be concerned with to use it properly.
+DBBBuilder has two main classes and some supporting types that you need to be concerned with to use it properly.
 
 `DBBManager` is the class that holds a reference to the database file you're persisting data to. You can have more than one DBBManager instance in your project, but each one must be set up to work with a different file.
 
