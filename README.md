@@ -53,6 +53,9 @@ The workspace in this repository includes demo projects and unit tests for iOS a
     * Select `DBBBuilder-OSX` or `DBBBuilder-iOS` in the project navigator
     * On the General tab of the Project editor panel, add the ExceptionCatcher.framework in the `Frameworks and Libraries` section as displayed above
     * Add the FMDB package as described in the _Installation_ section above (but setting the URL to https://github.com/ccgus/fmdb)
+* Enable running the demo project:
+    * Confirm that the Swift Package Dependencies section of the project navigator shows FMDB 2.7.7 or higher, and DBBBuilder 2.1.2 or higher
+    * On the Build Phases tab for your selected target, delete the Run Script for copying frameworks from the Carthage directory
 * Run unit tests or project
 
 
