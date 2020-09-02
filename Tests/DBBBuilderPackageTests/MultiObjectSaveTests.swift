@@ -25,7 +25,6 @@ class MultiObjectSaveTests: XCTestCase {
         CommonTestTask.deleteDBFile(dbManager: dbManager)
     }
     
-
     func testMultiSave() {
         guard let manager = dbManager else {
             XCTFail()
@@ -130,9 +129,12 @@ class MultiObjectSaveTests: XCTestCase {
         let mechanicName = "Helen's Auto Repair"
         let mechanic = Company(name: mechanicName, city: "", state: "", dbManager: manager)
         
+        let people = [daddy, child1, child2, spouse]
+        let savePeople = Person.saveObjects(people, dbManager: manager)
+        XCTAssertTrue(savePeople)
+
         let objects = [daddy, child1, child2, spouse, employer, accountant, mechanic]
         let saved = Person.saveObjects(objects, dbManager: manager)
         XCTAssertFalse(saved)
-        
     }
 }

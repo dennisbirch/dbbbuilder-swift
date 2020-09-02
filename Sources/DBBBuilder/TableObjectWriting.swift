@@ -46,8 +46,10 @@ extension DBBTableObject {
         guard objects.count > 0 else {
             return true
         }
-        
-        if self.objectsAreOfSameType(objects) == false {
+       
+        let objectType = type(of: objects.first!)
+        let filteredObjects = objects.filter({type(of: $0) == objectType})
+        if filteredObjects.count < objects.count {        
             os_log("Objects must all be of the same type", log: DBBBuilder.logger(withCategory: "TableObjectWriting"), type: defaultLogType)
             return false
         }
@@ -469,25 +471,4 @@ extension DBBTableObject {
         return output.joined(separator: ", ")
     }
     
-    private static func objectsAreOfSameType(_ objects: [DBBTableObject]) -> Bool {
-        if objects.count == 1 {
-            return true
-        }
-        
-        guard let firstObject = objects.first else {
-            os_log("Unable to get object instance for comparison", log: DBBBuilder.logger(withCategory: "TableObjectWriting"), type: defaultLogType)
-            return false
-        }
-        
-        let firstType = type(of: firstObject)
-        let otherObjects = Array(objects.dropFirst())
-        for instance in otherObjects {
-            if type(of: instance) != firstType {
-                return false
-            }
-        }
-        
-        return true
-    }
-
 }
