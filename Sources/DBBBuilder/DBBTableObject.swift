@@ -78,6 +78,8 @@ typealias ParamsAndValues = (params: [String], values: [String])
      */
     public var dbManager: DBBManager
     
+    public var hasSubclass = false
+    
     let logger = DBBBuilder.logger(withCategory: "DBBTableObject")
 
     static let defaultPropertiesMap: [String : DBBPropertyPersistence] = [Keys.id : DBBPropertyPersistence(type: .int),
@@ -260,6 +262,20 @@ typealias ParamsAndValues = (params: [String], values: [String])
         let dbMgr = DBBManager(databaseURL: URL(fileURLWithPath: NSTemporaryDirectory()))
         let instance = self.init(dbManager: dbMgr)
         return instance.shortName
+    }
+    
+    public func finalizeClass() {
+        var selfMirror = Mirror(reflecting: self)
+        
+        while let superMirror = selfMirror.superclassMirror, superMirror.subjectType != NSObject.self {
+            if let dbTableType = superMirror.subjectType as? DBBTableObject.Type {
+                let name = dbTableType.init(dbManager: dbManager).shortName
+                dbManager.persistenceMap[name]?.isInitialized = true
+            }
+            selfMirror = superMirror
+        }
+        
+        dbManager.persistenceMap[shortName]?.isInitialized = true
     }
 }
 

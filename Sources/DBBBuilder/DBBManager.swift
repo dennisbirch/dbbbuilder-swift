@@ -80,10 +80,20 @@ import os.log
         let tableName = tableObject.shortName
         
         // get the existing map for the DBBTableObject passed in, or a new instance
-        let map: DBBPersistenceMap = persistenceMap[tableName] ?? DBBPersistenceMap([String : DBBPropertyPersistence](), columnMap: [String : String]())
+        var map: DBBPersistenceMap? = persistenceMap[tableName]
+        if let existingMap = map, existingMap.isInitialized == true {
+            return
+        }
+        
+        if map == nil {
+            map = DBBPersistenceMap([String : DBBPropertyPersistence](), columnMap: [String : String]())
+        }
         // add the new content
-        let newMap = map.appendDictionary(contents, indexer: indexer)
+        var newMap = map?.appendDictionary(contents, indexer: indexer)
         // and update the persistence map dictionary
+        if tableObject.hasSubclass == false {
+            newMap?.isInitialized = true
+        }
         persistenceMap[tableName] = newMap
     }
 

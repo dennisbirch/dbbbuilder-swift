@@ -18,6 +18,7 @@ public struct DBBPersistenceMap {
     // map property names to column names
     var propertyColumnMap = [String : String]()
     var indexer: DBBIndexer?
+    public var isInitialized = false
     private let logger = DBBBuilder.logger(withCategory: "DBBPersistenceMap")
 
     init(_ dict: [String : DBBPropertyPersistence], columnMap: [String : String], indexer: DBBIndexer? = nil) {

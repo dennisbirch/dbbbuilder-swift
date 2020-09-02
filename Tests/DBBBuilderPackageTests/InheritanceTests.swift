@@ -214,7 +214,8 @@ class Animal: DBBTableObject {
         
         let map: [String : DBBPropertyPersistence] = [Keys.Sex : DBBPropertyPersistence(type: .string),
                                                       Keys.Diet : DBBPropertyPersistence(type: .string)]
-
+        
+        hasSubclass = true
         dbManager.addPersistenceMapping(map, for: self)
     }
 }
@@ -234,6 +235,7 @@ class Mammal: Animal {
         let map: [String : DBBPropertyPersistence] = [Keys.genus : DBBPropertyPersistence(type: .string),
                                                       Keys.legs : DBBPropertyPersistence(type: .string)]
         
+        hasSubclass = true
         dbManager.addPersistenceMapping(map, for: self)
     }
 }
@@ -262,6 +264,7 @@ class Pet: Mammal {
                                                       Keys.Foods : DBBPropertyPersistence(type: .stringArray),
                                                       Keys.Siblings : DBBPropertyPersistence(type: .dbbObjectArray(objectType: Pet.self))]
         
-        dbManager.addPersistenceMapping(map, for: self)
+        dbManager.addPersistenceMapping(map, for: self)        
+        self.finalizeClass()
     }
 }
