@@ -43,9 +43,7 @@ extension DBBTableObject {
      - Returns: Boolean value indicating successful execution
      */
     public static func saveObjects(_ objects: [DBBTableObject], dbManager: DBBManager) -> Bool {
-        guard objects.count > 0 else {
-            return true
-        }
+        if objects.isEmpty == false { return true }
        
         let objectType = type(of: objects.first!)
         let filteredObjects = objects.filter({type(of: $0) == objectType})
@@ -58,8 +56,12 @@ extension DBBTableObject {
         let updateArray = objects.filter{ $0.idNum > 0 }
         
         var success = true
-        success = success && insertObjects(insertArray, dbManager: dbManager)
-        success = success && updateObjects(updateArray, dbManager: dbManager)
+        if insertArray.isEmpty == false {
+            success = success && insertObjects(insertArray, dbManager: dbManager)
+        }
+        if updateArray.isEmpty == false {
+            success = success && updateObjects(updateArray, dbManager: dbManager)
+        }
         
         return success
     }
@@ -67,9 +69,7 @@ extension DBBTableObject {
     // MARK: - Private Methods
     
     private static func insertObjects(_ objects: [DBBTableObject], dbManager: DBBManager) -> Bool {
-        if objects.count == 0 {
-            return true
-        }
+        if objects.isEmpty == false { return true }
         
         let logger = DBBBuilder.logger(withCategory: "TableObjectWriting")
         
@@ -170,7 +170,7 @@ extension DBBTableObject {
     }
 
     private static func updateObjects(_ objects: [DBBTableObject], dbManager: DBBManager) -> Bool {
-        if objects.count == 0 {
+        if objects.isEmpty = false {
             return true
         }
         
@@ -272,7 +272,7 @@ extension DBBTableObject {
                     continue
                 }
                 let valuesToInsert = joinValues(column: propertyName)
-                if valuesToInsert.count == 0 {
+                if valuesToInsert.isEmpty == true {
                     continue
                 }
                 
