@@ -17,6 +17,10 @@ private typealias JoinStatementsAndValues = (statement: String, args: [Any]?)
     Methods for writing object instances to the database file
 */
 extension DBBTableObject {
+    private static var writerLogger: OSLog {
+        return DBBBuilder.logger(withCategory: "TableObjectWriting")
+    }
+    
     /**
      Public method for saving a DBTableObject subclass instance to its database file
 
@@ -48,7 +52,7 @@ extension DBBTableObject {
         let objectType = type(of: objects.first!)
         let filteredObjects = objects.filter({type(of: $0) == objectType})
         if filteredObjects.count < objects.count {        
-            os_log("Objects must all be of the same type", log: DBBBuilder.logger(withCategory: "TableObjectWriting"), type: defaultLogType)
+            os_log("Objects must all be of the same type", log: writerLogger, type: defaultLogType)
             return false
         }
         
@@ -71,7 +75,7 @@ extension DBBTableObject {
     private static func insertObjects(_ objects: [DBBTableObject], dbManager: DBBManager) -> Bool {
         if objects.isEmpty == false { return true }
         
-        let logger = DBBBuilder.logger(withCategory: "TableObjectWriting")
+        let logger = writerLogger
         
         guard let databaseURL = dbManager.database.databaseURL else {
             os_log("Can't get database URL", log: logger, type: defaultLogType)
@@ -170,14 +174,12 @@ extension DBBTableObject {
     }
 
     private static func updateObjects(_ objects: [DBBTableObject], dbManager: DBBManager) -> Bool {
-        if objects.isEmpty = false {
+        if objects.isEmpty == false {
             return true
         }
         
-        let logger = DBBBuilder.logger(withCategory: "TableObjectWriting")
-        
         guard let databaseURL = dbManager.database.databaseURL else {
-            os_log("Can't get database URL", log: logger, type: defaultLogType)
+            os_log("Can't get database URL", log: writerLogger, type: defaultLogType)
             return false
         }
         
@@ -192,7 +194,7 @@ extension DBBTableObject {
                 instance.modifiedTime = Date()
                 let instanceComponents = instance.persistenceComponents()
                 guard instanceComponents.params.count == instanceComponents.values.count else {
-                    os_log("Params and values are of unequal sizes", log: logger, type: defaultLogType)
+                    os_log("Params and values are of unequal sizes", log: writerLogger, type: defaultLogType)
                     success = false
                     continue
                 }
@@ -209,7 +211,7 @@ extension DBBTableObject {
                     try executor.executeUpdate(sql: statement, withArgumentsIn: instanceComponents.values)
                     success = true
                 } catch  {
-                    os_log("Update failed with error message: %@", log: logger, type: defaultLogType, error.localizedDescription)
+                    os_log("Update failed with error message: %@", log: writerLogger, type: defaultLogType, error.localizedDescription)
                     success = false
                     rollback.pointee = true
                 }
