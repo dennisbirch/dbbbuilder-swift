@@ -38,6 +38,9 @@ class MultiObjectSaveTests: XCTestCase {
         let sallyAge = 5
         let spouseAge = 33
         let daddy = Person(firstName: firstName, lastName: lastName, age: daddyAge, dbManager: manager)
+        var saved = daddy.saveToDB()
+        XCTAssertTrue(saved)
+        
         let originalID = daddy.idNum
         
         let child1 = Person(firstName: "Billy", lastName: "Doe", age: billyAge, dbManager: manager)
@@ -45,7 +48,7 @@ class MultiObjectSaveTests: XCTestCase {
         let spouse = Person(firstName: "Mary", lastName: "Doe", age: spouseAge, dbManager: manager)
         
         let dependents = [child1, child2, spouse]
-        var saved = Person.saveObjects(dependents, dbManager: manager)
+        saved = Person.saveObjects(dependents, dbManager: manager)
         XCTAssertTrue(saved)
 
         let companyName = "Acme Stuff"
@@ -76,8 +79,7 @@ class MultiObjectSaveTests: XCTestCase {
         let newIDNum = daddy.idNum
         
         XCTAssertTrue(saved)
-        XCTAssertFalse(newIDNum == originalID)
-        XCTAssertTrue(newIDNum > 0)
+        XCTAssertEqual(newIDNum, originalID)
         
         guard let daddyCopy = Person.instanceWithIDNumber(newIDNum, manager: manager) as? Person else {
             XCTFail()
