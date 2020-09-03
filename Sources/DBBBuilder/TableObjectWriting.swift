@@ -47,7 +47,7 @@ extension DBBTableObject {
      - Returns: Boolean value indicating successful execution
      */
     public static func saveObjects(_ objects: [DBBTableObject], dbManager: DBBManager) -> Bool {
-        if objects.isEmpty == false { return true }
+        if objects.isEmpty == true { return true }
        
         let objectType = type(of: objects.first!)
         let filteredObjects = objects.filter({type(of: $0) == objectType})
@@ -73,7 +73,7 @@ extension DBBTableObject {
     // MARK: - Private Methods
     
     private static func insertObjects(_ objects: [DBBTableObject], dbManager: DBBManager) -> Bool {
-        if objects.isEmpty == false { return true }
+        if objects.isEmpty == true { return true }
         
         let logger = writerLogger
         
@@ -160,7 +160,7 @@ extension DBBTableObject {
         }
         
         // now check each object to see if it has unsaved iVars or arrays of DBBTableObjects
-        if propertiesToSave.count > 0 {
+        if propertiesToSave.isEmpty == false {
             for object in objects {
                 for property in propertiesToSave {
                     if let iVar = object.value(forKey: property) as? DBBTableObject, iVar.id == 0 {
@@ -174,7 +174,7 @@ extension DBBTableObject {
     }
 
     private static func updateObjects(_ objects: [DBBTableObject], dbManager: DBBManager) -> Bool {
-        if objects.isEmpty == false {
+        if objects.isEmpty == true {
             return true
         }
         
