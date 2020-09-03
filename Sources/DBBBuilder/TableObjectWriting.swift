@@ -349,6 +349,71 @@ extension DBBTableObject {
         return valuesArray
     }
     
+    private func objectParams(instanceVals: [ValueTuple]) -> [String] {
+        var params = [String]()
+
+        guard let persistenceMap = dbManager.persistenceMap[shortName] else {
+            os_log("Can't get persistenceMap for %@", log: logger, type: defaultLogType, shortName)
+            return params
+        }
+        
+        for (key, property) in persistenceMap.map {
+            let type = property.storageType
+            // the .name() function returns an empty string for non-atomic types
+            if type.name().isEmpty || type.name() == TypeNames.blob {
+                continue
+            }
+            
+            if let _ = (instanceVals.filter{ $0.label == key }).first {
+                let columnName = (property.columnName.isEmpty) ? key : property.columnName
+                params.append(columnName)
+            }
+        }
+        
+        return params
+    }
+    
+    private func objectValues(instanceVals: [ValueTuple]) -> [String] {
+        var values = [String]()
+        
+        guard let persistenceMap = dbManager.persistenceMap[shortName] else {
+            os_log("Can't get persistenceMap for %@", log: logger, type: defaultLogType, shortName)
+            return values
+        }
+        
+        for (key, property) in persistenceMap.map {
+            let type = property.storageType
+            // the .name() function returns an empty string for non-atomic types
+            if type.name().isEmpty || type.name() == TypeNames.blob {
+                continue
+            }
+            
+            if let match = (instanceVals.filter{ $0.label == key }).first {
+//                let columnName = (property.columnName.isEmpty) ? key : property.columnName
+//                params.append(columnName)
+                
+                if type.name() == TypeNames.timeStamp {
+                    if match.value == "nil" {
+                        values.append("")
+                        continue
+                    }
+                    if let interval = TimeInterval(match.value) {
+                        values.append(String(interval))
+                    } else {
+                        os_log("Failed to convert date to correct format for '%@'. Using current timestamp.", log: logger, type: defaultLogType, key)
+                        values.append(String(Date().dbb_timeIntervalForDate()))
+                    }
+                } else if type.name() == TypeNames.bool {
+                    values.append((match.value == "true") ? "1" : "0")
+                } else {
+                    values.append(String(describing: match.value))
+                }
+            }
+        }
+        
+        return values
+    }
+    
     private func persistenceComponents() -> (ParamsAndValues) {
         var params = [String]()
         var values = [String]()
