@@ -119,33 +119,10 @@ extension DBBTableObject {
                 
                 // set the id property for this instance
                 instance.id = database.lastInsertRowId
-                
-                // update any join columns for this class
-                if let joinMap = dbManager.joinMapDict[instance.shortName] {
-                    let statementsAndArgs = instance.statementsAndValuesForJoins(joinDict: joinMap)
-                    for statementTuple in statementsAndArgs {
-                        let statement = statementTuple.statement
-                        if let args = statementTuple.args {
-                            do {
-                                try executor.executeUpdate(sql: statement, withArgumentsIn: args)
-                                success = success && true
-                            } catch {
-                                os_log("Join map for insert failed with error message: %@", log: logger, type: defaultLogType, error.localizedDescription)
-                                rollback.pointee = true
-                            }
-                        } else {
-                            do {
-                                try executor.executeUpdate(sql: statement, withArgumentsIn: [])
-                                success = success && true
-                            } catch {
-                                os_log("Join map for insert failed with error message: %@", log: logger, type: defaultLogType, error.localizedDescription)
-                                rollback.pointee = true
-                            }
-                        }
-                    }
-                }
             }
         })
+        
+        success = success && writeJoinColumnsForObjects(objects, databaseURL: databaseURL, dbManager: dbManager)
         
         return success
     }
@@ -183,27 +160,6 @@ extension DBBTableObject {
             
             statements.append(statement)
             valueStrings.append(instanceComponents.values)
-            
-            if let joinMap = dbManager.joinMapDict[instance.shortName] {
-                let queue = FMDatabaseQueue(url: databaseURL)
-                let statementsAndArgs = instance.statementsAndValuesForJoins(joinDict: joinMap)
-                queue?.inTransaction({ (database, rollback) in
-                    for statementTuple in statementsAndArgs {
-                        let statement = statementTuple.statement
-                        if let args = statementTuple.args {
-                            database.executeUpdate(statement, withArgumentsIn: args)
-                            if database.lastErrorCode() != 0 {
-                                rollback.pointee = true
-                            }
-                        } else {
-                            database.executeUpdate(statement, withArgumentsIn: [])
-                            if database.lastErrorCode() != 0 {
-                                rollback.pointee = true
-                            }
-                        }
-                    }
-                })
-            }
         }
         
         guard statements.count == valueStrings.count else {
@@ -229,6 +185,8 @@ extension DBBTableObject {
             }
         })
         
+        success = success && writeJoinColumnsForObjects(objects, databaseURL: databaseURL, dbManager: dbManager)
+        
         return success
     }
 
@@ -242,6 +200,38 @@ extension DBBTableObject {
         return success
     }
 
+    private static func writeJoinColumnsForObjects(_ objects: [DBBTableObject], databaseURL: URL, dbManager: DBBManager) -> Bool {
+        var success = true
+        
+        for instance in objects {
+            if let joinMap = dbManager.joinMapDict[instance.shortName] {
+                let queue = FMDatabaseQueue(url: databaseURL)
+                let statementsAndArgs = instance.statementsAndValuesForJoins(joinDict: joinMap)
+                queue?.inTransaction({ (database, rollback) in
+                    for statementTuple in statementsAndArgs {
+                        let statement = statementTuple.statement
+                        if let args = statementTuple.args {
+                            database.executeUpdate(statement, withArgumentsIn: args)
+                            if database.lastErrorCode() != 0 {
+                                rollback.pointee = true
+                                success = false
+                            }
+                        } else {
+                            database.executeUpdate(statement, withArgumentsIn: [])
+                            if database.lastErrorCode() != 0 {
+                                rollback.pointee = true
+                                success = false
+                            }
+                        }
+                    }
+                })
+            }
+
+        }
+        
+        return success
+    }
+    
     private static func saveDBTableObjectProperties(forObjects objects: [DBBTableObject], dbManager: DBBManager) {
         let map = dbManager.joinMapDict
         var propertiesToSave = [String]()
