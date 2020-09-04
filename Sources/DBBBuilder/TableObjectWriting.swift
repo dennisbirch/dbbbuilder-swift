@@ -87,38 +87,48 @@ extension DBBTableObject {
         
         // now save scalar properties
         var success = true
+        var statements = [String]()
+        var valueStrings = [[String]]()
         
+        for instance in objects {
+            instance.createdTime = Date()
+            instance.modifiedTime = Date()
+            let instanceComponents = instance.persistenceComponents()
+            guard instanceComponents.params.count == instanceComponents.values.count else {
+                os_log("Params and values are of unequal sizes", log: logger, type: defaultLogType)
+                success = false
+                continue
+            }
+
+            let placeholders = instance.sqlPlaceholders(count: instanceComponents.params.count)
+            let columnNamesString = instanceComponents.params.joined(separator: ", ")
+            let statement = "INSERT INTO \(instance.shortName) (\(columnNamesString)) VALUES (\(placeholders))"
+            statements.append(statement)
+            valueStrings.append(instanceComponents.values)
+        }
+        
+        guard statements.count == valueStrings.count && objects.count == valueStrings.count else {
+            os_log("Params and values or object arrays are of unequal sizes", log: writerLogger, type: defaultLogType)
+            return false
+        }
+
         let queue = FMDatabaseQueue(url: databaseURL)
         queue?.inTransaction({ (database, rollback) in
-            for instance in objects {
-                instance.createdTime = Date()
-                instance.modifiedTime = Date()
-                
-                // get an object with param (column) names and values to persist
-                let instanceComponents = instance.persistenceComponents()
-                guard instanceComponents.params.count == instanceComponents.values.count else {
-                    os_log("Params and values are of unequal sizes", log: logger, type: defaultLogType)
-                    success = false
-                    continue
-                }
-                
-                let placeholders = instance.sqlPlaceholders(count: instanceComponents.params.count)
-                let columnNamesString = instanceComponents.params.joined(separator: ", ")
-                let statement = "INSERT INTO \(instance.shortName) (\(columnNamesString)) VALUES (\(placeholders))"
-                
+            for idx in 0..<statements.count {
+                let sql = statements[idx]
+                let values = valueStrings[idx]
+                let instance = objects[idx]
+
                 let executor = DBBDatabaseExecutor(db: database)
-                
                 do {
-                    try executor.executeUpdate(sql: statement, withArgumentsIn: instanceComponents.values)
-                    success = success && true
-                } catch {
+                    try executor.executeUpdate(sql: sql, withArgumentsIn: values)
+                    instance.id = database.lastInsertRowId
+                    success = true
+                } catch  {
+                    os_log("Insert failed with error message: %@", log: writerLogger, type: defaultLogType, error.localizedDescription)
                     success = false
-                    os_log("Insert failed with error message: %@", log: logger, type: defaultLogType, error.localizedDescription)
                     rollback.pointee = true
                 }
-                
-                // set the id property for this instance
-                instance.id = database.lastInsertRowId
             }
         })
         
@@ -166,13 +176,13 @@ extension DBBTableObject {
             os_log("Params and values are of unequal sizes", log: writerLogger, type: defaultLogType)        
             return false
         }
-
+        
         let queue = FMDatabaseQueue(url: databaseURL)
         queue?.inTransaction({ (database, rollback) in
             for idx in 0..<statements.count {
                 let sql = statements[idx]
                 let values = valueStrings[idx]
-
+                
                 let executor = DBBDatabaseExecutor(db: database)
                 do {
                     try executor.executeUpdate(sql: sql, withArgumentsIn: values)
@@ -226,7 +236,6 @@ extension DBBTableObject {
                     }
                 })
             }
-
         }
         
         return success
