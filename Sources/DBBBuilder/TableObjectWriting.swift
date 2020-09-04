@@ -126,9 +126,21 @@ extension DBBTableObject {
                     for statementTuple in statementsAndArgs {
                         let statement = statementTuple.statement
                         if let args = statementTuple.args {
-                            database.executeUpdate(statement, withArgumentsIn: args)
+                            do {
+                                try executor.executeUpdate(sql: statement, withArgumentsIn: args)
+                                success = success && true
+                            } catch {
+                                os_log("Join map for insert failed with error message: %@", log: logger, type: defaultLogType, error.localizedDescription)
+                                rollback.pointee = true
+                            }
                         } else {
-                            database.executeUpdate(statement, withArgumentsIn: [])
+                            do {
+                                try executor.executeUpdate(sql: statement, withArgumentsIn: [])
+                                success = success && true
+                            } catch {
+                                os_log("Join map for insert failed with error message: %@", log: logger, type: defaultLogType, error.localizedDescription)
+                                rollback.pointee = true
+                            }
                         }
                     }
                 }
