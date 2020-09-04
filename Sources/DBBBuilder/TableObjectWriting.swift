@@ -83,7 +83,7 @@ extension DBBTableObject {
         }
 
         // make sure all DBBTableObject properties have been saved
-        saveDBTableProperties(forObjects: objects, dbManager: dbManager)
+        saveDBTableObjectProperties(forObjects: objects, dbManager: dbManager)
         
         // now save scalar properties
         var success = true
@@ -138,7 +138,7 @@ extension DBBTableObject {
         return success
     }
     
-    private static func saveDBTableProperties(forObjects objects: [DBBTableObject], dbManager: DBBManager) {
+    private static func saveDBTableObjectProperties(forObjects objects: [DBBTableObject], dbManager: DBBManager) {
         let map = dbManager.joinMapDict
         var propertiesToSave = [String]()
         
@@ -174,16 +174,14 @@ extension DBBTableObject {
     }
 
     private static func updateObjects(_ objects: [DBBTableObject], dbManager: DBBManager) -> Bool {
-        if objects.isEmpty == true {
-            return true
-        }
+        if objects.isEmpty == true { return true }
         
         guard let databaseURL = dbManager.database.databaseURL else {
             os_log("Can't get database URL", log: writerLogger, type: defaultLogType)
             return false
         }
         
-        saveDBTableProperties(forObjects: objects, dbManager: dbManager)
+        saveDBTableObjectProperties(forObjects: objects, dbManager: dbManager)
         
         var success = true
         
@@ -274,9 +272,7 @@ extension DBBTableObject {
                     continue
                 }
                 let valuesToInsert = joinValues(column: propertyName)
-                if valuesToInsert.isEmpty == true {
-                    continue
-                }
+                if valuesToInsert.isEmpty == true { continue }
                 
                 for item in valuesToInsert {
                     let args: [Any] = [String(id), item]
@@ -349,70 +345,70 @@ extension DBBTableObject {
         return valuesArray
     }
     
-    private func objectParams(instanceVals: [ValueTuple]) -> [String] {
-        var params = [String]()
-
-        guard let persistenceMap = dbManager.persistenceMap[shortName] else {
-            os_log("Can't get persistenceMap for %@", log: logger, type: defaultLogType, shortName)
-            return params
-        }
-        
-        for (key, property) in persistenceMap.map {
-            let type = property.storageType
-            // the .name() function returns an empty string for non-atomic types
-            if type.name().isEmpty || type.name() == TypeNames.blob {
-                continue
-            }
-            
-            if let _ = (instanceVals.filter{ $0.label == key }).first {
-                let columnName = (property.columnName.isEmpty) ? key : property.columnName
-                params.append(columnName)
-            }
-        }
-        
-        return params
-    }
-    
-    private func objectValues(instanceVals: [ValueTuple]) -> [String] {
-        var values = [String]()
-        
-        guard let persistenceMap = dbManager.persistenceMap[shortName] else {
-            os_log("Can't get persistenceMap for %@", log: logger, type: defaultLogType, shortName)
-            return values
-        }
-        
-        for (key, property) in persistenceMap.map {
-            let type = property.storageType
-            // the .name() function returns an empty string for non-atomic types
-            if type.name().isEmpty || type.name() == TypeNames.blob {
-                continue
-            }
-            
-            if let match = (instanceVals.filter{ $0.label == key }).first {
+//    private func objectParams(instanceVals: [ValueTuple]) -> [String] {
+//        var params = [String]()
+//
+//        guard let persistenceMap = dbManager.persistenceMap[shortName] else {
+//            os_log("Can't get persistenceMap for %@", log: logger, type: defaultLogType, shortName)
+//            return params
+//        }
+//
+//        for (key, property) in persistenceMap.map {
+//            let type = property.storageType
+//            // the .name() function returns an empty string for non-atomic types
+//            if type.name().isEmpty || type.name() == TypeNames.blob {
+//                continue
+//            }
+//
+//            if let _ = (instanceVals.filter{ $0.label == key }).first {
 //                let columnName = (property.columnName.isEmpty) ? key : property.columnName
 //                params.append(columnName)
-                
-                if type.name() == TypeNames.timeStamp {
-                    if match.value == "nil" {
-                        values.append("")
-                        continue
-                    }
-                    if let interval = TimeInterval(match.value) {
-                        values.append(String(interval))
-                    } else {
-                        os_log("Failed to convert date to correct format for '%@'. Using current timestamp.", log: logger, type: defaultLogType, key)
-                        values.append(String(Date().dbb_timeIntervalForDate()))
-                    }
-                } else if type.name() == TypeNames.bool {
-                    values.append((match.value == "true") ? "1" : "0")
-                } else {
-                    values.append(String(describing: match.value))
-                }
-            }
-        }
-        
-        return values
-    }
+//            }
+//        }
+//
+//        return params
+//    }
+    
+//    private func objectValues(instanceVals: [ValueTuple]) -> [String] {
+//        var values = [String]()
+//
+//        guard let persistenceMap = dbManager.persistenceMap[shortName] else {
+//            os_log("Can't get persistenceMap for %@", log: logger, type: defaultLogType, shortName)
+//            return values
+//        }
+//
+//        for (key, property) in persistenceMap.map {
+//            let type = property.storageType
+//            // the .name() function returns an empty string for non-atomic types
+//            if type.name().isEmpty || type.name() == TypeNames.blob {
+//                continue
+//            }
+//
+//            if let match = (instanceVals.filter{ $0.label == key }).first {
+////                let columnName = (property.columnName.isEmpty) ? key : property.columnName
+////                params.append(columnName)
+//
+//                if type.name() == TypeNames.timeStamp {
+//                    if match.value == "nil" {
+//                        values.append("")
+//                        continue
+//                    }
+//                    if let interval = TimeInterval(match.value) {
+//                        values.append(String(interval))
+//                    } else {
+//                        os_log("Failed to convert date to correct format for '%@'. Using current timestamp.", log: logger, type: defaultLogType, key)
+//                        values.append(String(Date().dbb_timeIntervalForDate()))
+//                    }
+//                } else if type.name() == TypeNames.bool {
+//                    values.append((match.value == "true") ? "1" : "0")
+//                } else {
+//                    values.append(String(describing: match.value))
+//                }
+//            }
+//        }
+//
+//        return values
+//    }
     
     private func persistenceComponents() -> (ParamsAndValues) {
         var params = [String]()
