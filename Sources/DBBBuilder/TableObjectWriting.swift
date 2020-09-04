@@ -183,39 +183,34 @@ extension DBBTableObject {
         
         saveDBTableObjectProperties(forObjects: objects, dbManager: dbManager)
         
-        var success = true
+        var success = true        
+        var statements = [String]()
+        var valueStrings = [[String]]()
         
-        let queue = FMDatabaseQueue(url: databaseURL)
-        queue?.inTransaction({ (database, rollback) in
+        for instance in objects {
+            instance.modifiedTime = Date()
+            let instanceComponents = instance.persistenceComponents()
+            guard instanceComponents.params.count == instanceComponents.values.count else {
+                os_log("Params and values are of unequal sizes", log: writerLogger, type: defaultLogType)
+                success = false
+                continue
+            }
             
-            for instance in objects {
-                instance.modifiedTime = Date()
-                let instanceComponents = instance.persistenceComponents()
-                guard instanceComponents.params.count == instanceComponents.values.count else {
-                    os_log("Params and values are of unequal sizes", log: writerLogger, type: defaultLogType)
-                    success = false
-                    continue
-                }
-                
-                var statement = "UPDATE \(instance.shortName) SET "
-                var paramsArray = [String]()
-                for param in instanceComponents.params {
-                    paramsArray.append("\(param) = ?")
-                }
-                
-                statement += paramsArray.joined(separator: ", ") + " WHERE \(Keys.id) = \(instance.idNum)"
-                let executor = DBBDatabaseExecutor(db: database)
-                do {
-                    try executor.executeUpdate(sql: statement, withArgumentsIn: instanceComponents.values)
-                    success = true
-                } catch  {
-                    os_log("Update failed with error message: %@", log: writerLogger, type: defaultLogType, error.localizedDescription)
-                    success = false
-                    rollback.pointee = true
-                }
-                
-                if let joinMap = dbManager.joinMapDict[instance.shortName] {
-                    let statementsAndArgs = instance.statementsAndValuesForJoins(joinDict: joinMap)
+            var statement = "UPDATE \(instance.shortName) SET "
+            var paramsArray = [String]()
+            for param in instanceComponents.params {
+                paramsArray.append("\(param) = ?")
+            }
+            
+            statement += paramsArray.joined(separator: ", ") + " WHERE \(Keys.id) = \(instance.idNum);"
+            
+            statements.append(statement)
+            valueStrings.append(instanceComponents.values)
+            
+            if let joinMap = dbManager.joinMapDict[instance.shortName] {
+                let queue = FMDatabaseQueue(url: databaseURL)
+                let statementsAndArgs = instance.statementsAndValuesForJoins(joinDict: joinMap)
+                queue?.inTransaction({ (database, rollback) in
                     for statementTuple in statementsAndArgs {
                         let statement = statementTuple.statement
                         if let args = statementTuple.args {
@@ -230,6 +225,29 @@ extension DBBTableObject {
                             }
                         }
                     }
+                })
+            }
+        }
+        
+        guard statements.count == valueStrings.count else {
+            os_log("Params and values are of unequal sizes", log: writerLogger, type: defaultLogType)        
+            return false
+        }
+
+        let queue = FMDatabaseQueue(url: databaseURL)
+        queue?.inTransaction({ (database, rollback) in
+            for idx in 0..<statements.count {
+                let sql = statements[idx]
+                let values = valueStrings[idx]
+
+                let executor = DBBDatabaseExecutor(db: database)
+                do {
+                    try executor.executeUpdate(sql: sql, withArgumentsIn: values)
+                    success = true
+                } catch  {
+                    os_log("Update failed with error message: %@", log: writerLogger, type: defaultLogType, error.localizedDescription)
+                    success = false
+                    rollback.pointee = true
                 }
             }
         })
