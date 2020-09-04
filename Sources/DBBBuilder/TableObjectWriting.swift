@@ -138,41 +138,6 @@ extension DBBTableObject {
         return success
     }
     
-    private static func saveDBTableObjectProperties(forObjects objects: [DBBTableObject], dbManager: DBBManager) {
-        let map = dbManager.joinMapDict
-        var propertiesToSave = [String]()
-        
-        // gather up a list of the object's join properties
-        if let firstObject = objects.first {
-            let className = firstObject.shortName
-            if let joinMap = map[className] {
-                for (key, _) in joinMap {
-                    if let propertyType = joinMap[key]?.propertyType,
-                        propertyType.isSavedToJoinTableType() == true,
-                        let propertyColumnMap = dbManager.persistenceMap[className]?.propertyColumnMap,
-                        let propertyName = propertyColumnMap[key],
-                        propertiesToSave.contains(propertyName) == false
-                    {
-                        propertiesToSave.append(propertyName)
-                    }
-                }
-            }
-        }
-        
-        // now check each object to see if it has unsaved iVars or arrays of DBBTableObjects
-        if propertiesToSave.isEmpty == false {
-            for object in objects {
-                for property in propertiesToSave {
-                    if let iVar = object.value(forKey: property) as? DBBTableObject, iVar.id == 0 {
-                        let _ = iVar.saveToDB()
-                    } else if let iVar = object.value(forKey: property) as? [DBBTableObject] {
-                        let _ = saveObjects(iVar, dbManager: dbManager)
-                    }
-                }
-            }
-        }
-    }
-
     private static func updateObjects(_ objects: [DBBTableObject], dbManager: DBBManager) -> Bool {
         if objects.isEmpty == true { return true }
         
@@ -263,6 +228,41 @@ extension DBBTableObject {
     private func updateInDB() -> Bool {
         let success = type(of: self).updateObjects([self], dbManager: dbManager)
         return success
+    }
+
+    private static func saveDBTableObjectProperties(forObjects objects: [DBBTableObject], dbManager: DBBManager) {
+        let map = dbManager.joinMapDict
+        var propertiesToSave = [String]()
+        
+        // gather up a list of the object's join properties
+        if let firstObject = objects.first {
+            let className = firstObject.shortName
+            if let joinMap = map[className] {
+                for (key, _) in joinMap {
+                    if let propertyType = joinMap[key]?.propertyType,
+                        propertyType.isSavedToJoinTableType() == true,
+                        let propertyColumnMap = dbManager.persistenceMap[className]?.propertyColumnMap,
+                        let propertyName = propertyColumnMap[key],
+                        propertiesToSave.contains(propertyName) == false
+                    {
+                        propertiesToSave.append(propertyName)
+                    }
+                }
+            }
+        }
+        
+        // now check each object to see if it has unsaved iVars or arrays of DBBTableObjects
+        if propertiesToSave.isEmpty == false {
+            for object in objects {
+                for property in propertiesToSave {
+                    if let iVar = object.value(forKey: property) as? DBBTableObject, iVar.id == 0 {
+                        let _ = iVar.saveToDB()
+                    } else if let iVar = object.value(forKey: property) as? [DBBTableObject] {
+                        let _ = saveObjects(iVar, dbManager: dbManager)
+                    }
+                }
+            }
+        }
     }
 
     private func statementsAndValuesForJoins(joinDict: [String : DBBJoinMap]) -> [JoinStatementsAndValues] {
