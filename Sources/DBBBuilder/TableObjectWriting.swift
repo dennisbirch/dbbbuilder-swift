@@ -374,7 +374,7 @@ extension DBBTableObject {
         return valuesArray
     }
     
-    private func persistenceComponents() -> (ParamsAndValues) {
+    private func persistenceComponents() -> (ParamsAndStringValues) {
         var params = [String]()
         var values = [String]()
         let instanceVals = instanceValues()

@@ -10,7 +10,7 @@ import Foundation
 import os.log
 
 typealias ValueTuple = (label: String, value: String)
-typealias ParamsAndValues = (params: [String], values: [String])
+typealias ParamsAndStringValues = (params: [String], values: [String])
 
 @objc open class DBBTableObject: NSObject {
     /**
