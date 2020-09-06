@@ -15,6 +15,9 @@ import os.log
  */
 
 extension DBBTableObject {
+    private static var readerLogger: OSLog {
+        return DBBBuilder.logger(withCategory: "TableObjectReading")
+    }
     
     // MARK: - Retrieving From Database
     /**
@@ -76,10 +79,10 @@ extension DBBTableObject {
         }
         
         let sql = sqlString(withOptions: options, manager: manager, joinMaps: joinMaps)
-        os_log("Executing SQL: %@", sql)
+        os_log("Executing SQL: %@", log: readerLogger, type: defaultLogType, sql)
         let executor = DBBDatabaseExecutor(db: manager.database)
         guard let results = executor.runQuery(sql) else {
-            os_log("Fetch failed with error: %@ for SQL: %@", log: DBBBuilder.logger(withCategory: "TableObjectReading"), type: defaultLogType, manager.errorMessage(), sql)
+            os_log("Fetch failed with error: %@ for SQL: %@", log: readerLogger, type: defaultLogType, manager.errorMessage(), sql)
             return nil
         }
         
@@ -116,7 +119,7 @@ extension DBBTableObject {
                                              sparsePopulation: Bool = false,
                                              completion: ([DBBTableObject], NSError?) -> Void) {
         let sql = sqlString(withOptions: options, manager: manager)
-        os_log("Executing SQL: %@", sql)
+        os_log("Executing SQL: %@", log: readerLogger, type: defaultLogType, sql)
         let queue = FMDatabaseQueue(url: manager.database.databaseURL)
         queue?.inDatabase({ (db) in
             do {
@@ -135,7 +138,7 @@ extension DBBTableObject {
                 completion(foundInstances, nil)
             } catch {
                 completion([DBBTableObject](), error as NSError)
-                os_log("Error accessing records: %@", log: DBBBuilder.logger(withCategory: "TableObjectReading"), type: defaultLogType, error.localizedDescription)
+                os_log("Error accessing records: %@", log: readerLogger, type: defaultLogType, error.localizedDescription)
             }
         })
     }
@@ -158,7 +161,7 @@ extension DBBTableObject {
     public static func instanceWithIDNumber(_ id: Int64, manager: DBBManager, sparsePopulation: Bool = false) -> DBBTableObject? {
         let options = DBBQueryOptions.options(withConditions: ["\(Keys.id) = \(id)"])
         guard let object = instancesWithOptions(options, manager: manager)?.first else {
-            os_log("Fetch from database failed")
+            os_log("Fetch from database failed", log: readerLogger, type: defaultLogType)
             return nil
         }
 
@@ -186,7 +189,7 @@ extension DBBTableObject {
         let sql = "SELECT * FROM \(instance.shortName) WHERE \(Keys.id) IN (\(idNumString.joined(separator: ",")))"
         let executor = DBBDatabaseExecutor(db: manager.database)
         guard let results = executor.runQuery(sql) else {
-            os_log("Fetch failed with error: %@ for SQL: %@", log: DBBBuilder.logger(withCategory: "TableObjectReading"), type: defaultLogType, manager.errorMessage(), sql)
+            os_log("Fetch failed with error: %@ for SQL: %@", log: readerLogger, type: defaultLogType, manager.errorMessage(), sql)
             return instances
         }
         
@@ -217,7 +220,7 @@ extension DBBTableObject {
         let sql = "SELECT \(Keys.id) FROM \(tableName)"
         let executor = DBBDatabaseExecutor(db: manager.database)
         guard let result = executor.runQuery(sql) else {
-            os_log("Error getting results with query %@: %@", log: DBBBuilder.logger(withCategory: "DBTableObject"), type: defaultLogType,  sql, manager.errorMessage())
+            os_log("Error getting results with query %@: %@", log: readerLogger, type: defaultLogType,  sql, manager.errorMessage())
             return idsArray
         }
         
@@ -243,7 +246,7 @@ extension DBBTableObject {
             
             guard let persistenceMap = instance.dbManager.persistenceMap[instance.shortName],
                 let keyString = key as? String else {
-                    os_log("Cannot get key as string in instanceFromResultsDictionary", log: DBBBuilder.logger(withCategory: "TableObjectReading"), type: defaultLogType)
+                    os_log("Cannot get key as string in instanceFromResultsDictionary", log: readerLogger, type: defaultLogType)
                     return nil
             }
             
@@ -330,14 +333,14 @@ extension DBBTableObject {
         let executor = DBBDatabaseExecutor(db: manager.database)
         for column in columns {
             guard let propertyName = instance.dbManager.persistenceMap[instance.shortName]?.propertyForColumn(named: column) else {
-                os_log("Can't get property name for %@", log: logger, type: defaultLogType, column)
+                os_log("Can't get property name for %@", log: DBBTableObject.readerLogger, type: defaultLogType, column)
                 continue
             }
             
             if let joinMap = joinMapDict[column] {
                 let sql = "SELECT \(joinMap.joinColumnName) FROM \(joinMap.joinTableName) WHERE \(joinMap.parentJoinColumn) = \(instance.idNum);"
                 if let results = executor.runQuery(sql) {
-                    os_log("Executed query for join table content: %@", sql)
+                    os_log("Executed query for join table content: %@", log: DBBTableObject.readerLogger, type: defaultLogType, sql)
                     instance.setValues(fromResult: results,
                                        forColumn: column,
                                        propertyName: propertyName,
@@ -345,13 +348,13 @@ extension DBBTableObject {
                                        joinMap: joinMap,
                                        manager: manager)
                 } else {
-                    os_log("ResultSet is nil with query: %@", log: logger, type: defaultLogType, sql)
+                    os_log("ResultSet is nil with query: %@", log: DBBTableObject.readerLogger, type: defaultLogType, sql)
                     if manager.database.lastErrorCode() != 0 {
-                        os_log("Database error message: %@", log: logger, type: defaultLogType, manager.errorMessage())
+                        os_log("Database error message: %@", log: DBBTableObject.readerLogger, type: defaultLogType, manager.errorMessage())
                     }
                 }                
             } else {
-                os_log("Cannot retrieve values for %@ because its joinMap is nil", log: logger, type: defaultLogType, column)
+                os_log("Cannot retrieve values for %@ because its joinMap is nil", log: DBBTableObject.readerLogger, type: defaultLogType, column)
                 continue
             }            
         }
@@ -385,7 +388,7 @@ extension DBBTableObject {
         
         if requiresDBBObject {
             guard let type = objectType else {
-                os_log("Type of object is nil", log: logger, type: defaultLogType)
+                os_log("Type of object is nil", log: DBBTableObject.readerLogger, type: defaultLogType)
                 return
             }
             setDBBObjectValue(objectType: type, joinMap: joinMap, resultSet: resultSet, manager: manager, isArray: isArray)
@@ -452,7 +455,7 @@ extension DBBTableObject {
             self.setValue(objects, forKey: propertyName)
         } else {
             guard let instanceID = valuesArray.first else {
-                os_log("Couldn't get first id from object array", log: logger, type: defaultLogType)
+                os_log("Couldn't get first id from object array", log: DBBTableObject.readerLogger, type: defaultLogType)
                 return
             }
             
