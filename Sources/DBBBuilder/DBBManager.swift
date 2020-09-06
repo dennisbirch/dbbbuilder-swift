@@ -167,7 +167,7 @@ import os.log
             os_log("Success dropping index %@: true", log: logger, type: defaultLogType, indexName)
             return true
         } catch {
-            os_log("Error dropping index: %@", error.localizedDescription)
+            os_log("Error dropping index: %@", log: logger, type: defaultLogType, error.localizedDescription)
             return false
         }
     }

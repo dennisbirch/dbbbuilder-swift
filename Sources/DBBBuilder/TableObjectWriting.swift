@@ -287,7 +287,7 @@ extension DBBTableObject {
                 if let unwrappedJoinMap = joinDict[column] {
                     joinMap = unwrappedJoinMap
                 } else {
-                    os_log("Failed to find joinMap for column %@", log: logger, type: defaultLogType, column)
+                    os_log("Failed to find joinMap for column %@", log: DBBTableObject.writerLogger, type: defaultLogType, column)
                     continue
                 }
                 
@@ -297,7 +297,7 @@ extension DBBTableObject {
                 statementsAndArgs.append((sql, nil))
                 
                 guard let propertyName = dbManager.persistenceMap[shortName]?.propertyForColumn(named: column) else {
-                    os_log("Can't get property name for %@", log: logger, type: defaultLogType, column)
+                    os_log("Can't get property name for %@", log: DBBTableObject.writerLogger, type: defaultLogType, column)
                     continue
                 }
                 let valuesToInsert = joinValues(column: propertyName)
@@ -380,7 +380,7 @@ extension DBBTableObject {
         let instanceVals = instanceValues()
         
         guard let persistenceMap = dbManager.persistenceMap[shortName] else {
-            os_log("Can't get persistenceMap for %@", log: logger, type: defaultLogType, shortName)
+            os_log("Can't get persistenceMap for %@", log: DBBTableObject.writerLogger, type: defaultLogType, shortName)
             return (params, values)
         }
         
@@ -403,7 +403,7 @@ extension DBBTableObject {
                     if let interval = TimeInterval(match.value) {
                         values.append(String(interval))
                     } else {
-                        os_log("Failed to convert date to correct format for '%@'. Using current timestamp.", log: logger, type: defaultLogType, key)
+                        os_log("Failed to convert date to correct format for '%@'. Using current timestamp.", log: DBBTableObject.writerLogger, type: defaultLogType, key)
                         values.append(String(Date().dbb_timeIntervalForDate()))
                     }
                 } else if type.name() == TypeNames.bool {
@@ -421,7 +421,7 @@ extension DBBTableObject {
         let selfMirror = Mirror(reflecting: self)
         var output = [ValueTuple]()
         guard let persistenceMap = dbManager.persistenceMap[shortName] else {
-            os_log("Can't get persistenceMap for %@", log: logger, type: defaultLogType, shortName)
+            os_log("Can't get persistenceMap for %@", log: DBBTableObject.writerLogger, type: defaultLogType, shortName)
             return [ValueTuple]()
         }
         for case let (label?, value) in selfMirror.children {
@@ -467,7 +467,7 @@ extension DBBTableObject {
     private func objectTypeForColumn(_ column: String) -> (DBBTableObject.Type?, Bool) {
         var objectType: DBBTableObject.Type? = nil
         guard let persistenceMap = dbManager.persistenceMap[shortName] else {
-            os_log("Can't get persistenceMap for %@", log: logger, type: defaultLogType, shortName)
+            os_log("Can't get persistenceMap for %@", log: DBBTableObject.writerLogger, type: defaultLogType, shortName)
             return (nil, false)
         }
 

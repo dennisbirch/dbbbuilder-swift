@@ -80,7 +80,7 @@ typealias ParamsAndStringValues = (params: [String], values: [String])
     
     public var hasSubclass = false
     
-    let logger = DBBBuilder.logger(withCategory: "DBBTableObject")
+    private static let logger = DBBBuilder.logger(withCategory: "DBBTableObject")
 
     static let defaultPropertiesMap: [String : DBBPropertyPersistence] = [Keys.id : DBBPropertyPersistence(type: .int),
                                                    Keys.createdTime : DBBPropertyPersistence(type: .date),
@@ -189,7 +189,7 @@ typealias ParamsAndStringValues = (params: [String], values: [String])
         for instance in instances {
             let instanceSuccess = self.deleteInstance(instance, manager: manager)
             if instanceSuccess == false {
-                os_log("Deleting instance of %@ with idNum %@ failed.", log: DBBBuilder.logger(withCategory: "DBBTableObject"), type: defaultLogType, self.init(dbManager: manager).shortName, String(instance.idNum))
+                os_log("Deleting instance of %@ with idNum %@ failed.", log: logger, type: defaultLogType, self.init(dbManager: manager).shortName, String(instance.idNum))
                 success = false
             }
         }
@@ -216,19 +216,19 @@ typealias ParamsAndStringValues = (params: [String], values: [String])
                 let joinSQL = "DELETE FROM \(map.joinTableName)"
                 var success = executor.executeStatements(joinSQL)
                 if success == false {
-                    os_log("Error deleting join table: %@", log: DBBBuilder.logger(withCategory: "DBBTableOject"), type: defaultLogType, manager.errorMessage())
+                    os_log("Error deleting join table: %@", log: logger, type: defaultLogType, manager.errorMessage())
                 }
                 let indexName = "\(tableName)_\(column)_idx"
                 success = manager.dropIndex(named: indexName)
                 if success == false {
-                    os_log("Error deleting index: %@: %@", log: DBBBuilder.logger(withCategory: "DBBTableOject"), type: defaultLogType, indexName, manager.errorMessage())
+                    os_log("Error deleting index: %@: %@", log: logger, type: defaultLogType, indexName, manager.errorMessage())
                 }
             }
         }
 
         // and drop indexes
         guard let persistenceMap = manager.persistenceMap[tableName] else {
-            os_log("Can't get persistenceMap for %@", tableName)
+            os_log("Can't get persistenceMap for %@", log: logger, type: defaultLogType, tableName)
             return false
         }
         if let indexer = persistenceMap.indexer {
@@ -237,7 +237,7 @@ typealias ParamsAndStringValues = (params: [String], values: [String])
                 let idxName = "\(tableName)_\(columnName)"
                 let success = manager.dropIndex(named: idxName)
                 if success == false {
-                    os_log("Error deleting index: %@: %@", log: DBBBuilder.logger(withCategory: "DBBTableOject"), type: defaultLogType, idxName, manager.errorMessage())
+                    os_log("Error deleting index: %@: %@", log: logger, type: defaultLogType, idxName, manager.errorMessage())
                 }
             }
         }

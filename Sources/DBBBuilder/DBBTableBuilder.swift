@@ -25,7 +25,7 @@ class DBBTableBuilder {
         }
         var itemsArray = [String]()
         guard let persistenceMap = tableObject.dbManager.persistenceMap[tableName] else {
-            os_log("Can't get persistenceMap for %@", tableName)
+            os_log("Can't get persistenceMap for %@", log: logger, type: defaultLogType, tableName)
             return ""
         }
         for item in persistenceMap.map {

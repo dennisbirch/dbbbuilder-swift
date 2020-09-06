@@ -28,7 +28,7 @@ struct DBBDatabaseExecutor {
             let result = try database.executeQuery(query, values: arguments)
             return result
         } catch {
-            os_log("Error executing query: %@", error.localizedDescription)
+            os_log("Error executing query: %@", log: logger, type: defaultLogType, error.localizedDescription)
             return nil
         }
     }
