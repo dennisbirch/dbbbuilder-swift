@@ -56,8 +56,10 @@ public struct DBBQueryOptions {
         options.propertyNames = properties
         options.conditions = conditions
         options.sorting = sortColumns
-        let sortOrder = (ascendingSort == true) ? ColumnSorting.ascending : ColumnSorting.descending
-        options.sorting?.append(sortOrder)
+        if sortColumns?.contains("ASC") == false && sortColumns?.contains("DESC") == false {
+            let sortOrder = (ascendingSort == true) ? ColumnSorting.ascending : ColumnSorting.descending
+            options.sorting?.append(sortOrder)
+        }
         options.distinct = distinct
         return options
     }

@@ -24,6 +24,7 @@
 		9578B3EE21F8330400219E8A /* DBBDatePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9578B3D921F8330400219E8A /* DBBDatePickerView.swift */; };
 		9578B3EF21F8330400219E8A /* EditButtonTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9578B3DA21F8330400219E8A /* EditButtonTableViewCell.swift */; };
 		D83D3A5824F45D3F0019C1DD /* InheritanceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D83D3A5724F45D3F0019C1DD /* InheritanceTests.swift */; };
+		D895DA6A25069CA200A2F78B /* SortingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D895DA6925069CA200A2F78B /* SortingTests.swift */; };
 		D8AD0F2F249C0DA4005A6344 /* Meeting.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8AD0F2B249C0DA4005A6344 /* Meeting.swift */; };
 		D8AD0F30249C0DA4005A6344 /* Person.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8AD0F2C249C0DA4005A6344 /* Person.swift */; };
 		D8AD0F31249C0DA4005A6344 /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8AD0F2D249C0DA4005A6344 /* Project.swift */; };
@@ -90,6 +91,7 @@
 		95C5D073221DCC0600B1C938 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A54DCCC71A322C8500D0A617 /* DBBBuilder-Demo-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "DBBBuilder-Demo-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D83D3A5724F45D3F0019C1DD /* InheritanceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = InheritanceTests.swift; path = ../../Tests/DBBBuilderPackageTests/InheritanceTests.swift; sourceTree = "<group>"; };
+		D895DA6925069CA200A2F78B /* SortingTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SortingTests.swift; path = ../../Tests/DBBBuilderPackageTests/SortingTests.swift; sourceTree = "<group>"; };
 		D8AD0F2B249C0DA4005A6344 /* Meeting.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Meeting.swift; sourceTree = "<group>"; };
 		D8AD0F2C249C0DA4005A6344 /* Person.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Person.swift; sourceTree = "<group>"; };
 		D8AD0F2D249C0DA4005A6344 /* Project.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Project.swift; sourceTree = "<group>"; };
@@ -201,6 +203,7 @@
 				D8AD0F35249C0DCE005A6344 /* PreAndPostSaveActionTests.swift */,
 				D8AD0F33249C0DCE005A6344 /* SaveAtomicTypesTests.swift */,
 				D83D3A5724F45D3F0019C1DD /* InheritanceTests.swift */,
+				D895DA6925069CA200A2F78B /* SortingTests.swift */,
 			);
 			path = "DBBBuilder-Demo-iOSTests";
 			sourceTree = "<group>";
@@ -390,6 +393,7 @@
 				D8AD0F4C249C0DCF005A6344 /* Project.swift in Sources */,
 				D8AD0F47249C0DCF005A6344 /* DBBTableBuilderTests.swift in Sources */,
 				D8AD0F4E249C0DCF005A6344 /* MultiObjectSaveTests.swift in Sources */,
+				D895DA6A25069CA200A2F78B /* SortingTests.swift in Sources */,
 				D8AD0F46249C0DCF005A6344 /* DBBTableObjectSaveTests.swift in Sources */,
 				D8AD0F51249C0DCF005A6344 /* DBBDatabaseSetupTests.swift in Sources */,
 				D8AD0F50249C0DCF005A6344 /* CommonTestTask.swift in Sources */,
