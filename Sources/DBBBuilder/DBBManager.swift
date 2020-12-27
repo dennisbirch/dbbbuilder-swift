@@ -97,7 +97,7 @@ import os.log
         persistenceMap[tableName] = newMap
     }
 
-    @available(*, deprecated, message: "Please use addPersistenceMappin:_:for:indexer: instead")
+    @available(*, deprecated, message: "Please use addPersistenceMapping:_:for:indexer: instead")
     /**
      Public method to add the required persistence mapping for a DBBTableObject subclass. This method is deprecated and should be replaced with calls to addPersistenceMapping:_:forTableNamed:indexer:.
      
