@@ -12,7 +12,7 @@ import os.log
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
-    var dbManager: DBBManager?
+    var dbManager: DBBManager!
     
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         setupDBManager()
@@ -38,13 +38,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
 
     func setupDBManager() {
-        guard let documentsFolder = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else {
-            return
-        }
-
-        let fileURL = documentsFolder.appendingPathComponent("DBBBuilderDemo.sqlite")
-        dbManager = DBBManager(databaseURL: fileURL)
-        dbManager?.addTableClasses([Person.self, Company.self, Project.self, Meeting.self])
+        let tables = [Person.self, Company.self, Project.self, Meeting.self]
+        dbManager = DBBManager.createDatabaseInAppSupportFolder(named: "Data.sqlite", subFolders: "DBBBuilder", with: tables)
     }
 }
 
