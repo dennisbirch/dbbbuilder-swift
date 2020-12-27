@@ -15,6 +15,41 @@ import os.log
     var persistenceMap = [String : DBBPersistenceMap]()
     var joinMapDict = [String : [String : DBBJoinMap]]()
     private let logger = DBBBuilder.logger(withCategory: "DBBManager")
+    
+    /**
+     A convenience method for getting an initialized DBBManager instance located in the user's Documents folder.
+     
+     - Parameters:
+        - named: A String with the file name to create or open if already existing.
+        - tableClasses: An array of DBBTableObject *types* that the DBBManager instance manages.
+     
+     - Returns: A DBBManager instance set up with the table types passed in.
+    */
+        public static func createDatabaseInDocumentsFolder(named name: String, tableClasses: [DBBTableObject.Type]) -> DBBManager {
+        let fileURL = documentsFolder.appendingPathComponent(name)
+        let manager = DBBManager(databaseURL: fileURL)
+        manager.addTableClasses(tableClasses)
+        
+        return manager
+    }
+
+    /**
+     A convenience method for getting an initialized DBBManager instance located in a subfolder of the user's Application Support folder.
+     
+     - Parameters:
+        - named: A String with the file name to create or open if already existing.
+        - subFolders: A String specifying the subfolder hierarchy. This is an optional parameter but you will probably want to specify a directory at least one layer deep within Application Support.
+        - tableClasses: An array of DBBTableObject *types* that the DBBManager instance manages.
+     
+     - Returns: A DBBManager instance set up with the table types passed in.
+    */
+    public static func createDatabaseInAppSupportFolder(named name: String, subFolders: String?, with tableClasses: [DBBTableObject.Type]) -> DBBManager {
+        let fileURL = appSupportFolder(using: subFolders).appendingPathComponent(name)
+        let manager = DBBManager(databaseURL: fileURL)
+        manager.addTableClasses(tableClasses)
+        
+        return manager
+    }
 
     /**
      Init method for instantiating a DBBManager instance.
@@ -118,6 +153,48 @@ import os.log
         let newMap = map.appendDictionary(contents, indexer: indexer)
         // and update the persistence map dictionary
         persistenceMap[table] = newMap
+    }
+    
+    /**
+     A public accessor for the user's Documents folder.
+     
+     - Returns: URL to the user's Documents folder.
+    */
+    public static var documentsFolder: URL {
+        guard let folder = try? FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false) else {
+            fatalError("Failed to get Documents folder")
+        }
+        
+        return folder
+    }
+    
+    /**
+     A convenience method for getting the user's Application Support folder or a subfolder within Application Support.
+     
+     - Parameters:
+        - using: A string defining a directory hierarchy within the user's Application Support folder.
+ 
+     - Returns: URL to the folder if it is either successfully created or already existing.
+    */
+    public static func appSupportFolder(using subFolder: String?) -> URL {
+        guard let folder = try? FileManager.default.url(for: .applicationSupportDirectory, in: .userDomainMask, appropriateFor: nil, create: false) else {
+            fatalError("Failed to get Application Support folder")
+        }
+        
+        let appFolder: URL
+        if let subFolder = subFolder {
+            appFolder = folder.appendingPathComponent(subFolder)
+        } else {
+            appFolder = folder
+        }
+
+        do {
+            try FileManager.default.createDirectory(at: appFolder, withIntermediateDirectories: true, attributes: nil)
+        } catch {
+            fatalError("Error creating or getting the application folder: \(error)")
+        }
+        
+        return appFolder
     }
 
     /**
