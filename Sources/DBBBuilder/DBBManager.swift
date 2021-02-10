@@ -25,7 +25,7 @@ import os.log
      
      - Returns: A DBBManager instance set up with the table types passed in.
     */
-        public static func createDatabaseInDocumentsFolder(named name: String, tableClasses: [DBBTableObject.Type]) -> DBBManager {
+    public static func createDatabaseInDocumentsFolder(named name: String, tableClasses: [DBBTableObject.Type]) -> DBBManager {
         let fileURL = documentsFolder.appendingPathComponent(name)
         let manager = DBBManager(databaseURL: fileURL)
         manager.addTableClasses(tableClasses)
@@ -72,6 +72,8 @@ import os.log
         os_log("Initialized database: %@\nDatabase path: %@", log: logger, type: defaultLogType, (success) ? "true" : "false", database.databasePath ?? "NA")
         
         super.init()
+        
+        addTableClasses([DBVersion.self])
     }
     
     /**
@@ -218,6 +220,28 @@ import os.log
         return 0
     }
     
+    public func hasLatestDBVersion(currentVersion: Double) -> (hasLatest: Bool, version: Double?) {
+        let sql = "SELECT MAX(version) FROM DBVersion"
+        let executor = DBBDatabaseExecutor(db: database)
+        if let result = executor.runQuery(sql) {
+            let lastVersion = result.double(forColumn: "version")
+            print("Last version: \(lastVersion)")
+            return (lastVersion >= currentVersion, lastVersion)
+        } else {
+            return (true, nil)
+        }
+    }
+    
+    public func setCurrentDBVersion(_ version: Double) {
+        if hasLatestDBVersion(currentVersion: version).hasLatest == true {
+            return
+        }
+        
+        let sql = "UPDATE DBVersion SET version = \(version)"
+        let executor = DBBDatabaseExecutor(db: database)
+        let _ = executor.executeStatements(sql)
+    }
+    
     /**
      A convenience method for sending the VACUUM command to the database.
      */
@@ -260,4 +284,19 @@ import os.log
         let newMap = map.appendDictionary(contents)
         persistenceMap[table] = newMap
     }
+}
+
+class DBVersion: DBBTableObject {
+    private struct Keys {
+        static let version = "version"
+    }
+    
+    @objc var version: Double = 0
+    
+    required init(dbManager: DBBManager) {
+        super.init(dbManager: dbManager)
+        let map: [String : DBBPropertyPersistence] = [Keys.version : DBBPropertyPersistence(type: .float)]
+        dbManager.addPersistenceMapping(map, for: self)
+    }
+
 }
