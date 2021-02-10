@@ -220,18 +220,18 @@ import os.log
         return 0
     }
     
-    public func hasLatestDBVersion(currentVersion: Double) -> (hasLatest: Bool, version: Double?) {
+    public func hasLatestDBVersion(currentVersion: Double) -> (hasLatest: Bool, version: Double) {
         guard let result = dbCheckResultSet() else {
-            return (true, 0)
+            return (false, 0)
         }
         if result.next() == false {
-            return (true, 0)
+            return (false, 0)
         }
         if let dict = result.resultDictionary,
            let lastVersion = dict["MAX(version)"] as? Double {
             return (lastVersion >= currentVersion, lastVersion)
         } else {
-            return (true, 0)
+            return (false, 0)
         }
     }
     
