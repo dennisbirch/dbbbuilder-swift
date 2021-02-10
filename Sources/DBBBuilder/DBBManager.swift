@@ -221,14 +221,17 @@ import os.log
     }
     
     public func hasLatestDBVersion(currentVersion: Double) -> (hasLatest: Bool, version: Double?) {
-        let sql = "SELECT MAX(version) FROM DBVersion"
-        let executor = DBBDatabaseExecutor(db: database)
-        if let result = executor.runQuery(sql) {
-            let lastVersion = result.double(forColumn: "version")
-            print("Last version: \(lastVersion)")
+        guard let result = dbCheckResultSet() else {
+            return (true, 0)
+        }
+        if result.next() == false {
+            return (true, 0)
+        }
+        if let dict = result.resultDictionary,
+           let lastVersion = dict["MAX(version)"] as? Double {
             return (lastVersion >= currentVersion, lastVersion)
         } else {
-            return (true, nil)
+            return (true, 0)
         }
     }
     
@@ -237,9 +240,21 @@ import os.log
             return
         }
         
-        let sql = "UPDATE DBVersion SET version = \(version)"
+        let count = countForTable("DBVersion")
+        let sql: String
+        if count > 0 {
+            sql = "UPDATE DBVersion SET version = \(version)"
+        } else {
+            sql = "INSERT INTO DBVersion (version) VALUES (\(version))"
+        }
         let executor = DBBDatabaseExecutor(db: database)
         let _ = executor.executeStatements(sql)
+    }
+    
+    private func dbCheckResultSet() -> FMResultSet? {
+        let sql = "SELECT MAX(version) FROM DBVersion"
+        let executor = DBBDatabaseExecutor(db: database)
+        return executor.runQuery(sql)
     }
     
     /**
