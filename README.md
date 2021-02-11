@@ -1,7 +1,7 @@
 
 # DBBBuilder
 
-### A framework for working in Swift with first-class objects persisted to SQLiite databases.
+### A framework for working in Swift with first-class objects persisted to SQLite databases.
 
 
 - Works in conjunction with the [FMDB](https://github.com/ccgus/fmdb) framework to allow developers to work with first-class objects
@@ -67,6 +67,7 @@ The workspace in this repository includes demo projects and unit tests for iOS a
 * Run 'carthage update'
 * Open DBBBuilder-Swift.workspace in Xcode
 
+##### Running the demos
 (The following actions must be performed separately for either scheme you want to work with, i.e. `DBBBuilder-Demo-OSX` or `DBBBuilder-Demo-iOS`)
 
 * Enable building the iOS or OSX framework you're interested in working with:
@@ -125,6 +126,8 @@ _tableObject_: A DBBTableObject subclass. If you call this method from a DBBSubc
 _indexer_: An optional argument that takes an instance of a `DBBIndexer` struct, with information on building indexes for properties belonging to this subclass. See the discussion of DBBIndexer [below](#dbbindexer). 
 
 It is best practice to call this method in your DBBTableObject subclass instances' init methods. [See below.](#complete-init)
+
+There are a number of public helper functions that are documented in the DBBManager.swift file itself.
 
 #### DBBTableObject
 

@@ -220,6 +220,14 @@ import os.log
         return 0
     }
     
+/**
+ A helper method for checking a version number (which you must assign) for determining whether a database migration is required. The current DB version can be set with the `setCurrentDBVersion` function.
+     
+     - Parameters:
+        currentVersion: A Double value representing the version you want to check against.
+        
+     - Returns: A (Bool, Double) tuple with values for whether or not the current database version is equal to or greater than the currentVersion value passed in, and the version the database is set to.
+*/
     public func hasLatestDBVersion(currentVersion: Double) -> (hasLatest: Bool, version: Double) {
         guard let result = dbCheckResultSet() else {
             return (false, 0)
@@ -235,6 +243,12 @@ import os.log
         }
     }
     
+    /**
+     A helper method for setting a version number for the database, which can be useful for determining the need for database migrations in conjunction with the `hasLatestDB` function. If the database already has a version number equal to or higher than the value passed in, it does NOT set the value passed in.
+         
+         - Parameters:
+            currentVersion: A Double value to set the database version to.
+    */
     public func setCurrentDBVersion(_ version: Double) {
         if hasLatestDBVersion(currentVersion: version).hasLatest == true {
             return
