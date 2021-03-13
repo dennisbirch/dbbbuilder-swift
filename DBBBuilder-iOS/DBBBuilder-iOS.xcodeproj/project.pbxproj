@@ -6,43 +6,8 @@
 	objectVersion = 50;
 	objects = {
 
-/* Begin PBXBuildFile section */
-		D8AD0EC8249C0B48005A6344 /* DBBStorageType.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8AD0EB9249C0B48005A6344 /* DBBStorageType.swift */; };
-		D8AD0EC9249C0B48005A6344 /* DBBBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8AD0EBA249C0B48005A6344 /* DBBBuilder.swift */; };
-		D8AD0ECA249C0B48005A6344 /* TableObjectWriting.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8AD0EBB249C0B48005A6344 /* TableObjectWriting.swift */; };
-		D8AD0ECB249C0B48005A6344 /* DBBPropertyPersistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8AD0EBC249C0B48005A6344 /* DBBPropertyPersistence.swift */; };
-		D8AD0ECC249C0B48005A6344 /* DBBPersistenceMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8AD0EBD249C0B48005A6344 /* DBBPersistenceMap.swift */; };
-		D8AD0ECD249C0B48005A6344 /* DBBIndexer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8AD0EBE249C0B48005A6344 /* DBBIndexer.swift */; };
-		D8AD0ECE249C0B48005A6344 /* DBBDatabaseExecutor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8AD0EBF249C0B48005A6344 /* DBBDatabaseExecutor.swift */; };
-		D8AD0ECF249C0B48005A6344 /* DBBTableObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8AD0EC0249C0B48005A6344 /* DBBTableObject.swift */; };
-		D8AD0ED0249C0B48005A6344 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8AD0EC1249C0B48005A6344 /* Extensions.swift */; };
-		D8AD0ED1249C0B48005A6344 /* DBBManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8AD0EC2249C0B48005A6344 /* DBBManager.swift */; };
-		D8AD0ED2249C0B48005A6344 /* DBBQueryOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8AD0EC3249C0B48005A6344 /* DBBQueryOptions.swift */; };
-		D8AD0ED3249C0B48005A6344 /* TableObjectReading.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8AD0EC4249C0B48005A6344 /* TableObjectReading.swift */; };
-		D8AD0ED4249C0B48005A6344 /* DBBTableBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8AD0EC5249C0B48005A6344 /* DBBTableBuilder.swift */; };
-		D8AD0ED5249C0B48005A6344 /* DBBDatabaseValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8AD0EC6249C0B48005A6344 /* DBBDatabaseValidator.swift */; };
-		D8AD0ED6249C0B48005A6344 /* DBBJoinMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8AD0EC7249C0B48005A6344 /* DBBJoinMap.swift */; };
-		D8D2EBE024F9D83D00B9C647 /* ExceptionCatcher.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D2EBDF24F9D83D00B9C647 /* ExceptionCatcher.framework */; };
-		D8D2EBE124F9D83D00B9C647 /* ExceptionCatcher.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D8D2EBDF24F9D83D00B9C647 /* ExceptionCatcher.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-/* End PBXBuildFile section */
-
-/* Begin PBXCopyFilesBuildPhase section */
-		D8D2EBDE24F9D77000B9C647 /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				D8D2EBE124F9D83D00B9C647 /* ExceptionCatcher.framework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
-
 /* Begin PBXFileReference section */
 		954DDFBE2222363E00E0BD05 /* Cartfile */ = {isa = PBXFileReference; lastKnownFileType = text; name = Cartfile; path = ../Cartfile; sourceTree = "<group>"; };
-		958089D721E94B5000CE7219 /* DBBBuilder.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DBBBuilder.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		958089DB21E94B5000CE7219 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D8AD0EB9249C0B48005A6344 /* DBBStorageType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DBBStorageType.swift; sourceTree = "<group>"; };
 		D8AD0EBA249C0B48005A6344 /* DBBBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DBBBuilder.swift; sourceTree = "<group>"; };
@@ -64,17 +29,6 @@
 		D8D2EBDB24F9D77000B9C647 /* ExceptionCatcher-iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = "ExceptionCatcher-iOS.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D8D2EBDF24F9D83D00B9C647 /* ExceptionCatcher.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = ExceptionCatcher.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
-
-/* Begin PBXFrameworksBuildPhase section */
-		958089D421E94B5000CE7219 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				D8D2EBE024F9D83D00B9C647 /* ExceptionCatcher.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
 		954E22F421EA7DBB00AE389A /* Frameworks */ = {
@@ -109,7 +63,6 @@
 		958089D821E94B5000CE7219 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				958089D721E94B5000CE7219 /* DBBBuilder.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -148,53 +101,13 @@
 		};
 /* End PBXGroup section */
 
-/* Begin PBXHeadersBuildPhase section */
-		958089D221E94B5000CE7219 /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXHeadersBuildPhase section */
-
-/* Begin PBXNativeTarget section */
-		958089D621E94B5000CE7219 /* DBBBuilder */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 958089DF21E94B5000CE7219 /* Build configuration list for PBXNativeTarget "DBBBuilder" */;
-			buildPhases = (
-				958089D221E94B5000CE7219 /* Headers */,
-				958089D321E94B5000CE7219 /* Sources */,
-				958089D421E94B5000CE7219 /* Frameworks */,
-				958089D521E94B5000CE7219 /* Resources */,
-				D8D2EBDE24F9D77000B9C647 /* Embed Frameworks */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = DBBBuilder;
-			packageProductDependencies = (
-			);
-			productName = "DBBBuilder-iOS";
-			productReference = 958089D721E94B5000CE7219 /* DBBBuilder.framework */;
-			productType = "com.apple.product-type.framework";
-		};
-/* End PBXNativeTarget section */
-
 /* Begin PBXProject section */
 		958089CE21E94B5000CE7219 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1010;
-				LastUpgradeCheck = 1010;
+				LastUpgradeCheck = 1250;
 				ORGANIZATIONNAME = "Dennis Birch";
-				TargetAttributes = {
-					958089D621E94B5000CE7219 = {
-						CreatedOnToolsVersion = 10.1;
-						LastSwiftMigration = 1020;
-					};
-				};
 			};
 			buildConfigurationList = 958089D121E94B5000CE7219 /* Build configuration list for PBXProject "DBBBuilder-iOS" */;
 			compatibilityVersion = "Xcode 9.3";
@@ -211,45 +124,9 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				958089D621E94B5000CE7219 /* DBBBuilder */,
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXResourcesBuildPhase section */
-		958089D521E94B5000CE7219 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXResourcesBuildPhase section */
-
-/* Begin PBXSourcesBuildPhase section */
-		958089D321E94B5000CE7219 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				D8AD0ED3249C0B48005A6344 /* TableObjectReading.swift in Sources */,
-				D8AD0ED4249C0B48005A6344 /* DBBTableBuilder.swift in Sources */,
-				D8AD0ED5249C0B48005A6344 /* DBBDatabaseValidator.swift in Sources */,
-				D8AD0ECD249C0B48005A6344 /* DBBIndexer.swift in Sources */,
-				D8AD0ED0249C0B48005A6344 /* Extensions.swift in Sources */,
-				D8AD0ECE249C0B48005A6344 /* DBBDatabaseExecutor.swift in Sources */,
-				D8AD0ECC249C0B48005A6344 /* DBBPersistenceMap.swift in Sources */,
-				D8AD0ECA249C0B48005A6344 /* TableObjectWriting.swift in Sources */,
-				D8AD0ECB249C0B48005A6344 /* DBBPropertyPersistence.swift in Sources */,
-				D8AD0EC9249C0B48005A6344 /* DBBBuilder.swift in Sources */,
-				D8AD0ED6249C0B48005A6344 /* DBBJoinMap.swift in Sources */,
-				D8AD0ECF249C0B48005A6344 /* DBBTableObject.swift in Sources */,
-				D8AD0ED1249C0B48005A6344 /* DBBManager.swift in Sources */,
-				D8AD0EC8249C0B48005A6344 /* DBBStorageType.swift in Sources */,
-				D8AD0ED2249C0B48005A6344 /* DBBQueryOptions.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
 		958089DD21E94B5000CE7219 /* Debug */ = {
@@ -278,6 +155,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -342,6 +220,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -374,66 +253,6 @@
 			};
 			name = Release;
 		};
-		958089E021E94B5000CE7219 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1021;
-				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = B75Q6TLYBM;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/../Carthage/Build/iOS";
-				INFOPLIST_FILE = "DBBBuilder-iOS/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				MARKETING_VERSION = 2.1.4;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.dennisbirch.DBBBuilder-iOS";
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
-				SKIP_INSTALL = YES;
-				SUPPORTS_MACCATALYST = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Debug;
-		};
-		958089E121E94B5000CE7219 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1021;
-				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = B75Q6TLYBM;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/../Carthage/Build/iOS";
-				INFOPLIST_FILE = "DBBBuilder-iOS/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				MARKETING_VERSION = 2.1.4;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.dennisbirch.DBBBuilder-iOS";
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
-				SKIP_INSTALL = YES;
-				SUPPORTS_MACCATALYST = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -442,15 +261,6 @@
 			buildConfigurations = (
 				958089DD21E94B5000CE7219 /* Debug */,
 				958089DE21E94B5000CE7219 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		958089DF21E94B5000CE7219 /* Build configuration list for PBXNativeTarget "DBBBuilder" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				958089E021E94B5000CE7219 /* Debug */,
-				958089E121E94B5000CE7219 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
