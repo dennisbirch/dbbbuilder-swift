@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -23,6 +23,7 @@
 		9578B3ED21F8330400219E8A /* UIColorExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9578B3D721F8330400219E8A /* UIColorExtensions.swift */; };
 		9578B3EE21F8330400219E8A /* DBBDatePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9578B3D921F8330400219E8A /* DBBDatePickerView.swift */; };
 		9578B3EF21F8330400219E8A /* EditButtonTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9578B3DA21F8330400219E8A /* EditButtonTableViewCell.swift */; };
+		D83CAD1D25FD772D00A6AF54 /* DBBBuilder in Frameworks */ = {isa = PBXBuildFile; productRef = D83CAD1C25FD772D00A6AF54 /* DBBBuilder */; };
 		D83D3A5824F45D3F0019C1DD /* InheritanceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D83D3A5724F45D3F0019C1DD /* InheritanceTests.swift */; };
 		D895DA6A25069CA200A2F78B /* SortingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D895DA6925069CA200A2F78B /* SortingTests.swift */; };
 		D8AD0F2F249C0DA4005A6344 /* Meeting.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8AD0F2B249C0DA4005A6344 /* Meeting.swift */; };
@@ -123,6 +124,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D83CAD1D25FD772D00A6AF54 /* DBBBuilder in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -286,6 +288,7 @@
 			);
 			name = "DBBBuilder-Demo-iOS";
 			packageProductDependencies = (
+				D83CAD1C25FD772D00A6AF54 /* DBBBuilder */,
 			);
 			productName = "DBBuilder-Swift";
 			productReference = A54DCCC71A322C8500D0A617 /* DBBBuilder-Demo-iOS.app */;
@@ -325,6 +328,7 @@
 			);
 			mainGroup = A54DCCBE1A322C8500D0A617;
 			packageReferences = (
+				D83CAD1B25FD772D00A6AF54 /* XCRemoteSwiftPackageReference "dbbbuilder-swift" */,
 			);
 			productRefGroup = A54DCCC81A322C8500D0A617 /* Products */;
 			projectDirPath = "";
@@ -478,7 +482,11 @@
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = "DBBBuilder-Demo-iOSTests/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.dennisbirch.DBBBuilder-Demo-iOSTests";
@@ -515,7 +523,11 @@
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = "DBBBuilder-Demo-iOSTests/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.dennisbirch.DBBBuilder-Demo-iOSTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -644,7 +656,10 @@
 				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/../Carthage/Build/iOS";
 				INFOPLIST_FILE = "$(SRCROOT)/DBBBuilder-Demo-iOS/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.dennisbirch.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -659,7 +674,10 @@
 				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/../Carthage/Build/iOS";
 				INFOPLIST_FILE = "$(SRCROOT)/DBBBuilder-Demo-iOS/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.dennisbirch.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -697,6 +715,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		D83CAD1B25FD772D00A6AF54 /* XCRemoteSwiftPackageReference "dbbbuilder-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/dennisbirch/dbbbuilder-swift.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.2.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		D83CAD1C25FD772D00A6AF54 /* DBBBuilder */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D83CAD1B25FD772D00A6AF54 /* XCRemoteSwiftPackageReference "dbbbuilder-swift" */;
+			productName = DBBBuilder;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = A54DCCBF1A322C8500D0A617 /* Project object */;
 }
