@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  InheritanceTests.swift
 //  
 //
 //  Created by Dennis Birch on 8/16/20.
