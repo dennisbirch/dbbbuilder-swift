@@ -88,7 +88,7 @@ extension DBBTableObject {
         // now save scalar properties
         var success = true
         var statements = [String]()
-        var valueStrings = [[String]]()
+        var valueStrings = [[Any]]()
         
         for instance in objects {
             instance.createdTime = Date()
@@ -149,7 +149,7 @@ extension DBBTableObject {
         
         var success = true        
         var statements = [String]()
-        var valueStrings = [[String]]()
+        var valueStrings = [[Any]]()
         
         for instance in objects {
             instance.modifiedTime = Date()
@@ -376,7 +376,7 @@ extension DBBTableObject {
     
     private func persistenceComponents() -> (ParamsAndStringValues) {
         var params = [String]()
-        var values = [String]()
+        var values = [Any]()
         let instanceVals = instanceValues()
         
         guard let persistenceMap = dbManager.persistenceMap[shortName] else {
@@ -396,18 +396,20 @@ extension DBBTableObject {
                 params.append(columnName)
                 
                 if type.name() == TypeNames.timeStamp {
-                    if match.value == "nil" {
+                    if match.value as! String == "nil" {
                         values.append("")
                         continue
                     }
-                    if let interval = TimeInterval(match.value) {
+                    if let date = match.value as? String, let interval = TimeInterval(date) {
                         values.append(String(interval))
                     } else {
                         os_log("Failed to convert date to correct format for '%@'. Using current timestamp.", log: DBBTableObject.writerLogger, type: defaultLogType, key)
                         values.append(String(Date().dbb_timeIntervalForDate()))
                     }
-                } else if type.name() == TypeNames.bool {
-                    values.append((match.value == "true") ? "1" : "0")
+                } else if match.value as! String == "nil" {
+                    values.append(NSNull())
+                } else if type.name() == TypeNames.bool, let boolString = match.value as? String {
+                    values.append((boolString == "true") ? "1" : "0")
                 } else {
                     values.append(String(describing: match.value))
                 }
@@ -429,6 +431,8 @@ extension DBBTableObject {
             if let type = persistenceMap.map[keyValue.0]?.storageType, type.name() == TypeNames.timeStamp, let date = value as? Date {
                 let dateString = String(date.dbb_timeIntervalForDate())
                 output.append((keyValue.0, dateString))
+            } else if let unwrappedString = value as? String {
+                output.append((keyValue.0, unwrappedString))
             } else {
                 output.append(keyValue)
             }
