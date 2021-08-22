@@ -139,4 +139,40 @@ class MultiObjectSaveTests: XCTestCase {
         let saved = Person.saveObjects(objects, dbManager: manager)
         XCTAssertFalse(saved)
     }
+    
+    func testManySaves() {
+        guard let url = dbManager?.database.databaseURL else {
+            XCTFail("Database URL required")
+            return
+        }
+        
+        dbManager = DBBManager(databaseURL: url)
+        dbManager?.addTableClasses([NullTestPerson.self])
+        
+        guard let manager = dbManager else {
+            XCTFail("DBManager must not be nil")
+            return
+        }
+        
+        let baseName = "Person"
+        let lastName = "Jones"
+        var people: [NullTestPerson] = []
+        for idx in 1..<10000 {
+            let name = baseName + String(idx)
+            let person = NullTestPerson(dbManager: manager)
+            person.firstName = name
+            person.lastName = lastName
+            person.age = idx
+            people.append(person)
+        }
+        let startTime = Date()
+        let success = NullTestPerson.saveObjects(people, dbManager: manager)
+        let endTime = Date()
+        XCTAssertTrue(success)
+        let elapsed = endTime.timeIntervalSince(startTime)
+
+        // TODO: Remove!!!
+        print("Elapsed time for saving: \(elapsed) seconds")
+        
+    }
 }
