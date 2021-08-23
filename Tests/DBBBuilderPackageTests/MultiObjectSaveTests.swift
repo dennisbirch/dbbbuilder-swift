@@ -154,10 +154,11 @@ class MultiObjectSaveTests: XCTestCase {
             return
         }
         
+        let peopleToSave = 10000
         let baseName = "Person"
         let lastName = "Jones"
         var people: [NullTestPerson] = []
-        for idx in 1..<10000 {
+        for idx in 1..<peopleToSave {
             let name = baseName + String(idx)
             let person = NullTestPerson(dbManager: manager)
             person.firstName = name
@@ -165,14 +166,28 @@ class MultiObjectSaveTests: XCTestCase {
             person.age = idx
             people.append(person)
         }
-        let startTime = Date()
-        let success = NullTestPerson.saveObjects(people, dbManager: manager)
-        let endTime = Date()
+        var success = NullTestPerson.saveObjects(people, dbManager: manager)
         XCTAssertTrue(success)
-        let elapsed = endTime.timeIntervalSince(startTime)
-
-        // TODO: Remove!!!
-        print("Elapsed time for saving: \(elapsed) seconds")
         
+        guard var allPeople = NullTestPerson.allInstances(manager: manager) as? [NullTestPerson] else {
+            XCTFail("Fetch should not fail")
+            return
+        }
+        
+        XCTAssertEqual(allPeople.count, peopleToSave - 1)
+        let nicknames = ["Guy", "Hey you"]
+        for person in allPeople {
+            person.nicknames = nicknames
+        }
+        
+        success = NullTestPerson.saveObjects(allPeople, dbManager: manager)
+        XCTAssertTrue(success)
+        
+        allPeople = NullTestPerson.allInstances(manager: manager) as? [NullTestPerson] ?? []
+        XCTAssertEqual(allPeople.count, peopleToSave - 1)
+        
+        let randomInt = Int.random(in: 1..<peopleToSave)
+        let person = allPeople[randomInt]
+        XCTAssertEqual(person.nicknames, nicknames)
     }
 }

@@ -81,7 +81,7 @@ extension DBBTableObject {
             os_log("Can't get database URL", log: logger, type: defaultLogType)
             return false
         }
-
+        
         // make sure all DBBTableObject properties have been saved
         saveDBTableObjectProperties(forObjects: objects, dbManager: dbManager)
         
@@ -89,7 +89,8 @@ extension DBBTableObject {
         var success = true
         var statements = [String]()
         var valueStrings = [[Any]]()
-        
+        let queue = FMDatabaseQueue(url: databaseURL)
+
         for instance in objects {
             instance.createdTime = Date()
             instance.modifiedTime = Date()
@@ -99,7 +100,7 @@ extension DBBTableObject {
                 success = false
                 continue
             }
-
+            
             let placeholders = instance.sqlPlaceholders(count: instanceComponents.params.count)
             let columnNamesString = instanceComponents.params.joined(separator: ", ")
             let statement = "INSERT INTO \(instance.shortName) (\(columnNamesString)) VALUES (\(placeholders))"
@@ -111,19 +112,17 @@ extension DBBTableObject {
             os_log("Params and values or object arrays are of unequal sizes", log: writerLogger, type: defaultLogType)
             return false
         }
-
-        let queue = FMDatabaseQueue(url: databaseURL)
+        
         queue?.inTransaction({ (database, rollback) in
             for idx in 0..<statements.count {
                 let sql = statements[idx]
                 let values = valueStrings[idx]
                 let instance = objects[idx]
-
+                
                 let executor = DBBDatabaseExecutor(db: database)
                 do {
                     try executor.executeUpdate(sql: sql, withArgumentsIn: values)
                     instance.id = database.lastInsertRowId
-                    success = true
                 } catch  {
                     os_log("Insert failed with error message: %@", log: writerLogger, type: defaultLogType, error.localizedDescription)
                     success = false
@@ -131,9 +130,8 @@ extension DBBTableObject {
                 }
             }
         })
-        
+
         success = success && writeJoinColumnsForObjects(objects, databaseURL: databaseURL, dbManager: dbManager)
-        
         return success
     }
     
@@ -150,7 +148,8 @@ extension DBBTableObject {
         var success = true        
         var statements = [String]()
         var valueStrings = [[Any]]()
-        
+        let queue = FMDatabaseQueue(url: databaseURL)
+
         for instance in objects {
             instance.modifiedTime = Date()
             let instanceComponents = instance.persistenceComponents()
@@ -177,7 +176,6 @@ extension DBBTableObject {
             return false
         }
         
-        let queue = FMDatabaseQueue(url: databaseURL)
         queue?.inTransaction({ (database, rollback) in
             for idx in 0..<statements.count {
                 let sql = statements[idx]
@@ -186,7 +184,6 @@ extension DBBTableObject {
                 let executor = DBBDatabaseExecutor(db: database)
                 do {
                     try executor.executeUpdate(sql: sql, withArgumentsIn: values)
-                    success = true
                 } catch  {
                     os_log("Update failed with error message: %@", log: writerLogger, type: defaultLogType, error.localizedDescription)
                     success = false
@@ -194,9 +191,8 @@ extension DBBTableObject {
                 }
             }
         })
-        
+
         success = success && writeJoinColumnsForObjects(objects, databaseURL: databaseURL, dbManager: dbManager)
-        
         return success
     }
 
@@ -213,9 +209,10 @@ extension DBBTableObject {
     private static func writeJoinColumnsForObjects(_ objects: [DBBTableObject], databaseURL: URL, dbManager: DBBManager) -> Bool {
         var success = true
         
+        let queue = FMDatabaseQueue(url: databaseURL)
+
         for instance in objects {
             if let joinMap = dbManager.joinMapDict[instance.shortName] {
-                let queue = FMDatabaseQueue(url: databaseURL)
                 let statementsAndArgs = instance.statementsAndValuesForJoins(joinDict: joinMap)
                 queue?.inTransaction({ (database, rollback) in
                     for statementTuple in statementsAndArgs {
@@ -235,7 +232,7 @@ extension DBBTableObject {
                         }
                     }
                 })
-            }
+                            }
         }
         
         return success
@@ -277,39 +274,39 @@ extension DBBTableObject {
     }
 
     private func statementsAndValuesForJoins(joinDict: [String : DBBJoinMap]) -> [JoinStatementsAndValues] {
-            let joinColumns = joinDict.keys
-            
-            var statementsAndArgs = [JoinStatementsAndValues]()
+        let joinColumns = joinDict.keys
         
-            for column in joinColumns {
-                let joinMap: DBBJoinMap
-                // get the mapping for writing this column's join table
-                if let unwrappedJoinMap = joinDict[column] {
-                    joinMap = unwrappedJoinMap
-                } else {
-                    os_log("Failed to find joinMap for column %@", log: DBBTableObject.writerLogger, type: defaultLogType, column)
-                    continue
-                }
-                
-                // delete from joinTable where parentClass_id = parentClassIDNum
-                let joinTableName = joinMap.joinTableName
-                var sql = "DELETE FROM \(joinMap.joinTableName) WHERE \(joinMap.parentJoinColumn) = \(id)"
-                statementsAndArgs.append((sql, nil))
-                
-                guard let propertyName = dbManager.persistenceMap[shortName]?.propertyForColumn(named: column) else {
-                    os_log("Can't get property name for %@", log: DBBTableObject.writerLogger, type: defaultLogType, column)
-                    continue
-                }
-                let valuesToInsert = joinValues(column: propertyName)
-                if valuesToInsert.isEmpty == true { continue }
-                
-                for item in valuesToInsert {
-                    let args: [Any] = [String(id), item]
-                    sql = "INSERT INTO \(joinTableName) (\(joinMap.parentJoinColumn), \(joinMap.joinColumnName)) VALUES (?, ?)"
-                    statementsAndArgs.append((sql, args))
-                }
+        var statementsAndArgs: [JoinStatementsAndValues] = []
+        
+        for column in joinColumns {
+            let joinMap: DBBJoinMap
+            // get the mapping for writing this column's join table
+            if let unwrappedJoinMap = joinDict[column] {
+                joinMap = unwrappedJoinMap
+            } else {
+                os_log("Failed to find joinMap for column %@", log: DBBTableObject.writerLogger, type: defaultLogType, column)
+                continue
             }
-
+            
+            // delete from joinTable where parentClass_id = parentClassIDNum
+            let joinTableName = joinMap.joinTableName
+            var sql = "DELETE FROM \(joinMap.joinTableName) WHERE \(joinMap.parentJoinColumn) = \(id)"
+            statementsAndArgs.append((sql, nil))
+            
+            guard let propertyName = dbManager.persistenceMap[shortName]?.propertyForColumn(named: column) else {
+                os_log("Can't get persistence map's property name for %@", log: DBBTableObject.writerLogger, type: defaultLogType, column)
+                continue
+            }
+            let valuesToInsert = joinValues(column: propertyName)
+            if valuesToInsert.isEmpty == true { continue }
+            
+            for item in valuesToInsert {
+                let args: [Any] = [String(id), item]
+                sql = "INSERT INTO \(joinTableName) (\(joinMap.parentJoinColumn), \(joinMap.joinColumnName)) VALUES (?, ?)"
+                statementsAndArgs.append((sql, args))
+            }
+        }
+        
         return statementsAndArgs
     }
     
@@ -392,6 +389,8 @@ extension DBBTableObject {
             }
             
             if let match = (instanceVals.filter{ $0.label == key }).first {
+                if match.value as! String == "nil" { continue }
+
                 let columnName = (property.columnName.isEmpty) ? key : property.columnName
                 params.append(columnName)
                 
