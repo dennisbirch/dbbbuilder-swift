@@ -101,11 +101,13 @@ extension DBBTableObject {
                 continue
             }
             
-            let placeholders = instance.sqlPlaceholders(count: instanceComponents.params.count)
-            let columnNamesString = instanceComponents.params.joined(separator: ", ")
-            let statement = "INSERT INTO \(instance.shortName) (\(columnNamesString)) VALUES (\(placeholders))"
-            statements.append(statement)
-            valueStrings.append(instanceComponents.values)
+            autoreleasepool {
+                let placeholders = instance.sqlPlaceholders(count: instanceComponents.params.count)
+                let columnNamesString = instanceComponents.params.joined(separator: ", ")
+                let statement = "INSERT INTO \(instance.shortName) (\(columnNamesString)) VALUES (\(placeholders))"
+                statements.append(statement)
+                valueStrings.append(instanceComponents.values)
+            }
         }
         
         guard statements.count == valueStrings.count && objects.count == valueStrings.count else {
@@ -115,18 +117,20 @@ extension DBBTableObject {
         
         queue?.inTransaction({ (database, rollback) in
             for idx in 0..<statements.count {
-                let sql = statements[idx]
-                let values = valueStrings[idx]
-                let instance = objects[idx]
-                
-                let executor = DBBDatabaseExecutor(db: database)
-                do {
-                    try executor.executeUpdate(sql: sql, withArgumentsIn: values)
-                    instance.id = database.lastInsertRowId
-                } catch  {
-                    os_log("Insert failed with error message: %@", log: writerLogger, type: defaultLogType, error.localizedDescription)
-                    success = false
-                    rollback.pointee = true
+                autoreleasepool {
+                    let sql = statements[idx]
+                    let values = valueStrings[idx]
+                    let instance = objects[idx]
+                    
+                    let executor = DBBDatabaseExecutor(db: database)
+                    do {
+                        try executor.executeUpdate(sql: sql, withArgumentsIn: values)
+                        instance.id = database.lastInsertRowId
+                    } catch  {
+                        os_log("Insert failed with error message: %@", log: writerLogger, type: defaultLogType, error.localizedDescription)
+                        success = false
+                        rollback.pointee = true
+                    }
                 }
             }
         })
@@ -159,16 +163,18 @@ extension DBBTableObject {
                 continue
             }
             
-            var statement = "UPDATE \(instance.shortName) SET "
-            var paramsArray = [String]()
-            for param in instanceComponents.params {
-                paramsArray.append("\(param) = ?")
+            autoreleasepool {
+                var statement = "UPDATE \(instance.shortName) SET "
+                var paramsArray = [String]()
+                for param in instanceComponents.params {
+                    paramsArray.append("\(param) = ?")
+                }
+                
+                statement += paramsArray.joined(separator: ", ") + " WHERE \(Keys.id) = \(instance.idNum);"
+                
+                statements.append(statement)
+                valueStrings.append(instanceComponents.values)
             }
-            
-            statement += paramsArray.joined(separator: ", ") + " WHERE \(Keys.id) = \(instance.idNum);"
-            
-            statements.append(statement)
-            valueStrings.append(instanceComponents.values)
         }
         
         guard statements.count == valueStrings.count else {
@@ -178,16 +184,18 @@ extension DBBTableObject {
         
         queue?.inTransaction({ (database, rollback) in
             for idx in 0..<statements.count {
-                let sql = statements[idx]
-                let values = valueStrings[idx]
-                
-                let executor = DBBDatabaseExecutor(db: database)
-                do {
-                    try executor.executeUpdate(sql: sql, withArgumentsIn: values)
-                } catch  {
-                    os_log("Update failed with error message: %@", log: writerLogger, type: defaultLogType, error.localizedDescription)
-                    success = false
-                    rollback.pointee = true
+                autoreleasepool {
+                    let sql = statements[idx]
+                    let values = valueStrings[idx]
+                    
+                    let executor = DBBDatabaseExecutor(db: database)
+                    do {
+                        try executor.executeUpdate(sql: sql, withArgumentsIn: values)
+                    } catch  {
+                        os_log("Update failed with error message: %@", log: writerLogger, type: defaultLogType, error.localizedDescription)
+                        success = false
+                        rollback.pointee = true
+                    }
                 }
             }
         })
@@ -212,27 +220,29 @@ extension DBBTableObject {
         let queue = FMDatabaseQueue(url: databaseURL)
 
         for instance in objects {
-            if let joinMap = dbManager.joinMapDict[instance.shortName] {
-                let statementsAndArgs = instance.statementsAndValuesForJoins(joinDict: joinMap)
-                queue?.inTransaction({ (database, rollback) in
-                    for statementTuple in statementsAndArgs {
-                        let statement = statementTuple.statement
-                        if let args = statementTuple.args {
-                            database.executeUpdate(statement, withArgumentsIn: args)
-                            if database.lastErrorCode() != 0 {
-                                rollback.pointee = true
-                                success = false
-                            }
-                        } else {
-                            database.executeUpdate(statement, withArgumentsIn: [])
-                            if database.lastErrorCode() != 0 {
-                                rollback.pointee = true
-                                success = false
+            autoreleasepool {
+                if let joinMap = dbManager.joinMapDict[instance.shortName] {
+                    let statementsAndArgs = instance.statementsAndValuesForJoins(joinDict: joinMap)
+                    queue?.inTransaction({ (database, rollback) in
+                        for statementTuple in statementsAndArgs {
+                            let statement = statementTuple.statement
+                            if let args = statementTuple.args {
+                                database.executeUpdate(statement, withArgumentsIn: args)
+                                if database.lastErrorCode() != 0 {
+                                    rollback.pointee = true
+                                    success = false
+                                }
+                            } else {
+                                database.executeUpdate(statement, withArgumentsIn: [])
+                                if database.lastErrorCode() != 0 {
+                                    rollback.pointee = true
+                                    success = false
+                                }
                             }
                         }
-                    }
-                })
-                            }
+                    })
+                }
+            }
         }
         
         return success
@@ -262,11 +272,13 @@ extension DBBTableObject {
         // now check each object to see if it has unsaved iVars or arrays of DBBTableObjects
         if propertiesToSave.isEmpty == false {
             for object in objects {
-                for property in propertiesToSave {
-                    if let iVar = object.value(forKey: property) as? DBBTableObject, iVar.id == 0 {
-                        let _ = iVar.saveToDB()
-                    } else if let iVar = object.value(forKey: property) as? [DBBTableObject] {
-                        let _ = saveObjects(iVar, dbManager: dbManager)
+                autoreleasepool {
+                    for property in propertiesToSave {
+                        if let iVar = object.value(forKey: property) as? DBBTableObject, iVar.id == 0 {
+                            let _ = iVar.saveToDB()
+                        } else if let iVar = object.value(forKey: property) as? [DBBTableObject] {
+                            let _ = saveObjects(iVar, dbManager: dbManager)
+                        }
                     }
                 }
             }
