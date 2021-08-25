@@ -61,7 +61,6 @@ extension DBBTableObject {
     public static func instancesWithOptions(_ options: DBBQueryOptions,
                                             manager: DBBManager,
                                             sparsePopulation: Bool = false) -> [DBBTableObject]? {
-        
         var joinMaps = [String : DBBJoinMap]()
 
         // see if we're extracting values based on matching a DBBTableObject equality condition
@@ -126,11 +125,13 @@ extension DBBTableObject {
                 let results = try db.executeQuery(sql, values: nil)
                 var foundInstances = [DBBTableObject]()
                 while results.next() {
-                    if let resultsDict = results.resultDictionary,
-                        let obj = instanceFromResultsDictionary(resultsDict, manager: manager,
-                                                                sparsePopulation: sparsePopulation,
-                                                                options: options) {
-                        foundInstances.append(obj)
+                    autoreleasepool {
+                        if let resultsDict = results.resultDictionary,
+                            let obj = instanceFromResultsDictionary(resultsDict, manager: manager,
+                                                                    sparsePopulation: sparsePopulation,
+                                                                    options: options) {
+                            foundInstances.append(obj)
+                        }
                     }
                 }
                 
@@ -194,11 +195,13 @@ extension DBBTableObject {
         }
         
         while results.next() {
-            if let resultsDict = results.resultDictionary,
-                let obj = instanceFromResultsDictionary(resultsDict, manager: manager,
-                                                        sparsePopulation: false,
-                                                        options: nil) {
-                instances.append(obj)
+            autoreleasepool {
+                if let resultsDict = results.resultDictionary,
+                    let obj = instanceFromResultsDictionary(resultsDict, manager: manager,
+                                                            sparsePopulation: false,
+                                                            options: nil) {
+                    instances.append(obj)
+                }
             }
         }
 
