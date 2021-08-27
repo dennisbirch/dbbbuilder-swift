@@ -233,7 +233,7 @@ class Mammal: Animal {
         super.init(dbManager: dbManager)
         
         let map: [String : DBBPropertyPersistence] = [Keys.genus : DBBPropertyPersistence(type: .string),
-                                                      Keys.legs : DBBPropertyPersistence(type: .string)]
+                                                      Keys.legs : DBBPropertyPersistence(type: .int)]
         
         hasSubclass = true
         dbManager.addPersistenceMapping(map, for: self)

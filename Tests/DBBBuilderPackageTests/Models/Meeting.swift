@@ -22,7 +22,7 @@ class Meeting: DBBTableObject {
     
     @objc weak var project: Project?
     @objc var participants: [Person]?
-    @objc var purpose = ""
+    @objc var purpose: String?
     @objc var startTime: Date?
     @objc var finishTime: Date?
     @objc var scheduledHours: Float = 0

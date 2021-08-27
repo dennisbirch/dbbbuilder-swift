@@ -19,11 +19,11 @@ class Company: DBBTableObject {
         static let blurbData = "blurbData"
     }
     
-    @objc var name: String = ""
-    @objc var address: String = ""
-    @objc var city: String = ""
-    @objc var state: String = ""
-    @objc var zip: String = ""
+    @objc var name: String?
+    @objc var address: String?
+    @objc var city: String?
+    @objc var state: String?
+    @objc var zip: String?
     @objc var blurbData: Data?
     
     private let companyMap: [String : DBBPropertyPersistence] = [Keys.name : DBBPropertyPersistence(type: .string),

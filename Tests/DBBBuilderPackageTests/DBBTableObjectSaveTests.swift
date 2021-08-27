@@ -257,8 +257,13 @@ Soon her eye fell on a little glass box that was lying under the table: she open
             return
         }
         XCTAssertEqual(firstOnlyPeople.count, 4)
-        let lastNamePeople = firstOnlyPeople.filter{ $0.lastName.isEmpty == false }
-        XCTAssertEqual(lastNamePeople.count, 0)
+        var lastNameCount = 0
+        for person in firstOnlyPeople {
+            if person.lastName != nil {
+                lastNameCount += 1
+            }
+        }
+        XCTAssertEqual(lastNameCount, 0)
     }
     
     func testSubtypeSaveAndDelete() {

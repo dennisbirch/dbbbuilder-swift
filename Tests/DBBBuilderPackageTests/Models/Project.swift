@@ -23,8 +23,8 @@ class Project: DBBTableObject {
         static let projectLead = "projectLead"
     }
     
-    @objc var name = ""
-    @objc var code = ""
+    @objc var name: String?
+    @objc var code: String?
     @objc var startDate: Date?
     @objc var endDate: Date?
     @objc var budget: Float = 0

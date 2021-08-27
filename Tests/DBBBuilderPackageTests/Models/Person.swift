@@ -25,11 +25,11 @@ class Person: DBBTableObject {
         static let didSaveCount = "didSaveCount"
     }
     
-    @objc var firstName: String = ""
-    @objc var middleInitial: String = ""
-    @objc var lastName: String = ""
+    @objc var firstName: String?
+    @objc var middleInitial: String?
+    @objc var lastName: String?
     @objc var age: Int = 0
-    @objc var department: String = ""
+    @objc var department: String?
     @objc var children = [Person]()
     @objc var nicknames = [String]()
     @objc var spouse: Person?
@@ -78,8 +78,11 @@ class Person: DBBTableObject {
     }
     
     func fullName() -> String {
+        let firstName = self.firstName ?? ""
         let trimmedFirst = firstName.trimmingCharacters(in: CharacterSet.whitespaces)
+        let middleInitial = self.middleInitial ?? ""
         let trimmedMiddle = middleInitial.trimmingCharacters(in: CharacterSet.whitespaces)
+        let lastName = self.lastName ?? ""
         let trimmedLast = lastName.trimmingCharacters(in: CharacterSet.whitespaces)
         
         var nameComponents = [String]()
@@ -98,6 +101,7 @@ class Person: DBBTableObject {
     
     func fullNameAndDepartment() -> String {
         let name = fullName()
+        let department = self.department ?? ""
         let trimmedDept = department.trimmingCharacters(in: CharacterSet.whitespaces)
         var components = [String]()
         if name.isEmpty == false {
