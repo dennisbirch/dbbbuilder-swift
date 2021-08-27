@@ -396,18 +396,16 @@ extension DBBTableObject {
         for (key, property) in persistenceMap.map {
             let type = property.storageType
             // the .name() function returns an empty string for non-atomic types
-            if type.name().isEmpty || type.name() == TypeNames.blob {
+            let typeName = type.name()
+            if typeName.isEmpty || typeName == TypeNames.blob {
                 continue
             }
             
+            let columnName = (property.columnName.isEmpty) ? key : property.columnName
             if let match = (instanceVals.filter{ $0.label == key }).first {
-                if match.value as! String == "nil" { continue }
-
-                let columnName = (property.columnName.isEmpty) ? key : property.columnName
-                params.append(columnName)
-                
-                if type.name() == TypeNames.timeStamp {
-                    if match.value as! String == "nil" {
+                if typeName == TypeNames.timeStamp {
+                    if let matchValue = match.value as? String,
+                       matchValue == "nil" {
                         values.append("")
                         continue
                     }
@@ -417,14 +415,16 @@ extension DBBTableObject {
                         os_log("Failed to convert date to correct format for '%@'. Using current timestamp.", log: DBBTableObject.writerLogger, type: defaultLogType, key)
                         values.append(String(Date().dbb_timeIntervalForDate()))
                     }
-                } else if match.value as! String == "nil" {
-                    values.append(NSNull())
-                } else if type.name() == TypeNames.bool, let boolString = match.value as? String {
+                } else if typeName == TypeNames.bool, let boolString = match.value as? String {
                     values.append((boolString == "true") ? "1" : "0")
                 } else {
                     values.append(String(describing: match.value))
                 }
+            } else {
+                continue
             }
+            
+            params.append(columnName)
         }
         
         return ((params, values))
@@ -438,14 +438,25 @@ extension DBBTableObject {
             return [ValueTuple]()
         }
         for case let (label?, value) in selfMirror.children {
-            let keyValue = (String(describing: label), String(describing: value))
-            if let type = persistenceMap.map[keyValue.0]?.storageType, type.name() == TypeNames.timeStamp, let date = value as? Date {
-                let dateString = String(date.dbb_timeIntervalForDate())
-                output.append((keyValue.0, dateString))
-            } else if let unwrappedString = value as? String {
-                output.append((keyValue.0, unwrappedString))
-            } else {
-                output.append(keyValue)
+            let keyValue = (label, value)
+            if let type = persistenceMap.map[keyValue.0]?.storageType {
+                let typeName = type.name()
+                if typeName == TypeNames.timeStamp, let date = value as? Date {
+                    let dateString = String(date.dbb_timeIntervalForDate())
+                    output.append((keyValue.0, dateString))
+                } else if typeName == TypeNames.bool, let boolValue = value as? Bool {
+                    output.append((keyValue.0, String(boolValue)))
+                } else if typeName == TypeNames.float, let floatValue = value as? Double {
+                    output.append((keyValue.0, String(floatValue)))
+                } else if typeName == TypeNames.float, let floatValue = value as? Float {
+                    output.append((keyValue.0, String(floatValue)))
+                } else if typeName == TypeNames.int, let intValue = value as? Int {
+                    output.append((keyValue.0, String(intValue)))
+                } else if let unwrappedString = value as? String {
+                    output.append((keyValue.0, unwrappedString))
+                } else {
+                    continue
+                }
             }
         }
         
