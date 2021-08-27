@@ -10,6 +10,10 @@ import UIKit
 import DBBBuilder
 import os.log
 
+protocol SubProjectProviding {
+    func subProjectSelected(_ subProject: Project)
+}
+
 let kAddProjectSegueIdentifier = "AddProjectSegue"
 
 class ProjectListViewController : UIViewController, UITableViewDelegate, UITableViewDataSource {
@@ -18,9 +22,11 @@ class ProjectListViewController : UIViewController, UITableViewDelegate, UITable
     var projects: [Project] = []
     var parentProject: Project? = nil
     var dbManager: DBBManager?
+    var subProjectSelectionSource: SubProjectProviding?
 	
 	let kEditProjectSegue = "EditProjectSegue"
-	
+    let CellIdentifier = "Cell"
+
 	// MARK: - ViewController Lifecycle
 	
     override func viewDidLoad() {
@@ -100,13 +106,16 @@ class ProjectListViewController : UIViewController, UITableViewDelegate, UITable
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let CellIdentifier = "Cell";
         let aCell: UITableViewCell = tableView.dequeueReusableCell(withIdentifier: CellIdentifier, for: indexPath)
         
-        let project: Project = projects[indexPath.row];
-        aCell.textLabel?.text = project.name;
+        let project = projects[indexPath.row]
+        if let name = project.name {
+            aCell.textLabel?.text = name
+        } else {
+            aCell.textLabel?.text = "NA"
+        }
         
-        if let _: Project = parentProject {
+        if let _ = parentProject {
             aCell.accessoryType = .none
         }
 
@@ -116,11 +125,29 @@ class ProjectListViewController : UIViewController, UITableViewDelegate, UITable
     // MARK: - UITableViewDelegate
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if parentProject != nil {
-            let project:Project = projects[indexPath.row]
-            parentProject?.subProject = project
-            parentProject?.isDirty = true
+        let project = projects[indexPath.row]
+        if let source = subProjectSelectionSource {
+            source.subProjectSelected(project)
             dismiss(animated: true, completion: nil)
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if let _ = subProjectSelectionSource {
+            return
+        }
+        
+        if editingStyle == .delete {
+            guard let manager = dbManager else {
+                os_log("DBManager is nil!")
+                return
+            }
+            let project = projects[indexPath.row]
+            let success = Project.deleteInstance(project, manager: manager)
+            if success == true {
+                projects.remove(at: indexPath.row)
+                tableView.deleteRows(at: [indexPath], with: .automatic)
+            }
         }
     }
 

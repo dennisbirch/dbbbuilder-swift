@@ -42,7 +42,7 @@ class EditMeetingViewController: NSViewController, NSTextFieldDelegate, NSTableV
         endTimeField.cell?.formatter = endFormatter
 
         if let meeting = self.meeting {
-            purposeField.stringValue = meeting.purpose
+            purposeField.stringValue = meeting.purpose ?? ""
             if let startTime = meeting.startTime {
                 startTimePicker.dateValue = startTime
                 startTimeField.stringValue = startTime.dbb_displayTime()

@@ -121,8 +121,8 @@ class EditProjectViewController: UITableViewController, UITextFieldDelegate, Dat
                 return
             }
             
-            let projName = project.name
-            if projName.isEmpty == false {
+            if let projName = project.name,
+                projName.isEmpty == false {
                 let success = project.saveToDB()
                 if success == false {
                     os_log("Error saving to database: %@", self.dbManager?.errorMessage() ?? "NA")
@@ -142,6 +142,7 @@ class EditProjectViewController: UITableViewController, UITextFieldDelegate, Dat
             let projListVC = segue.destination as? ProjectListViewController
             projListVC?.dbManager = dbManager
             projListVC?.parentProject = project
+            projListVC?.subProjectSelectionSource = self
         }
     }
 
@@ -149,7 +150,7 @@ class EditProjectViewController: UITableViewController, UITextFieldDelegate, Dat
     
     @IBAction func subProjectButtonTapped(sender: AnyObject) {
         // clear subproject
-        if let _: Project = project?.subProject {
+        if let _ = project?.subProject {
             project?.subProject = nil
             project?.makeDirty(true)
             setupSubProjectControls()
@@ -385,3 +386,11 @@ class EditProjectViewController: UITableViewController, UITextFieldDelegate, Dat
     }
 }
 
+extension EditProjectViewController: SubProjectProviding {
+    func subProjectSelected(_ subProject: Project) {
+        project?.subProject = subProject
+        project?.isDirty = true
+        shouldDeferSaving = false
+        setupSubProjectControls()
+    }
+}

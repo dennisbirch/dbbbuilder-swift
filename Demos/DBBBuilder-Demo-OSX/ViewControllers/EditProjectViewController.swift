@@ -29,6 +29,8 @@ class EditProjectViewController: NSViewController, NSTextFieldDelegate, NSTableV
     // MARK: - Properties
     
     private var activeTextField: NSTextField!
+    private var currencySymbol: String = ""
+    private var thousandsSeparator: String = ""
 
     var project: Project?
     var dbManager: DBBManager?
@@ -46,9 +48,17 @@ class EditProjectViewController: NSViewController, NSTextFieldDelegate, NSTableV
         budgetField.delegate = self
         tagsField.delegate = self
         
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .currency
+        currencySymbol = formatter.currencySymbol
+        thousandsSeparator = formatter.thousandSeparator
+        
         if let project = self.project, project.idNum > 0 {
-            nameTextField.stringValue = project.name
-            codeTextField.stringValue = project.code
+            let name = project.name ?? "NA"
+            nameTextField.stringValue = name
+            if let code = project.code {
+                codeTextField.stringValue = code
+            }
             if let startDate = project.startDate {
                 startDatePicker.dateValue = startDate
             }
@@ -94,12 +104,13 @@ class EditProjectViewController: NSViewController, NSTextFieldDelegate, NSTableV
     override func viewWillAppear() {
         super.viewWillAppear()
         
-        var subprojectName = ""
-        if let subproject = self.project?.subProject {
-            subprojectName = subproject.name
+        if let subproject = self.project?.subProject?.name {
+            subprojectLabel.stringValue = subproject
         }
         
-        subprojectLabel.stringValue = subprojectName
+        print("Currency symbol: \(currencySymbol), thousands: \(thousandsSeparator)")
+        
+
     }
     
     override func viewDidAppear() {
@@ -229,8 +240,12 @@ class EditProjectViewController: NSViewController, NSTextFieldDelegate, NSTableV
     
     private func enableSaveButton() {
         var enable = false
-        if let startDate = project?.startDate, let endDate = project?.endDate {
-            enable = project?.name.isEmpty == false && project?.code.isEmpty == false && endDate >= startDate
+        if let project = project,
+            let startDate = project.startDate,
+            let endDate = project.endDate,
+            let projectName = project.name,
+            let code = project.code {
+            enable = projectName.isEmpty == false && code.isEmpty == false && endDate >= startDate
         }
         saveButton.isEnabled = enable && project?.isDirty == true
     }
@@ -245,11 +260,23 @@ class EditProjectViewController: NSViewController, NSTextFieldDelegate, NSTableV
     private func formatCurrency(_ currencyAmount: Float) -> String {
         let formatter = NumberFormatter()
         formatter.numberStyle = .currency
+        
         guard let stringValue = formatter.string(from: NSNumber(value: currencyAmount)) else {
             return ""
         }
         
         return stringValue
+    }
+    
+    private func currencyValue(for string: String) -> Double {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .currency
+        
+        guard let value = formatter.number(from: string) else {
+            return 0.0
+        }
+        
+        return value.doubleValue
     }
 
     // MARK: - Notifications and Delegate Methods
@@ -260,9 +287,13 @@ class EditProjectViewController: NSViewController, NSTextFieldDelegate, NSTableV
         } else if activeTextField == codeTextField {
             project?.code = codeTextField.stringValue
         } else if activeTextField == budgetField {
-            let text = budgetField.stringValue.replacingOccurrences(of: "$", with: "")
+            let text = budgetField.stringValue.replacingOccurrences(of: currencySymbol, with: "").replacingOccurrences(of: thousandsSeparator, with: "")
             if let budget = Float(text) {
                 project?.budget = budget
+                let formattedBudget = formatCurrency(budget)
+                if budgetField.stringValue != formattedBudget {
+                    budgetField.stringValue = formattedBudget
+                }
             }
         }
         
@@ -278,8 +309,10 @@ class EditProjectViewController: NSViewController, NSTextFieldDelegate, NSTableV
     }
     
     func control(_ control: NSControl, textShouldEndEditing fieldEditor: NSText) -> Bool {
-        if control == budgetField, let budget = project?.budget {
+        if control == budgetField {
+            let budget = Float(currencyValue(for: budgetField.stringValue))
             control.stringValue = formatCurrency(budget)
+            project?.budget = budget
         } else if control == tagsField {
             let text = control.stringValue.replacingOccurrences(of: ",", with: " ")
             project?.tags = text.components(separatedBy: " ")
@@ -293,7 +326,7 @@ class EditProjectViewController: NSViewController, NSTextFieldDelegate, NSTableV
             os_log("Can't get subproject")
             return
         }
-        subprojectLabel.stringValue = subproject.name
+        subprojectLabel.stringValue = subproject.name ?? ""
         project?.makeDirty(true)
     }
     

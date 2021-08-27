@@ -70,7 +70,7 @@ DBBManagerConsumer {
             let columnWidth = tableView.frame.width - editColumn.width - checkColumn.width
             let nameLabel = NSTextField(frame: CGRect(x: 0, y: 0, width: columnWidth, height: tableRowHeight))
             nameLabel.drawsBackground = false
-            nameLabel.stringValue = meeting.purpose
+            nameLabel.stringValue = meeting.purpose ?? ""
             nameLabel.isEditable = false
             nameLabel.isBordered = false
             view = nameLabel

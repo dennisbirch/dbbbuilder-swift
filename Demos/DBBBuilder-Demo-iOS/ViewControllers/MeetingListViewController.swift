@@ -75,7 +75,7 @@ class MeetingListViewController: UIViewController, UITableViewDataSource, UITabl
 		if let allMeetings = alllMeetings {
 			let pencil = UIImage(named: "Pencil")
 			let meeting = allMeetings[indexPath.row] as Meeting
-			let purpose = meeting.purpose
+			let purpose = meeting.purpose ?? ""
             cell.configureWithTitle(title: purpose, editImage: pencil, buttonHandler: self)
 			
 			// set checkmark for meetings belonging to project

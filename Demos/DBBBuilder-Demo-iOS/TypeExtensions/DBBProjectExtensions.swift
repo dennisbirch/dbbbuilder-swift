@@ -18,8 +18,9 @@ extension Project {
         }
         
         for mtg in meetings as [Meeting] {
-            let purpose = mtg.purpose
-            meetingPurposes.append(purpose)
+            if let purpose = mtg.purpose {
+                meetingPurposes.append(purpose)
+            }
         }
         
         return meetingPurposes.joined(separator: ", ")

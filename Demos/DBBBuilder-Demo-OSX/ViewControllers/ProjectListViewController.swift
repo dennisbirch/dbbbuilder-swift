@@ -60,8 +60,8 @@ DBBManagerConsumer {
             addProjectButton.isHidden = true
             statisticsButton.isHidden = true
             saveButton.isHidden = false
-            if let proj = parentProject {
-                infoLabel.stringValue = "Assign a  sub-project for '\(proj.name)'."
+            if let proj = parentProject, let name = proj.name {
+                infoLabel.stringValue = "Assign a  sub-project for '\(name)'."
             } else {
                 infoLabel.stringValue = "Assign a sub-project"
             }

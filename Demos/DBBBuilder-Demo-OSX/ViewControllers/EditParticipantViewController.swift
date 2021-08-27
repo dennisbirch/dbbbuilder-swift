@@ -35,10 +35,10 @@ class EditParticipantViewController: NSViewController, NSTextFieldDelegate, DBBM
         
         if let participant = self.participant {
             title = "Edit Participant"
-            firstNameField.stringValue = participant.firstName
-            middleInitialField.stringValue = participant.middleInitial
-            lastNameField.stringValue = participant.lastName
-            departmentField.stringValue = participant.department
+            firstNameField.stringValue = participant.firstName ?? ""
+            middleInitialField.stringValue = participant.middleInitial ?? ""
+            lastNameField.stringValue = participant.lastName ?? ""
+            departmentField.stringValue = participant.department ?? ""
         } else {
             title = "Add Participant"
             guard let dbManager = dbManager else {

@@ -99,8 +99,8 @@ class DBBEditMeetingViewController: UITableViewController, DatePickerViewDelegat
 			return
 		}
 
-        let purpose = meeting.purpose
-		if purpose.isEmpty == false {
+        if let purpose = meeting.purpose,
+            purpose.isEmpty == false {
 			let success = meeting.saveToDB()
             delegate?.meetingEditor(editor: self, savedMeeting: meeting)
             if success == false {
