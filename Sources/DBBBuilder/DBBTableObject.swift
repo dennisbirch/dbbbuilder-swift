@@ -258,8 +258,11 @@ typealias ParamsAndStringValues = (params: [String], values: [Any])
         isDirty = dirty
     }
     
+    /**
+     A public method that returns the 'short name' of a database table.
+ */
     static public func tableName() -> String {
-        let dbMgr = DBBManager(databaseURL: URL(fileURLWithPath: NSTemporaryDirectory()))
+        let dbMgr = DBBManager.inMemoryDatabaseManager()
         let instance = self.init(dbManager: dbMgr)
         return instance.shortName
     }

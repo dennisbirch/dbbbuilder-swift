@@ -60,7 +60,8 @@ class DBBDatabaseSetupTests: XCTestCase {
             return
         }
         
-        XCTAssertTrue(savedTableNames.keys.contains(AlterTableTest.tableName()))
+        let alterTableName = AlterTableTest.tableName()
+        XCTAssertTrue(savedTableNames.keys.contains(alterTableName))
         guard let columns = CommonTestTask.tableColumnsDict(manager: manager) else {
             XCTFail()
             return

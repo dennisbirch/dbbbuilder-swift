@@ -50,6 +50,11 @@ import os.log
         
         return manager
     }
+    
+    public static func inMemoryDatabaseManager() -> DBBManager {
+        let manager = DBBManager()
+        return manager        
+    }
 
     /**
      Init method for instantiating a DBBManager instance.
@@ -74,6 +79,16 @@ import os.log
         super.init()
         
         addTableClasses([DBVersion.self])
+    }
+
+    // used for in-memory database
+    private override init() {
+        let database = FMDatabase(url: nil)
+        self.database = database
+        let success = database.open()
+        if success == false {
+            os_log("Open failed with error message: %@", log: logger, type: defaultLogType, database.lastErrorMessage())
+        }
     }
     
     /**
