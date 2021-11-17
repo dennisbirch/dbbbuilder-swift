@@ -75,7 +75,7 @@ struct DBBDatabaseValidator {
             if specs[key]?.columnName.isEmpty == false, let colName = specs[key]?.columnName {
                 columnName = colName
             }
-            if components.contains(columnName) == false && needsJoin == false {
+            if components.contains(columnName.lowercased()) == false && needsJoin == false {
                 missingComponents.append((key, columnName))
             }
         }
@@ -185,7 +185,7 @@ struct DBBDatabaseValidator {
         let fields = creationStringFields(joinSQL, tableName: joinTableName)
         var missingFields = [String]()
         for requiredField in requiredColumns {
-            if fields.contains(requiredField.key) == false {
+            if fields.contains(requiredField.key.lowercased()) == false {
                 missingFields.append(requiredField.value)
             }
         }
@@ -292,7 +292,7 @@ struct DBBDatabaseValidator {
         let create = "CREATE TABLE \(tableName) ("
         let sql = input.replacingOccurrences(of: create, with: "").replacingOccurrences(of: ")", with: "")
         let longFields = sql.components(separatedBy: ", ")
-        let fields = longFields.compactMap{ $0.components(separatedBy: " ").first }
+        let fields = longFields.compactMap{ $0.components(separatedBy: " ").first }.map{ $0.lowercased() }
         return fields
     }
 }
