@@ -83,7 +83,11 @@ extension DBBTableObject {
         }
         
         // make sure all DBBTableObject properties have been saved
-        saveDBTableObjectProperties(forObjects: objects, dbManager: dbManager)
+        if let object = objects.first {
+            if object.hasDBBObjectTableObjectProperties(className: object.shortName) == true {
+                saveDBTableObjectProperties(forObjects: objects, dbManager: dbManager)
+            }
+        }
         
         // now save scalar properties
         var success = true
@@ -258,10 +262,10 @@ extension DBBTableObject {
             if let joinMap = map[className] {
                 for (key, _) in joinMap {
                     if let propertyType = joinMap[key]?.propertyType,
-                        propertyType.isSavedToJoinTableType() == true,
-                        let propertyColumnMap = dbManager.persistenceMap[className]?.propertyColumnMap,
-                        let propertyName = propertyColumnMap[key],
-                        propertiesToSave.contains(propertyName) == false
+                       propertyType.isDBBTableObjectType() == true,
+                       let propertyColumnMap = dbManager.persistenceMap[className]?.propertyColumnMap,
+                       let propertyName = propertyColumnMap[key],
+                       propertiesToSave.contains(propertyName) == false
                     {
                         propertiesToSave.append(propertyName)
                     }
@@ -274,15 +278,31 @@ extension DBBTableObject {
             for object in objects {
                 autoreleasepool {
                     for property in propertiesToSave {
-                        if let iVar = object.value(forKey: property) as? DBBTableObject, iVar.id == 0 {
-                            let _ = iVar.saveToDB()
-                        } else if let iVar = object.value(forKey: property) as? [DBBTableObject] {
+                        if let iVar = object.value(forKey: property) as? [DBBTableObject] {
                             let _ = saveObjects(iVar, dbManager: dbManager)
+                        } else if let iVar = object.value(forKey: property) as? DBBTableObject, iVar.id == 0 {
+                            let _ = iVar.saveToDB()
                         }
                     }
                 }
             }
         }
+    }
+    
+    private func hasDBBObjectTableObjectProperties(className: String) -> Bool {
+        let map = dbManager.joinMapDict
+        
+        if let joinMap = map[className] {
+            for (key, _) in joinMap {
+                if let propertyType = joinMap[key]?.propertyType,
+                   propertyType.isDBBTableObjectType()
+                {
+                    return true
+                }
+            }
+        }
+        
+        return false
     }
 
     private func statementsAndValuesForJoins(joinDict: [String : DBBJoinMap], isInsert: Bool) -> [JoinStatementsAndValues] {

@@ -104,6 +104,15 @@ public enum DBBStorageType {
         }
     }
     
+    func isDBBTableObjectType() -> Bool {
+        switch self {
+            case .bool, .int, .float, .date, .string,.boolArray, .intArray, .floatArray, .dateArray, .stringArray, .binary:
+            return false
+        default:
+            return true
+        }
+    }
+    
     func isArray() -> Bool {
         switch self {
         case  .boolArray, .intArray, .floatArray, .dateArray, .stringArray, .dbbObjectArray:
