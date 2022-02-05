@@ -135,7 +135,7 @@ extension DBBTableObject {
             }
         })
 
-        success = success && writeJoinColumnsForObjects(objects, databaseURL: databaseURL, dbManager: dbManager)
+        success = success && writeJoinColumnsForObjects(objects, databaseURL: databaseURL, dbManager: dbManager, isInsert: true)
         return success
     }
     
@@ -200,7 +200,7 @@ extension DBBTableObject {
             }
         })
 
-        success = success && writeJoinColumnsForObjects(objects, databaseURL: databaseURL, dbManager: dbManager)
+        success = success && writeJoinColumnsForObjects(objects, databaseURL: databaseURL, dbManager: dbManager, isInsert: false)
         return success
     }
 
@@ -214,7 +214,7 @@ extension DBBTableObject {
         return success
     }
 
-    private static func writeJoinColumnsForObjects(_ objects: [DBBTableObject], databaseURL: URL, dbManager: DBBManager) -> Bool {
+    private static func writeJoinColumnsForObjects(_ objects: [DBBTableObject], databaseURL: URL, dbManager: DBBManager, isInsert: Bool) -> Bool {
         var success = true
         
         let queue = FMDatabaseQueue(url: databaseURL)
@@ -222,7 +222,7 @@ extension DBBTableObject {
         for instance in objects {
             autoreleasepool {
                 if let joinMap = dbManager.joinMapDict[instance.shortName] {
-                    let statementsAndArgs = instance.statementsAndValuesForJoins(joinDict: joinMap)
+                    let statementsAndArgs = instance.statementsAndValuesForJoins(joinDict: joinMap, isInsert: isInsert)
                     queue?.inTransaction({ (database, rollback) in
                         for statementTuple in statementsAndArgs {
                             let statement = statementTuple.statement
@@ -285,7 +285,7 @@ extension DBBTableObject {
         }
     }
 
-    private func statementsAndValuesForJoins(joinDict: [String : DBBJoinMap]) -> [JoinStatementsAndValues] {
+    private func statementsAndValuesForJoins(joinDict: [String : DBBJoinMap], isInsert: Bool) -> [JoinStatementsAndValues] {
         let joinColumns = joinDict.keys
         
         var statementsAndArgs: [JoinStatementsAndValues] = []
@@ -300,10 +300,14 @@ extension DBBTableObject {
                 continue
             }
             
-            // delete from joinTable where parentClass_id = parentClassIDNum
+            var sql: String
             let joinTableName = joinMap.joinTableName
-            var sql = "DELETE FROM \(joinMap.joinTableName) WHERE \(joinMap.parentJoinColumn) = \(id)"
-            statementsAndArgs.append((sql, nil))
+
+            if isInsert == false {
+                // delete from joinTable where parentClass_id = parentClassIDNum
+                sql = "DELETE FROM \(joinMap.joinTableName) WHERE \(joinMap.parentJoinColumn) = \(id)"
+                statementsAndArgs.append((sql, nil))
+            }
             
             guard let propertyName = dbManager.persistenceMap[shortName]?.propertyForColumn(named: column) else {
                 os_log("Can't get persistence map's property name for %@", log: DBBTableObject.writerLogger, type: defaultLogType, column)
