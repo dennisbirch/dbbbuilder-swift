@@ -151,9 +151,14 @@ extension DBBTableObject {
             return false
         }
         
-        saveDBTableObjectProperties(forObjects: objects, dbManager: dbManager)
-        
-        var success = true        
+        // make sure all DBBTableObject properties have been saved
+        if let object = objects.first {
+            if object.hasDBBObjectTableObjectProperties(className: object.shortName) == true {
+                saveDBTableObjectProperties(forObjects: objects, dbManager: dbManager)
+            }
+        }
+
+        var success = true
         var statements = [String]()
         var valueStrings = [[Any]]()
         let queue = FMDatabaseQueue(url: databaseURL)
