@@ -32,10 +32,10 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "95C5D06E221DCC0600B1C938"
-               BuildableName = "DBBBuilder-Demo-iOSTests.xctest"
-               BlueprintName = "DBBBuilder-Demo-iOSTests"
-               ReferencedContainer = "container:DBBBuilder-Demo-iOS.xcodeproj">
+               BlueprintIdentifier = "DBBBuilderPackageTests"
+               BuildableName = "DBBBuilderPackageTests"
+               BlueprintName = "DBBBuilderPackageTests"
+               ReferencedContainer = "container:..">
             </BuildableReference>
          </TestableReference>
       </Testables>

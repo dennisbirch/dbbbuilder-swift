@@ -37,6 +37,31 @@ struct DBBDatabaseExecutor {
         return runQuery(query, arguments: [])
     }
     
+    func runQueryOnQueue(_ query: String, arguments: [String], _ completion: (FMResultSet?) -> Void) {
+        guard query.isEmpty == false else {
+            os_log("Query string is empty", log: logger, type: defaultLogType)
+            completion(nil)
+            return
+        }
+        
+        let queue = FMDatabaseQueue(url: self.database.databaseURL)
+        queue?.inDatabase({ db in
+            do {
+                let result = try db.executeQuery(query, values: arguments)
+                completion(result)
+            } catch {
+                os_log("Error executing query")
+                completion(nil)
+            }
+        })
+    }
+
+    func runQueryOnQueue(_ query: String, _ completion: (FMResultSet?) -> Void) {
+        runQueryOnQueue(query, arguments: []) { result in
+            completion(result)
+        }
+    }
+
     func executeUpdate(sql: String, withArgumentsIn arguments: [Any]) throws {
         do {
             try database.executeUpdate(sql, values: arguments)
