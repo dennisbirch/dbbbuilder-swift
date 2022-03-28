@@ -38,6 +38,14 @@ extension DBBTableObject {
         return instancesWithIDNumbers(allIDs, manager: manager)
     }
     
+    public static func fetchAllInstancesFromQueue(manager: DBBManager, completion: ([DBBTableObject]) -> Void) {
+        self.fetchAllInstanceIDsFromQueue(manager: manager) { idNums in
+            self.getInstancesWithIDNumbersFromQueue(ids: idNums, manager: manager) { instances in
+                completion(instances)
+            }
+        }
+    }
+    
     /**
      A static method that lets you retrieve instances of a DBBTableObject subclass based on options that allow you to filter return values and affect sort order
      
@@ -169,6 +177,24 @@ extension DBBTableObject {
         return object
     }
     
+    public static func getQueuedInstanceWithIDNumber(_ id: Int64, manager: DBBManager, completion: (DBBTableObject?) -> Void, sparsePopulation: Bool = false) {
+        let options = DBBQueryOptions.options(withConditions: ["\(Keys.id) = \(id)"])
+        getInstancesFromQueue(withOptions: options, manager: manager) { results, error in
+            if let error = error {
+                os_log("Error in %@: %@", #function, error.localizedDescription)
+                completion(nil)
+                return
+            }
+            
+            guard let firstItem = results.first else {
+                completion(nil)
+                return
+            }
+            
+            completion(firstItem)
+        }
+    }
+    
     /**
      A static method that lets you retrieve an array of instances of a DBTableObject subclass for the `idNum` values you pass in.
      
@@ -207,6 +233,33 @@ extension DBBTableObject {
 
         return instances
     }
+    
+    public static func getInstancesWithIDNumbersFromQueue(ids: [Int64], manager: DBBManager, completion: ([DBBTableObject]) -> Void) {
+        var instances = [DBBTableObject]()
+        let instance = self.init(dbManager: manager)
+        let idNumString = ids.map{ String($0) }
+        let sql = "SELECT * FROM \(instance.shortName) WHERE \(Keys.id) IN (\(idNumString.joined(separator: ",")))"
+        let executor = DBBDatabaseExecutor(db: manager.database)
+        executor.runQueryOnQueue(sql) { results in
+            guard let results = results else {
+                os_log("Fetch failed with error: %@ for SQL: %@", log: readerLogger, type: defaultLogType, manager.errorMessage(), sql)
+                return
+            }
+            
+            while results.next() {
+                autoreleasepool {
+                    if let resultsDict = results.resultDictionary,
+                        let obj = instanceFromResultsDictionary(resultsDict, manager: manager,
+                                                                sparsePopulation: false,
+                                                                options: nil) {
+                        instances.append(obj)
+                    }
+                }
+            }
+
+            completion(instances)
+        }
+    }
 
     /**
      A static method that lets you retrieve all instance IDs for a DBTableObject subclass.
@@ -232,6 +285,27 @@ extension DBBTableObject {
         }
         
         return idsArray
+    }
+    
+    public static func fetchAllInstanceIDsFromQueue(manager: DBBManager, completion: ([Int64]) -> Void) {
+        var idsArray = [Int64]()
+        let tableName = self.init(dbManager: manager).shortName
+        
+        let sql = "SELECT \(Keys.id) FROM \(tableName)"
+        let executor = DBBDatabaseExecutor(db: manager.database)
+        
+        executor.runQueryOnQueue(sql) { result in
+            guard let result = result else {
+                os_log("Error getting results with query %@: %@", log: readerLogger, type: defaultLogType,  sql, manager.errorMessage())
+                return
+            }
+            
+            while result.next() {
+                idsArray.append(Int64(result.int(forColumn: DBBTableObject.Keys.id)))
+            }
+            
+            completion(idsArray)
+        }
     }
     
     // MARK: - Private Methods
@@ -342,20 +416,23 @@ extension DBBTableObject {
             
             if let joinMap = joinMapDict[column] {
                 let sql = "SELECT \(joinMap.joinColumnName) FROM \(joinMap.joinTableName) WHERE \(joinMap.parentJoinColumn) = \(instance.idNum);"
-                if let results = executor.runQuery(sql) {
-                    os_log("Executed query for join table content: %@", log: DBBTableObject.readerLogger, type: defaultLogType, sql)
-                    instance.setValues(fromResult: results,
-                                       forColumn: column,
-                                       propertyName: propertyName,
-                                       type: joinMap.propertyType,
-                                       joinMap: joinMap,
-                                       manager: manager)
-                } else {
-                    os_log("ResultSet is nil with query: %@", log: DBBTableObject.readerLogger, type: defaultLogType, sql)
-                    if manager.database.lastErrorCode() != 0 {
-                        os_log("Database error message: %@", log: DBBTableObject.readerLogger, type: defaultLogType, manager.errorMessage())
+                
+                executor.runQueryOnQueue(sql) { results in
+                    if let results = results {
+                        os_log("Executed query for join table content: %@", log: DBBTableObject.readerLogger, type: defaultLogType, sql)
+                        instance.setValues(fromResult: results,
+                                           forColumn: column,
+                                           propertyName: propertyName,
+                                           type: joinMap.propertyType,
+                                           joinMap: joinMap,
+                                           manager: manager)
+                    } else {
+                        os_log("ResultSet is nil with query: %@", log: DBBTableObject.readerLogger, type: defaultLogType, sql)
+                        if manager.database.lastErrorCode() != 0 {
+                            os_log("Database error message: %@", log: DBBTableObject.readerLogger, type: defaultLogType, manager.errorMessage())
+                        }
                     }
-                }                
+                }
             } else {
                 os_log("Cannot retrieve values for %@ because its joinMap is nil", log: DBBTableObject.readerLogger, type: defaultLogType, column)
                 continue
