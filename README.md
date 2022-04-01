@@ -8,7 +8,7 @@
 - Builds frameworks for iOS and Mac projects
 - Generates and updates SQLite database files and tables automatically based on your class definitions
 - Can be used with existing SQLite database files
-- Install with Swift Package Manager or Carthage
+- Install with Swift Package Manager
 - Swift 5
 - Xcode 10.1 or higher
 
@@ -23,68 +23,9 @@ DBBBuilder takes care of creating and updating the database file, including all 
 #### Swift Package Manager
 You can use Swift Package Manager to add DBBBuilder to your iOS, WatchOS and macOS projects. To do so, with your project open in Xcode, choose File>Swift Packages>Add Package Dependency... and enter `https://github.com/dennisbirch/dbbbuilder-swift` in the text box of the _Choose Package Respository_ dialog that appears. Then hit the _Next_ or _Finish_ button on this and all subsequent screens until you see that the DBBBuilder library has been added to your project.
 
-#### Carthage
-
-You can also add DBBBuilder to your Xcode project using the [Carthage](https://github.com/Carthage/Carthage) dependency manager.
-
-Start by [installing Carthage](https://github.com/Carthage/Carthage#quick-start) on your Mac if necessary. Add a Cartfile to your project folder if necessary. Then add a dependency statement for DBBBuilder to your Cartfile:
-
-`github "https://github.com/dennisbirch/dbbbuilder-swift/"`
-
-In your terminal application, cd into your project directory and run Carthage update:
-
-`carthage update`
-
-Finally, add a Run Script step to your target's Build Phases section. Be sure to add the FMDB, DBBBuilder, and ExceptionCatcher frameworks to the Input and Output files sections.
-
-![Configuring a project to use DBBBuilder with Carthage](images/carthage-build-phase.png)
-
-You should now be able to begin using DBBBuilder in your Xcode project.
-
 ### Setup for building frameworks and running demos
 
-The workspace in this repository includes demo projects and unit tests for iOS and macOS targets. You can examine the code in these projects to get guidance on using DBBBuilder. To run the projects and unit tests, you'll need to do some setup with Carthage, and with the Swift Package Manager if you want to build the framework target by itself.
-
-#### Using Swift Package Manager (default implementation - requires Xcode 11.0 or higher):
-
-(The following actions must be performed separately for either scheme you want to work with, i.e. `DBBBuilder-Demo-OSX` or `DBBBuilder-Demo-iOS`)
-
-* Enable building the iOS or OSX framework you're interested in working with (__only required if you want to build the framework separately__):
-    * Select `DBBBuilder-OSX` or `DBBBuilder-iOS` in the project navigator
-    * On the General tab of the Project editor panel, add the ExceptionCatcher.framework in the `Frameworks and Libraries` section as displayed below
-    * Add the FMDB package as described in the _Installation_ section above (but setting the URL to https://github.com/ccgus/fmdb)
-* Enable running the demo project:
-    * Confirm that the Swift Package Dependencies section of the project navigator shows FMDB 2.7.7 or higher, and DBBBuilder 2.1.2 or higher
-    * On the Build Phases tab for your selected target, delete the Run Script for copying frameworks from the Carthage directory
-* Run unit tests or project
-
-
-#### Using Carthage:
-
-* Clone the repo
-* Install Carthage if necessary
-* In your terminal app, cd into the dbbbuilder-swift directory
-* Run 'carthage update'
-* Open DBBBuilder-Swift.workspace in Xcode
-
-##### Running the demos
-(The following actions must be performed separately for either scheme you want to work with, i.e. `DBBBuilder-Demo-OSX` or `DBBBuilder-Demo-iOS`)
-
-* Enable building the iOS or OSX framework you're interested in working with:
-    * Select `DBBBuilder-OSX` or `DBBBuilder-iOS` in the project navigator
-    * On the General tab of the Project editor panel, add the ExceptionCatcher.framework in the `Frameworks and Libraries` section
-
-    ![Adding the ExceptionCatcher framework to the DBBBuilder-OSX target](images/Add-exception-catcher-framework.png)
-    
-    * At this point you should be able to successfully build the selected framework
-* Enable running the demo project:
-    * In the Project navigator, select the corresponding demo project (i.e. `DBBBuilder-Demo-OSX` or `DBBBuilder-Demo-iOS`) 
-    * Add the DBBBuilder.framework in the `Frameworks, Libraries and Embedded Content` section
-     
-    ![Adding the DBBBuilder framework to the DBBBuilder-Demo-OSX target](images/Add-dbbbuilder-framework.png)
-* Uncomment the Run Script on the Build Phases tab of the selected target's Project editor panel by deleting the leading "#" character
-* Select the appropriate `DBBBuilder-Demo-OSX` or `DBBBuilder-Demo-iOS` scheme from scheme selector and run the project or unit tests
-
+The workspace in this repository includes demo projects and unit tests for iOS and macOS targets. You can examine the code in these projects to get guidance on using DBBBuilder. You'll need to do some setup with the Swift Package Manager if you want to build the framework target by itself.
 
 ### Usage
 
