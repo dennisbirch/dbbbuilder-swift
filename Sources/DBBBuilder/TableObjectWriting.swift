@@ -29,11 +29,11 @@ extension DBBTableObject {
     public func saveToDB() -> Bool {
         performPreSaveActions()
         if id == 0 {
-            let success = insertIntoDB()
+            let success = insertIntoDB(fmdbQueue: nil)
             performPostSaveActions()
             return success
         } else {
-            let success = updateInDB()
+            let success = updateInDB(fmdbQueue: nil)
             performPostSaveActions()
             return success
         }
@@ -49,9 +49,16 @@ extension DBBTableObject {
     public static func saveObjects(_ objects: [DBBTableObject], dbManager: DBBManager) -> Bool {
         if objects.isEmpty == true { return true }
        
+        return saveObjects(objects, dbManager: dbManager, fmdbQueue: nil)
+    }
+        
+    // MARK: - Private Methods
+    private static func saveObjects(_ objects: [DBBTableObject], dbManager: DBBManager, fmdbQueue: FMDatabaseQueue? = nil) -> Bool {
+        if objects.isEmpty == true { return true }
+       
         let objectType = type(of: objects.first!)
         let filteredObjects = objects.filter({type(of: $0) == objectType})
-        if filteredObjects.count < objects.count {        
+        if filteredObjects.count < objects.count {
             os_log("Objects must all be of the same type", log: writerLogger, type: defaultLogType)
             return false
         }
@@ -61,18 +68,16 @@ extension DBBTableObject {
         
         var success = true
         if insertArray.isEmpty == false {
-            success = success && insertObjects(insertArray, dbManager: dbManager)
+            success = success && insertObjects(insertArray, dbManager: dbManager, fmdbQueue: fmdbQueue)
         }
         if updateArray.isEmpty == false {
-            success = success && updateObjects(updateArray, dbManager: dbManager)
+            success = success && updateObjects(updateArray, dbManager: dbManager, fmdbQueue: fmdbQueue)
         }
         
         return success
     }
-        
-    // MARK: - Private Methods
     
-    private static func insertObjects(_ objects: [DBBTableObject], dbManager: DBBManager) -> Bool {
+    private static func insertObjects(_ objects: [DBBTableObject], dbManager: DBBManager, fmdbQueue: FMDatabaseQueue?) -> Bool {
         if objects.isEmpty == true { return true }
         
         let logger = writerLogger
@@ -82,10 +87,15 @@ extension DBBTableObject {
             return false
         }
         
+        guard let queue = fmdbQueue ?? FMDatabaseQueue(url: databaseURL) else {
+            os_log("Unable to create a database queue")
+            return false
+        }
+        
         // make sure all DBBTableObject properties have been saved
         if let object = objects.first {
             if object.hasDBBObjectTableObjectProperties(className: object.shortName) == true {
-                saveDBTableObjectProperties(forObjects: objects, dbManager: dbManager)
+                saveDBTableObjectProperties(forObjects: objects, dbManager: dbManager, fmdbQueue: queue)
             }
         }
         
@@ -93,7 +103,6 @@ extension DBBTableObject {
         var success = true
         var statements = [String]()
         var valueStrings = [[Any]]()
-        let queue = FMDatabaseQueue(url: databaseURL)
 
         for instance in objects {
             instance.createdTime = Date()
@@ -119,7 +128,7 @@ extension DBBTableObject {
             return false
         }
         
-        queue?.inTransaction({ (database, rollback) in
+        queue.inTransaction({ (database, rollback) in
             for idx in 0..<statements.count {
                 autoreleasepool {
                     let sql = statements[idx]
@@ -139,11 +148,11 @@ extension DBBTableObject {
             }
         })
 
-        success = success && writeJoinColumnsForObjects(objects, databaseURL: databaseURL, dbManager: dbManager, isInsert: true)
+        success = success && writeJoinColumnsForObjects(objects, databaseURL: databaseURL, dbManager: dbManager, isInsert: true, queue: queue)
         return success
     }
     
-    private static func updateObjects(_ objects: [DBBTableObject], dbManager: DBBManager) -> Bool {
+    private static func updateObjects(_ objects: [DBBTableObject], dbManager: DBBManager, fmdbQueue: FMDatabaseQueue?) -> Bool {
         if objects.isEmpty == true { return true }
         
         guard let databaseURL = dbManager.database.databaseURL else {
@@ -151,17 +160,21 @@ extension DBBTableObject {
             return false
         }
         
+        guard let queue = fmdbQueue ?? FMDatabaseQueue(url: databaseURL) else {
+            os_log("Unable to create a database queue")
+            return false
+        }
+
         // make sure all DBBTableObject properties have been saved
         if let object = objects.first {
             if object.hasDBBObjectTableObjectProperties(className: object.shortName) == true {
-                saveDBTableObjectProperties(forObjects: objects, dbManager: dbManager)
+                saveDBTableObjectProperties(forObjects: objects, dbManager: dbManager, fmdbQueue: queue)
             }
         }
 
         var success = true
         var statements = [String]()
         var valueStrings = [[Any]]()
-        let queue = FMDatabaseQueue(url: databaseURL)
 
         for instance in objects {
             instance.modifiedTime = Date()
@@ -191,7 +204,7 @@ extension DBBTableObject {
             return false
         }
         
-        queue?.inTransaction({ (database, rollback) in
+        queue.inTransaction({ (database, rollback) in
             for idx in 0..<statements.count {
                 autoreleasepool {
                     let sql = statements[idx]
@@ -209,25 +222,23 @@ extension DBBTableObject {
             }
         })
 
-        success = success && writeJoinColumnsForObjects(objects, databaseURL: databaseURL, dbManager: dbManager, isInsert: false)
+        success = success && writeJoinColumnsForObjects(objects, databaseURL: databaseURL, dbManager: dbManager, isInsert: false, queue: queue)
         return success
     }
 
-    private func insertIntoDB() -> Bool {
-        let success = type(of: self).insertObjects([self], dbManager: dbManager)
+    private func insertIntoDB(fmdbQueue: FMDatabaseQueue?) -> Bool {
+        let success = type(of: self).insertObjects([self], dbManager: dbManager, fmdbQueue: fmdbQueue)
         return success
     }
     
-    private func updateInDB() -> Bool {
-        let success = type(of: self).updateObjects([self], dbManager: dbManager)
+    private func updateInDB(fmdbQueue: FMDatabaseQueue?) -> Bool {
+        let success = type(of: self).updateObjects([self], dbManager: dbManager, fmdbQueue: fmdbQueue)
         return success
     }
 
-    private static func writeJoinColumnsForObjects(_ objects: [DBBTableObject], databaseURL: URL, dbManager: DBBManager, isInsert: Bool) -> Bool {
+    private static func writeJoinColumnsForObjects(_ objects: [DBBTableObject], databaseURL: URL, dbManager: DBBManager, isInsert: Bool, queue: FMDatabaseQueue?) -> Bool {
         var success = true
         
-        let queue = FMDatabaseQueue(url: databaseURL)
-
         for instance in objects {
             autoreleasepool {
                 if let joinMap = dbManager.joinMapDict[instance.shortName] {
@@ -257,7 +268,7 @@ extension DBBTableObject {
         return success
     }
     
-    private static func saveDBTableObjectProperties(forObjects objects: [DBBTableObject], dbManager: DBBManager) {
+    private static func saveDBTableObjectProperties(forObjects objects: [DBBTableObject], dbManager: DBBManager, fmdbQueue: FMDatabaseQueue) {
         let map = dbManager.joinMapDict
         var propertiesToSave = [String]()
         
@@ -283,8 +294,9 @@ extension DBBTableObject {
             for object in objects {
                 autoreleasepool {
                     for property in propertiesToSave {
-                        if let iVar = object.value(forKey: property) as? [DBBTableObject] {
-                            let _ = saveObjects(iVar, dbManager: dbManager)
+                        if let iVar = object.value(forKey: property) as? [DBBTableObject],
+                            iVar.isEmpty == false {
+                            let _ = saveObjects(iVar, dbManager: dbManager, fmdbQueue: fmdbQueue)
                         } else if let iVar = object.value(forKey: property) as? DBBTableObject, iVar.id == 0 {
                             let _ = iVar.saveToDB()
                         }

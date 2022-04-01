@@ -191,7 +191,178 @@ class MeetingTests: XCTestCase {
         let newMtgCount = manager.countForTable(mtg.shortName)
         XCTAssertEqual(newMtgCount, 0)
     }
-    
+
+    func testAsyncMeeting() {
+        guard let manager = dbManager else {
+            XCTFail()
+            return
+        }
+        
+        let attendees = twoPeople()
+        XCTAssertEqual(attendees.count, 2)
+        
+        guard let p1 = attendees.first else {
+            XCTFail()
+            return
+        }
+        
+        var saved = p1.saveToDB()
+        XCTAssertTrue(saved)
+        
+        guard let p2 = attendees.last else {
+            XCTFail()
+            return
+        }
+        
+        saved = p2.saveToDB()
+        XCTAssertTrue(saved)
+        
+        let mtg = Meeting(dbManager: manager)
+        mtg.purpose = "Choose new hiree"
+        mtg.startTime = Date()
+        mtg.scheduledHours = 0.75
+        
+        mtg.participants = attendees
+        
+        saved = mtg.saveToDB()
+        XCTAssertTrue(saved)
+        
+        let meetingCount = manager.countForTable(mtg.shortName)
+        XCTAssertEqual(meetingCount, 1)
+        
+        let mtgID = mtg.idNum
+        
+        var options = DBBQueryOptions()
+        options.conditions = ["id = \(mtgID)"]
+        Meeting.getInstancesFromQueue(withOptions: options, manager: manager) { instances, _ in
+            guard let newMtgRef = instances.first as? Meeting else {
+                XCTFail()
+                return
+            }
+            
+            XCTAssertEqual(mtg.purpose, newMtgRef.purpose)
+            XCTAssertEqual(mtg.scheduledHours, newMtgRef.scheduledHours)
+            XCTAssertEqual(mtg.participants?.count, newMtgRef.participants?.count)
+            guard let m1p1 = mtg.participants?.first, let m2p1 = newMtgRef.participants?.first else {
+                XCTFail()
+                return
+            }
+            XCTAssertEqual(m1p1.firstName, m2p1.firstName)
+            XCTAssertEqual(m1p1.lastName, m2p1.lastName)
+            XCTAssertEqual(m1p1.department, m2p1.department)
+            
+            // test retrieving objects with DBBTableObject properties that match requirements
+            let meeting2 = Meeting(dbManager: manager)
+            meeting2.purpose = "Test finding a meeting by participants"
+            let newPerson = Person(dbManager: manager)
+            var success = newPerson.saveToDB()
+            XCTAssertTrue(success)
+            let newPersonID = newPerson.idNum
+            meeting2.participants = [newPerson]
+            success = meeting2.saveToDB()
+            let mtg2ID = meeting2.idNum
+            XCTAssertTrue(success)
+            
+            let meeting3 = Meeting(dbManager: manager)
+            meeting3.participants = [newPerson]
+            success = meeting3.saveToDB()
+            XCTAssertTrue(success)
+            
+            let mtg3ID = meeting3.idNum
+            
+            let newPersonConditions = ["participants IN (\(newPersonID))"]
+            let newPersonOptions = DBBQueryOptions.options(withConditions: newPersonConditions)
+            
+            Meeting.getInstancesFromQueue(withOptions: newPersonOptions, manager: manager) { newPeople, _ in
+                guard let meetingsWithNewPerson = newPeople as? [Meeting] else {
+                    XCTFail()
+                    return
+                }
+                
+                XCTAssertEqual(meetingsWithNewPerson.count, 2)
+                
+                guard let firstMeetingWithNewPerson = meetingsWithNewPerson.first else {
+                    XCTFail()
+                    return
+                }
+                
+                XCTAssertEqual(firstMeetingWithNewPerson.idNum, mtg2ID)
+                
+                guard let lastMeetingWithNewPerson = meetingsWithNewPerson.last else {
+                    XCTFail()
+                    return
+                }
+                
+                XCTAssertEqual(lastMeetingWithNewPerson.idNum, mtg3ID)
+                
+                let projectIDProj = Project(dbManager: manager)
+                projectIDProj.name = "Project to test finding a meeting by Project ID"
+                success = projectIDProj.saveToDB()
+                XCTAssertTrue(success)
+                
+                let projectID = projectIDProj.idNum
+                
+                meeting2.project = projectIDProj
+                success = meeting2.saveToDB()
+                XCTAssertTrue(success)
+                
+                let updatedMeetingID = meeting2.idNum
+                XCTAssertEqual(updatedMeetingID, mtg2ID)
+                
+                let projectConditions = ["project = \(projectID)"]
+                let projectOptions = DBBQueryOptions.options(withConditions: projectConditions)
+                
+                Meeting.getInstancesFromQueue(withOptions: projectOptions, manager: manager) { instances, _ in
+                    guard let meetingsFoundByProject = instances as? [Meeting] else {
+                        XCTFail()
+                        return
+                    }
+                    
+                    XCTAssertEqual(meetingsFoundByProject.count, 1)
+                    
+                    guard let firstMeetingFound = meetingsFoundByProject.first else {
+                        XCTFail()
+                        return
+                    }
+                    
+                    XCTAssertEqual(mtg2ID, firstMeetingFound.idNum)
+                    
+                    let compoundConditions = ["participants IN (\(newPersonID))",
+                                              "project = \(projectID)",
+                                              "AND"]
+                    let compooundOptions = DBBQueryOptions.options(withConditions: compoundConditions)
+                    
+                    Meeting.getInstancesFromQueue(withOptions: compooundOptions, manager: manager) { meetingsFoundWithCompoundConditions, _ in
+                        XCTAssertEqual(meetingsFoundWithCompoundConditions.count, 1)
+                        
+                        guard let meetingFoundWithProjectAndParticipants = meetingsFoundWithCompoundConditions.first as? Meeting else {
+                            XCTFail()
+                            return
+                        }
+                        
+                        XCTAssertEqual(meetingFoundWithProjectAndParticipants.idNum, mtg2ID)
+                        
+                        success = Meeting.deleteMultipleInstances(meetingsWithNewPerson, manager: manager)
+                        XCTAssertTrue(success)
+                        
+                        let lastPersonID = p2.idNum
+                        success = Person.deleteInstance(p2, manager: manager)
+                        XCTAssertTrue(success)
+                        
+                        let deletedPerson = Person.instanceWithIDNumber(lastPersonID, manager: manager)
+                        XCTAssertNil(deletedPerson)
+                        
+                        success = Meeting.deleteInstance(mtg, manager: manager)
+                        XCTAssertTrue(success)
+                        
+                        let newMtgCount = manager.countForTable(mtg.shortName)
+                        XCTAssertEqual(newMtgCount, 0)
+                    }
+                }
+            }
+        }
+    }
+
     func testMultipleObjectDeletion() {
         guard let manager = dbManager else {
             XCTFail()

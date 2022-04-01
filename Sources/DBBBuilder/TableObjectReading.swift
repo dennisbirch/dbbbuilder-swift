@@ -24,13 +24,13 @@ extension DBBTableObject {
      A static method to retrieve all instances of a DBBTableObject subclass from the database.
      
      - Parameters:
-         - manager: A DBBManager instance that owns the FMDB instance/SQLite file being read from.
-
+     - manager: A DBBManager instance that owns the FMDB instance/SQLite file being read from.
+     
      - Returns: An array of DBBTableObject instances. In most cases you will need to cast them as the subclass type to be useful. e.g.:
      ```
-    guard let projects = Project.allInstances(manager: manager) as? [Project] else {
-        return
-    }
+     guard let projects = Project.allInstances(manager: manager) as? [Project] else {
+     return
+     }
      ```
      */
     public static func allInstances(manager: DBBManager) -> [DBBTableObject] {
@@ -38,7 +38,7 @@ extension DBBTableObject {
         return instancesWithIDNumbers(allIDs, manager: manager)
     }
     
-    public static func fetchAllInstancesFromQueue(manager: DBBManager, completion: ([DBBTableObject]) -> Void) {
+    public static func getAllInstancesFromQueue(manager: DBBManager, completion: ([DBBTableObject]) -> Void) {
         self.fetchAllInstanceIDsFromQueue(manager: manager) { idNums in
             self.getInstancesWithIDNumbersFromQueue(ids: idNums, manager: manager) { instances in
                 completion(instances)
@@ -50,31 +50,31 @@ extension DBBTableObject {
      A static method that lets you retrieve instances of a DBBTableObject subclass based on options that allow you to filter return values and affect sort order
      
      - Parameters:
-        - options: A DBBQueryOptions instance that specifies the desired filtering and sorting.
-        - manager: A DBBManager instance that owns the FMDB instance/SQLite file being read from.
-        - sparsePopulation: A Bool value indicating whether the instances should be constructed with only their basic (id, creationTime and modifiedTime) properties populated. The default is false, but can be set to true for better performance.
+     - options: A DBBQueryOptions instance that specifies the desired filtering and sorting.
+     - manager: A DBBManager instance that owns the FMDB instance/SQLite file being read from.
+     - sparsePopulation: A Bool value indicating whether the instances should be constructed with only their basic (id, creationTime and modifiedTime) properties populated. The default is false, but can be set to true for better performance.
      
      - Returns: An array of the DBBtableObject subclass that meet your criteria, or nil if there was an error. In most cases you will need to cast the returned array as the subclass type to be useful. e.g.:
      ```
      guard let projects = instancesWithOptions(options, manager: manager) as? [Project] else {
-        return
+     return
      }
      ```
      - SeeAlso:
-        DBBQueryOptions struct
+     DBBQueryOptions struct
      
      - __Note:__ You can query the database for objects that match the ID(s) of a property that is of type DBBTableObject. To do so, include a condition in the _options_ argument with the _name_ of the property and the ID number it should match. For example, if you have a Meeting DBBTableObject that has as a 'project' property, which is a Project DBBTableObject subclass, you could include a condition like "project = \(projectID)" (where 'projectID' is an Integer value). If the property is represented as an array of DBBTableObjects, you should use "IN" syntax: "project IN (\(idsArray))" (where 'idsArray' is an array of Integer values).
-    */
-        
+     */
+    
     public static func instancesWithOptions(_ options: DBBQueryOptions,
                                             manager: DBBManager,
                                             sparsePopulation: Bool = false) -> [DBBTableObject]? {
         var joinMaps = [String : DBBJoinMap]()
-
+        
         // see if we're extracting values based on matching a DBBTableObject equality condition
         let typeObj = self.init(dbManager: manager)
         if let properties = manager.joinMapDict[typeObj.shortName],
-            let conditions = options.conditions {
+           let conditions = options.conditions {
             for condition in conditions {
                 if  let spaceIndex = condition.firstIndex(of: " ")  {
                     let propertyToMatch = String(condition[condition.startIndex..<spaceIndex]).trimmingCharacters(in: CharacterSet.whitespaces)
@@ -85,7 +85,8 @@ extension DBBTableObject {
             }
         }
         
-        let sql = sqlString(withOptions: options, manager: manager, joinMaps: joinMaps)
+        let tableName = typeObj.shortName
+        let sql = sqlString(withOptions: options, tableName: tableName, manager: manager, joinMaps: joinMaps)
         os_log("Executing SQL: %@", log: readerLogger, type: defaultLogType, sql)
         let executor = DBBDatabaseExecutor(db: manager.database)
         guard let results = executor.runQuery(sql) else {
@@ -96,9 +97,10 @@ extension DBBTableObject {
         var foundInstances = [DBBTableObject]()
         while results.next() {
             if let resultsDict = results.resultDictionary,
-                let obj = instanceFromResultsDictionary(resultsDict, manager: manager,
-                                                        sparsePopulation: sparsePopulation,
-                                                        options: options) {
+               let obj = instanceFromResultsDictionary(resultsDict, manager: manager,
+                                                       sparsePopulation: sparsePopulation,
+                                                       options: options,
+                                                       queue: nil) {
                 foundInstances.append(obj)
             }
         }
@@ -110,13 +112,13 @@ extension DBBTableObject {
      A static method that lets you retrieve instances of a DBBTableObject subclass asynchrounously, based on options that allow you to filter return values and affect sort order. This method uses the FMDBDatabaseQueue class to execute a fetch asynchronously and "return" results in a completion closure.
      
      - Parameters:
-         - options: A DBBQueryOptions instance that specifies the desired filtering and sorting.
-         - manager: A DBBManager instance that owns the FMDB instance/SQLite file being read from.
-        - sparsePopulation: A Bool value indicating whether the instances should be constructed with only their basic (id, creationTime and modifiedTime) properties populated. The default is false, but can be set to true for better performance.
-         - completion: A closure with the signature `([DBBTableObject], NSError?) -> Void`
-
-            - [DBBTableObject]: An array of the DBBTableObject subclass you call this method on
-            - NSError: An NSError instance if there was an error, or nil
+     - options: A DBBQueryOptions instance that specifies the desired filtering and sorting.
+     - manager: A DBBManager instance that owns the FMDB instance/SQLite file being read from.
+     - sparsePopulation: A Bool value indicating whether the instances should be constructed with only their basic (id, creationTime and modifiedTime) properties populated. The default is false, but can be set to true for better performance.
+     - completion: A closure with the signature `([DBBTableObject], Error?) -> Void`
+     
+     - [DBBTableObject]: An array of the DBBTableObject subclass you call this method on
+     - Error: An Error instance if there was an error, or nil
      
      - SeeAlso:
      DBBQueryOptions struct
@@ -124,8 +126,25 @@ extension DBBTableObject {
     public static func getInstancesFromQueue(withOptions options: DBBQueryOptions,
                                              manager: DBBManager,
                                              sparsePopulation: Bool = false,
-                                             completion: ([DBBTableObject], NSError?) -> Void) {
-        let sql = sqlString(withOptions: options, manager: manager)
+                                             completion: ([DBBTableObject], Error?) -> Void) {
+        var joinMaps = [String : DBBJoinMap]()
+        
+        // see if we're extracting values based on matching a DBBTableObject equality condition
+        let typeObj = self.init(dbManager: manager)
+        if let properties = manager.joinMapDict[typeObj.shortName],
+           let conditions = options.conditions {
+            for condition in conditions {
+                if  let spaceIndex = condition.firstIndex(of: " ")  {
+                    let propertyToMatch = String(condition[condition.startIndex..<spaceIndex]).trimmingCharacters(in: CharacterSet.whitespaces)
+                    if let map = properties[propertyToMatch] {
+                        joinMaps[propertyToMatch] = map
+                    }
+                }
+            }
+        }
+        
+        let tableName = typeObj.shortName
+        let sql = sqlString(withOptions: options, tableName: tableName, manager: manager, joinMaps: joinMaps)
         os_log("Executing SQL: %@", log: readerLogger, type: defaultLogType, sql)
         let queue = FMDatabaseQueue(url: manager.database.databaseURL)
         queue?.inDatabase({ (db) in
@@ -135,9 +154,10 @@ extension DBBTableObject {
                 while results.next() {
                     autoreleasepool {
                         if let resultsDict = results.resultDictionary,
-                            let obj = instanceFromResultsDictionary(resultsDict, manager: manager,
-                                                                    sparsePopulation: sparsePopulation,
-                                                                    options: options) {
+                           let obj = instanceFromResultsDictionary(resultsDict, manager: manager,
+                                                                   sparsePopulation: sparsePopulation,
+                                                                   options: options,
+                                                                   queue: queue) {
                             foundInstances.append(obj)
                         }
                     }
@@ -153,17 +173,17 @@ extension DBBTableObject {
     }
     
     /**
-     A static method that lets you retrieve an instance of a DBTableObject subclass for the `idNum` value you pass in.
+     A static method that lets you retrieve an instance of a DBBTableObject subclass for the `idNum` value you pass in.
      
      - Parameters:
-         - id: An Int64 for the instance with the idNum value you want to retrieve.
-         - manager: A DBBManager instance that owns the FMDB instance/SQLite file being read from.
-        - sparsePopulation: A Bool value indicating whether the instance should be constructed with only its basic (id, creationTime and modifiedTime) properties populated. The default is false, but can be set to true for better performance.
-
+     - id: An Int64 for the idNum value of the instance you want to retrieve.
+     - manager: A DBBManager instance that owns the FMDB instance/SQLite file being read from.
+     - sparsePopulation: A Bool value indicating whether the instance should be constructed with only its basic (id, creationTime and modifiedTime) properties populated. The default is false, but can be set to true for better performance.
+     
      - Returns: A single instance of a DBBTableObject subclass that matches the ID number passed in, or nil if there was an error or no match. In most cases you will need to cast the returned instance as the subclass type to be useful. e.g.:
      ```
      guard let projects = Project.instanceWithIDNumber(id, manager: manager) as? Project else {
-         return
+     return
      }
      ```
      */
@@ -177,6 +197,12 @@ extension DBBTableObject {
         return object
     }
     
+    /// A static method to get an instance of a DBBTableObject sublass by idNum via an asynchronous queue. This is safer than using the `instanceWithIDNumber(:, manager, sparsePopulation` method.
+    /// - Parameters:
+    ///   - id: An Int64 for the idNum value of the instance you want to retrieve.
+    ///   - manager: A DBBManager instance that owns the FMDB instance/SQLite file being read from.
+    ///   - completion: A completion handler whose signature is `(DBBTableObject?) -> Void`. When the function completes, the DBBTableObject instance can be obtained at the calling site as the handler's argument, unless it fails to find the desired instance in which case the value will be nil.
+    ///   - sparsePopulation: A Bool value indicating whether the instance should be constructed with only its basic (id, creationTime and modifiedTime) properties populated. The default is false, but can be set to true for better performance.
     public static func getQueuedInstanceWithIDNumber(_ id: Int64, manager: DBBManager, completion: (DBBTableObject?) -> Void, sparsePopulation: Bool = false) {
         let options = DBBQueryOptions.options(withConditions: ["\(Keys.id) = \(id)"])
         getInstancesFromQueue(withOptions: options, manager: manager) { results, error in
@@ -199,13 +225,13 @@ extension DBBTableObject {
      A static method that lets you retrieve an array of instances of a DBTableObject subclass for the `idNum` values you pass in.
      
      - Parameters:
-         - ids: An array of Int64s for the instances with the idNum values you want to retrieve.
-         - manager: A DBBManager instance that owns the FMDB instance/SQLite file being read from.
+     - ids: An array of Int64s repreenting the idNum values for the instances you want to retrieve.
+     - manager: A DBBManager instance that owns the FMDB instance/SQLite file being read from.
      
      - Returns: An array of instances of a DBBTableObject subclass that match the ID numbers passed in, or nil if there was an error. In most cases you will need to cast the returned instances as the subclass type to be useful. e.g.:
      ```
      guard let projects = Project.instanceWithIDNumbers(idArray, manager: manager) as? [Project] else {
-        return
+     return
      }
      ```
      */
@@ -223,49 +249,33 @@ extension DBBTableObject {
         while results.next() {
             autoreleasepool {
                 if let resultsDict = results.resultDictionary,
-                    let obj = instanceFromResultsDictionary(resultsDict, manager: manager,
-                                                            sparsePopulation: false,
-                                                            options: nil) {
+                   let obj = instanceFromResultsDictionary(resultsDict, manager: manager,
+                                                           sparsePopulation: false,
+                                                           options: nil,
+                                                           queue: nil) {
                     instances.append(obj)
                 }
             }
         }
-
+        
         return instances
     }
     
+    
+    /// A static method that lets you retrieve an array of instances of a DBTableObject subclass for the `idNum` values you pass in via an asynchronous queue. This is safer than using the `instancesWithIDNumbers(:, manager` method.
+    /// - Parameters:
+    ///   - ids: An array of Int64s repreenting the idNum values for the instances you want to retrieve.
+    ///   - manager: A DBBManager instance that owns the FMDB instance/SQLite file being read from.
+    ///   - completion: A completion handler whose signature is `([DBBTableObject]) -> Void`. When the function completes, the DBBTableObject instances can be obtained at the calling site as the handler's argument.
     public static func getInstancesWithIDNumbersFromQueue(ids: [Int64], manager: DBBManager, completion: ([DBBTableObject]) -> Void) {
-        var instances = [DBBTableObject]()
-        let instance = self.init(dbManager: manager)
-        let idNumString = ids.map{ String($0) }
-        let sql = "SELECT * FROM \(instance.shortName) WHERE \(Keys.id) IN (\(idNumString.joined(separator: ",")))"
-        let executor = DBBDatabaseExecutor(db: manager.database)
-        executor.runQueryOnQueue(sql) { results in
-            guard let results = results else {
-                os_log("Fetch failed with error: %@ for SQL: %@", log: readerLogger, type: defaultLogType, manager.errorMessage(), sql)
-                return
-            }
-            
-            while results.next() {
-                autoreleasepool {
-                    if let resultsDict = results.resultDictionary,
-                        let obj = instanceFromResultsDictionary(resultsDict, manager: manager,
-                                                                sparsePopulation: false,
-                                                                options: nil) {
-                        instances.append(obj)
-                    }
-                }
-            }
-
-            completion(instances)
-        }
+        return getInstancesWithIDNumbersFromQueue(ids: ids, manager: manager, completion: completion, queue: nil)
     }
-
+    
     /**
      A static method that lets you retrieve all instance IDs for a DBTableObject subclass.
      
      - Parameters:
-         - manager: A DBBManager instance that owns the FMDB instance/SQLite file being read from.
+     - manager: A DBBManager instance that owns the FMDB instance/SQLite file being read from.
      
      - Returns: An array of Int64's representing the `idNum` value for all instances of the DBBTableObject subclass you call this method on.
      */
@@ -287,6 +297,11 @@ extension DBBTableObject {
         return idsArray
     }
     
+    
+    /// A static method that lets you retrieve all instance IDs for a DBTableObject subclass  via an asynchronous queue.
+    /// - Parameters:
+    ///   - manager: A DBBManager instance that owns the FMDB instance/SQLite file being read from.
+    ///   - completion: A completion handler whose signature is `([Int64]) -> Void`. When the function completes, the idNum values can be obtained at the calling site as the handler's argument.
     public static func fetchAllInstanceIDsFromQueue(manager: DBBManager, completion: ([Int64]) -> Void) {
         var idsArray = [Int64]()
         let tableName = self.init(dbManager: manager).shortName
@@ -310,10 +325,43 @@ extension DBBTableObject {
     
     // MARK: - Private Methods
     
+    private static func getInstancesWithIDNumbersFromQueue(ids: [Int64], manager: DBBManager, completion: ([DBBTableObject]) -> Void, queue: FMDatabaseQueue? = nil) {
+        var instances = [DBBTableObject]()
+        let instance = self.init(dbManager: manager)
+        let idNumString = ids.map{ String($0) }
+        let sql = "SELECT * FROM \(instance.shortName) WHERE \(Keys.id) IN (\(idNumString.joined(separator: ",")))"
+        let executor = DBBDatabaseExecutor(db: manager.database)
+        guard let fmdbQueue = queue ?? FMDatabaseQueue(url: manager.database.databaseURL) else {
+            os_log("Can't create FMDatabaseQueue")
+            return
+        }
+        executor.runQueryOnQueue(sql) { results in
+            guard let results = results else {
+                os_log("Fetch failed with error: %@ for SQL: %@", log: readerLogger, type: defaultLogType, manager.errorMessage(), sql)
+                return
+            }
+            
+            while results.next() {
+                autoreleasepool {
+                    if let resultsDict = results.resultDictionary,
+                       let obj = instanceFromResultsDictionary(resultsDict, manager: manager,
+                                                               sparsePopulation: false,
+                                                               options: nil,
+                                                               queue: fmdbQueue) {
+                        instances.append(obj)
+                    }
+                }
+            }
+            
+            completion(instances)
+        }
+    }
+    
     private static func instanceFromResultsDictionary(_ resultDict: [AnyHashable : Any],
                                                       manager: DBBManager,
                                                       sparsePopulation: Bool,
-                                                      options: DBBQueryOptions?) -> DBBTableObject? {
+                                                      options: DBBQueryOptions?,
+                                                      queue: FMDatabaseQueue?) -> DBBTableObject? {
         let instance = self.init(dbManager: manager)
         
         for (key, value) in resultDict {
@@ -322,13 +370,13 @@ extension DBBTableObject {
             }
             
             guard let persistenceMap = instance.dbManager.persistenceMap[instance.shortName],
-                let keyString = key as? String else {
-                    os_log("Cannot get key as string in instanceFromResultsDictionary", log: readerLogger, type: defaultLogType)
-                    return nil
+                  let keyString = key as? String else {
+                os_log("Cannot get key as string in instanceFromResultsDictionary", log: readerLogger, type: defaultLogType)
+                return nil
             }
             
             if let propertyName = persistenceMap.propertyForColumn(named: keyString),
-                let propertyPersistence = persistenceMap.map[propertyName] {
+               let propertyPersistence = persistenceMap.map[propertyName] {
                 let type = propertyPersistence.storageType
                 if type.name() == TypeNames.timeStamp {
                     if let dateInterval = value as? TimeInterval {
@@ -352,15 +400,14 @@ extension DBBTableObject {
                                      instance: instance,
                                      manager: manager,
                                      sparsePopulation: sparsePopulation,
-                                     options: options)
+                                     options: options,
+                                     queue: queue)
         }
         
         return instance
     }
-
-    private static func sqlString(withOptions options: DBBQueryOptions, manager: DBBManager, joinMaps: [String : DBBJoinMap] = [String : DBBJoinMap]()) -> String {
-        let instance = self.init(dbManager: manager)
-        let tableName = instance.shortName
+    
+    private static func sqlString(withOptions options: DBBQueryOptions, tableName: String, manager: DBBManager, joinMaps: [String : DBBJoinMap]) -> String {
         var sql = (options.distinct) ? "SELECT DISTINCT " : "SELECT "
         let columnString: String
         if var columnNames = options.propertyNames {
@@ -396,7 +443,8 @@ extension DBBTableObject {
                                  instance: DBBTableObject,
                                  manager: DBBManager,
                                  sparsePopulation: Bool,
-                                 options: DBBQueryOptions?) {
+                                 options: DBBQueryOptions?,
+                                 queue: FMDatabaseQueue?) {
         let columns: [String]
         if sparsePopulation == true, let joinOptions = options?.joinPropertiesToPopulate, joinOptions.isEmpty == false {
             columns = joinOptions
@@ -436,7 +484,7 @@ extension DBBTableObject {
             } else {
                 os_log("Cannot retrieve values for %@ because its joinMap is nil", log: DBBTableObject.readerLogger, type: defaultLogType, column)
                 continue
-            }            
+            }
         }
     }
     
@@ -527,23 +575,29 @@ extension DBBTableObject {
         if isArray {
             var objects = [DBBTableObject]()
             for idNum in valuesArray {
-                if let instance = objectType.instanceWithIDNumber(Int64(idNum), manager: manager) {
-                    objects.append(instance)
+                objectType.getQueuedInstanceWithIDNumber(Int64(idNum), manager: manager) { object in
+                    if let instance = object {
+                        objects.append(instance)
+                    }
                 }
+                
+                self.setValue(objects, forKey: propertyName)
             }
-            
-            self.setValue(objects, forKey: propertyName)
+                
         } else {
             guard let instanceID = valuesArray.first else {
                 os_log("Couldn't get first id from object array", log: DBBTableObject.readerLogger, type: defaultLogType)
                 return
             }
             
-            let propertyObect = objectType.instanceWithIDNumber(Int64(instanceID), manager: manager)
-            self.setValue(propertyObect, forKey: propertyName)
+            objectType.getQueuedInstanceWithIDNumber(Int64(instanceID), manager: manager) { object in
+                if let propertyObect = object {
+                    self.setValue(propertyObect, forKey: propertyName)
+                }
+            }
         }
     }
-
+    
     private static func conditionsString(options: DBBQueryOptions, tableName: String, joinMaps: [String : DBBJoinMap]) -> String {
         var conditionsArray = [String]()
         var conjunction = ""
@@ -630,5 +684,5 @@ extension DBBTableObject {
         let orderColumns = orderCopy.joined(separator: ",")
         return orderColumns + " \(order)"
     }
-
+    
 }

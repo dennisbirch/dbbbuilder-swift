@@ -13,9 +13,11 @@ import os.log
 struct DBBDatabaseExecutor {
     private var database: FMDatabase
     private let logger = DBBBuilder.logger(withCategory: "DBBDatabaseExecutor")
+    private var fmDBQueue: FMDatabaseQueue?
 
     init(db: FMDatabase) {
         self.database = db
+        fmDBQueue = FMDatabaseQueue(url: db.databaseURL)
     }
     
     func runQuery(_ query: String, arguments: [String]) -> FMResultSet? {
@@ -44,8 +46,7 @@ struct DBBDatabaseExecutor {
             return
         }
         
-        let queue = FMDatabaseQueue(url: self.database.databaseURL)
-        queue?.inDatabase({ db in
+        fmDBQueue?.inDatabase({ db in
             do {
                 let result = try db.executeQuery(query, values: arguments)
                 completion(result)

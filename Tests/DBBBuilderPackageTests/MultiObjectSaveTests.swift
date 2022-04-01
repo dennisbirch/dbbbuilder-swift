@@ -190,4 +190,63 @@ class MultiObjectSaveTests: XCTestCase {
         let person = allPeople[randomInt]
         XCTAssertEqual(person.nicknames, nicknames)
     }
+    
+    func testAsyncManySaves() {
+        guard let url = dbManager?.database.databaseURL else {
+            XCTFail("Database URL required")
+            return
+        }
+        
+        dbManager = DBBManager(databaseURL: url)
+        dbManager?.addTableClasses([NullTestPerson.self])
+        
+        guard let manager = dbManager else {
+            XCTFail("DBManager must not be nil")
+            return
+        }
+        
+        let peopleToSave = 10000
+        let baseName = "Person"
+        let lastName = "Jones"
+        var people: [NullTestPerson] = []
+        for idx in 1..<peopleToSave {
+            let name = baseName + String(idx)
+            let person = NullTestPerson(dbManager: manager)
+            person.firstName = name
+            person.lastName = lastName
+            person.age = idx
+            people.append(person)
+        }
+        var success = NullTestPerson.saveObjects(people, dbManager: manager)
+        XCTAssertTrue(success)
+        
+        NullTestPerson.getAllInstancesFromQueue(manager: manager) { instances in
+            guard let allPeople = instances as? [NullTestPerson] else {
+                XCTFail("Fetch should not fail")
+                return
+            }
+            
+            XCTAssertEqual(allPeople.count, peopleToSave - 1)
+            let nicknames = ["Guy", "Hey you"]
+            for person in allPeople {
+                person.nicknames = nicknames
+            }
+            
+            success = NullTestPerson.saveObjects(allPeople, dbManager: manager)
+            XCTAssertTrue(success)
+            
+            NullTestPerson.getAllInstancesFromQueue(manager: manager) { instances in
+                guard let refetchedPeople = instances as? [NullTestPerson] else {
+                    XCTFail()
+                    return
+                }
+
+                XCTAssertEqual(refetchedPeople.count, peopleToSave - 1)
+                
+                let randomInt = Int.random(in: 1..<peopleToSave)
+                let person = refetchedPeople[randomInt]
+                XCTAssertEqual(person.nicknames, nicknames)
+            }
+        }
+    }
 }
