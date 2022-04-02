@@ -38,6 +38,12 @@ extension DBBTableObject {
         return instancesWithIDNumbers(allIDs, manager: manager)
     }
     
+    
+    /// A static method to retrieve all instances of a DBBTableObject subclass from the database asyncronously.
+    /// - Parameters:
+    ///   - manager: A DBBManager instance that owns the FMDB instance/SQLite file being read from.
+    ///   - completion: A closure with the signature `([DBBTableObject]) -> Void`. When the function completes, the DBBTableObject instances can be obtained at the calling site as the closure's argument.
+
     public static func getAllInstancesFromQueue(manager: DBBManager, completion: ([DBBTableObject]) -> Void) {
         self.fetchAllInstanceIDsFromQueue(manager: manager) { idNums in
             self.getInstancesWithIDNumbersFromQueue(ids: idNums, manager: manager) { instances in
@@ -201,7 +207,7 @@ extension DBBTableObject {
     /// - Parameters:
     ///   - id: An Int64 for the idNum value of the instance you want to retrieve.
     ///   - manager: A DBBManager instance that owns the FMDB instance/SQLite file being read from.
-    ///   - completion: A completion handler whose signature is `(DBBTableObject?) -> Void`. When the function completes, the DBBTableObject instance can be obtained at the calling site as the handler's argument, unless it fails to find the desired instance in which case the value will be nil.
+    ///   - completion: A closure whose signature is `(DBBTableObject?) -> Void`. When the function completes, the DBBTableObject instance can be obtained at the calling site as the closure's argument, unless it fails to find the desired instance in which case the value will be nil.
     ///   - sparsePopulation: A Bool value indicating whether the instance should be constructed with only its basic (id, creationTime and modifiedTime) properties populated. The default is false, but can be set to true for better performance.
     public static func getQueuedInstanceWithIDNumber(_ id: Int64, manager: DBBManager, completion: (DBBTableObject?) -> Void, sparsePopulation: Bool = false) {
         let options = DBBQueryOptions.options(withConditions: ["\(Keys.id) = \(id)"])
@@ -266,7 +272,7 @@ extension DBBTableObject {
     /// - Parameters:
     ///   - ids: An array of Int64s repreenting the idNum values for the instances you want to retrieve.
     ///   - manager: A DBBManager instance that owns the FMDB instance/SQLite file being read from.
-    ///   - completion: A completion handler whose signature is `([DBBTableObject]) -> Void`. When the function completes, the DBBTableObject instances can be obtained at the calling site as the handler's argument.
+    ///   - completion: A completion handler whose signature is `([DBBTableObject]) -> Void`. When the function completes, the DBBTableObject instances can be obtained at the calling site as the closure's argument.
     public static func getInstancesWithIDNumbersFromQueue(ids: [Int64], manager: DBBManager, completion: ([DBBTableObject]) -> Void) {
         return getInstancesWithIDNumbersFromQueue(ids: ids, manager: manager, completion: completion, queue: nil)
     }
@@ -301,7 +307,7 @@ extension DBBTableObject {
     /// A static method that lets you retrieve all instance IDs for a DBTableObject subclass  via an asynchronous queue.
     /// - Parameters:
     ///   - manager: A DBBManager instance that owns the FMDB instance/SQLite file being read from.
-    ///   - completion: A completion handler whose signature is `([Int64]) -> Void`. When the function completes, the idNum values can be obtained at the calling site as the handler's argument.
+    ///   - completion: A completion handler whose signature is `([Int64]) -> Void`. When the function completes, the idNum values can be obtained at the calling site as the closure's argument.
     public static func fetchAllInstanceIDsFromQueue(manager: DBBManager, completion: ([Int64]) -> Void) {
         var idsArray = [Int64]()
         let tableName = self.init(dbManager: manager).shortName

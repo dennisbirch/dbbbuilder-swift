@@ -227,12 +227,22 @@ If you override this method, it will be called immediately after data is inserte
 
 #### Retrieving Objects From the Database
 
-There are several methods for retrieving objects from the database. All of them are static methods that should be called on your DBBTableObject subclass types. Each method returns either a single DBBTableObject instance or an array of them. As such you will need to cast them to their subclass type in order to use them in most cases. For example:
+There are several methods for retrieving objects from the database. All of them are static methods that should be called on your DBBTableObject subclass types. There are also variations that can be called asynchronously to provide greater safety in cases where you do not control which thread the call might be coming from. Each method returns (or provides as an argument to a completion handler) either a single DBBTableObject instance or an array of them. You will need to cast them to their subclass type in order to use them in most cases. For example:
 
 ```
 guard let projects = Project.allInstances(manager: manager) as? [Project] else {
     return
 }
+```
+
+... or...
+
+```
+Project.getAllInstances(manager: manager: completion { instances in
+	guard let projects = instances as? [Project] else {
+		return
+	}
+})
 ```
 
 `public static func allInstances(manager: DBBManager) -> [DBBTableObject]`
@@ -244,6 +254,14 @@ _manager_: A DBBManager instance that owns the FMDB instance/SQLite file being r
 _Returns_: An array of all instances of the subclass in the database, fully populated.
 
 `public static func instancesWithOptions(_ options: DBBQueryOptions, manager: DBBManager, sparsePopulation: Bool = false) -> [DBBTableObject]?`
+
+A static method to retrieve all instances of a DBBTableObject subclass from the database asyncronously.
+
+_manager_: A DBBManager instance that owns the FMDB instance/SQLite file being read from.
+
+_completion_: A closure with the signature `([DBBTableObject]) -> Void`. When the function completes, the DBBTableObject instances can be obtained at the calling site as the closure's argument.
+
+`public static func getAllInstancesFromQueue(manager: DBBManager, completion: ([DBBTableObject]) -> Void)`
 
 A static method to retrieve DBBTableObjects that meet defined criteria.
 
@@ -286,6 +304,18 @@ _sparsePopulation_: An optional Boolean value indicating whether you would like 
 
 _Returns_: An optional DBBTableObject instance whose id property matches the id value passed in.
 
+`public static func getQueuedInstanceWithIDNumber(_ id: Int64, manager: DBBManager, completion: (DBBTableObject?) -> Void, sparsePopulation: Bool = false)`
+
+A static method to get an instance of a DBBTableObject sublass by idNum via an asynchronous queue.
+
+_id_: An Int64 value representing the id number for the instance you want to retrieve.
+
+_manager_: A DBBManager instance that owns the FMDB instance/SQLite file being read from.
+
+_completionHandler_: A closure with the signature `(DBBTableObject?) -> Void`. When the function completes, the DBBTableObject instance can be obtained at the calling site as the closure's argument, unless it fails to find the desired instance in which case the value will be nil.
+
+_sparsePopulation_: An optional Boolean value indicating whether you would like the returned object to be populated only with its id and created and modified dates. The default value is False.
+
 `public static func instancesWithIDNumbers(_ ids: [Int64], manager: DBBManager) -> [DBBTableObject]`
 
 A static method to get an array of DBBTableObject subclass instances matching the ID numbers passed in.
@@ -297,6 +327,16 @@ _manager_: A DBBManager instance that owns the FMDB instance/SQLite file being r
 _sparsePopulation_: An optional Boolean value indicating whether you would like returned objects to be populated only with their id and created and modified dates. The default value is False.
 
 _Returns_: An array of DBBTableObject instance whose id properties match the id values passed in.
+
+`public static func getInstancesWithIDNumbersFromQueue(ids: [Int64], manager: DBBManager, completion: ([DBBTableObject]) -> Void)`
+
+A static method that lets you retrieve an array of instances of a DBTableObject subclass for the `idNum` values you pass in via an asynchronous queue.
+
+_ids_: An array of Int64 values representing the id numbers for the instances you want to retrieve.
+
+_manager_: A DBBManager instance that owns the FMDB instance/SQLite file being read from.
+
+_completionHandler_: A closure with the signature `([DBBTableObject]) -> Void`. When the function completes, the DBBTableObject instances can be obtained at the calling site as the closure's argument.
 
 `public static func allInstanceIDs(manager: DBBManager) -> [Int64]`
 
@@ -427,6 +467,29 @@ There are a couple of strategies you can pursue to enhance the performance of ob
 __Sparse object population:__ Some of the object retrieval methods have an optional _sparsePopulation_ argument which defaults to False. If you pass in True for this value, you will get back objects which only have their _id_, _createdTime_, and _modifiedTime_ values populated. This would allow you to then fetch objects with only required properties populated (see _Explicit object population_ below), based on their ID number.
 
 __Explicit object population:__ Some of the object retrieval methods let you specify what properties should be populated with a [DBBQueryOptions](#dbbqueryoptions) instance. This is a less severe form of sparse population that can still improve performance for complex objects. You could benefit from this approach when you need to fetch many objects, but only need to display basic information to the user in a view.
+
+#### Database Migration
+
+The DBBManager class offers a couple of methods you can use to determine and set a version for the SQLite database managed by the DBBManager to help with database migration. While DBBBuilder automatically checks and updates tables to conform to their corresponding DBBTableObject specifications, it does not delete existing columns or populate new columns with data. If a schema is being updated sufficiently that you need to perform such changes when you update object definitions, you'll need to perform these steps manually. Using the methods below, you might want to add a version check routine that follows a pattern such as:
+
+* After database setup is complete, check the current database version
+* If it equals a defined value, exit your checking routine
+* If it needs to be updated with any table population or column deletion, call out to an update method that performs those tasks
+* In the update method, set the current database version to the newly defined value
+
+`public func hasLatestDBVersion(currentVersion: Double) -> (hasLatest: Bool, version: Double)`
+
+A helper method for checking a version number (which you must assign) for determining whether a database migration is required.
+
+_currentVersion_: A Double value representing the version you want to check against.
+        
+_Returns_: A (Bool, Double) tuple with values for whether or not the current database version is equal to or greater than the currentVersion value passed in, and the version the database is set to.
+
+` public func setCurrentDBVersion(_ version: Double)`
+
+A helper method for setting a version number for the database, which can be useful for determining the need for database migrations in conjunction with the `hasLatestDB` function. If the database already has a version number equal to or higher than the value passed in, it does NOT set the value passed in.
+
+_currentVersion_: A Double value to set the database version to.
 
 #### Helpers <a name="helpers"> </a>
 
