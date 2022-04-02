@@ -1,18 +1,83 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Workspace
    version = "1.0">
-   <FileRef
-      location = "group:Package.swift">
-   </FileRef>
-   <FileRef
-      location = "group:README.md">
-   </FileRef>
-   <FileRef
-      location = "group:Demos/DBBBuilder-Demo-iOS.xcodeproj">
-   </FileRef>
-   <FileRef
-      location = "group:Demos/DBBBuilder-Demo-OSX.xcodeproj">
-   </FileRef>
+   <Group
+      location = "group:Sources"
+      name = "Sources">
+      <Group
+         location = "group:ExceptionCatcher"
+         name = "ExceptionCatcher">
+         <Group
+            location = "group:include"
+            name = "include">
+            <FileRef
+               location = "group:ExceptionCatcher.m">
+            </FileRef>
+            <FileRef
+               location = "group:ExceptionCatcher.h">
+            </FileRef>
+         </Group>
+      </Group>
+      <Group
+         location = "group:DBBBuilder"
+         name = "DBBBuilder">
+         <FileRef
+            location = "group:DBBStorageType.swift">
+         </FileRef>
+         <FileRef
+            location = "group:DBBBuilder.swift">
+         </FileRef>
+         <FileRef
+            location = "group:TableObjectWriting.swift">
+         </FileRef>
+         <FileRef
+            location = "group:DBBPropertyPersistence.swift">
+         </FileRef>
+         <FileRef
+            location = "group:DBBPersistenceMap.swift">
+         </FileRef>
+         <FileRef
+            location = "group:DBBIndexer.swift">
+         </FileRef>
+         <FileRef
+            location = "group:DBBDatabaseExecutor.swift">
+         </FileRef>
+         <FileRef
+            location = "group:DBBTableObject.swift">
+         </FileRef>
+         <FileRef
+            location = "group:Extensions.swift">
+         </FileRef>
+         <FileRef
+            location = "group:DBBManager.swift">
+         </FileRef>
+         <FileRef
+            location = "group:DBBQueryOptions.swift">
+         </FileRef>
+         <FileRef
+            location = "group:TableObjectReading.swift">
+         </FileRef>
+         <FileRef
+            location = "group:DBBTableBuilder.swift">
+         </FileRef>
+         <FileRef
+            location = "group:DBBDatabaseValidator.swift">
+         </FileRef>
+         <FileRef
+            location = "group:DBBJoinMap.swift">
+         </FileRef>
+      </Group>
+   </Group>
+   <Group
+      location = "group:Demos"
+      name = "Demos">
+      <FileRef
+         location = "group:DBBBuilder-Demo-OSX.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "group:DBBBuilder-Demo-iOS.xcodeproj">
+      </FileRef>
+   </Group>
    <FileRef
       location = "group:CodeGenerator/CodeGenerator.xcodeproj">
    </FileRef>

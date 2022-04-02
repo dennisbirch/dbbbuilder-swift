@@ -23,9 +23,11 @@ DBBBuilder takes care of creating and updating the database file, including all 
 #### Swift Package Manager
 You can use Swift Package Manager to add DBBBuilder to your iOS, WatchOS and macOS projects. To do so, with your project open in Xcode, choose File>Swift Packages>Add Package Dependency... and enter `https://github.com/dennisbirch/dbbbuilder-swift` in the text box of the _Choose Package Respository_ dialog that appears. Then hit the _Next_ or _Finish_ button on this and all subsequent screens until you see that the DBBBuilder library has been added to your project.
 
-### Setup for building frameworks and running demos
+### Tests and demos
 
-The workspace in this repository includes demo projects and unit tests for iOS and macOS targets. You can examine the code in these projects to get guidance on using DBBBuilder. You'll need to do some setup with the Swift Package Manager if you want to build the framework target by itself.
+The workspace in this repository includes demo projects and unit tests for iOS and macOS targets. You can examine the code in these projects to get guidance on using DBBBuilder. You should be able to run the tests from either the iOS or macOS scheme. You can run either the iOS or macOS demo by selecting it from the Scheme menu.
+
+The workspace also includes a macOS target named _CodeGenerator_ that speeds up writing the required boilerplate for initializing one of the primary classes. You can read more about that below.
 
 ### Usage
 

@@ -6,6 +6,7 @@
 //  Copyright © 2019 Dennis Birch. All rights reserved.
 //
 
+#if os(iOS)
 import UIKit
 
 extension UIAlertController {
@@ -16,3 +17,4 @@ extension UIAlertController {
         viewController.present(alert, animated: true, completion: nil)
     }
 }
+#endif

@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14460.31"/>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="20037"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -619,7 +620,7 @@
                                         <menuItem title="Show Sidebar" keyEquivalent="s" id="kIP-vf-haE">
                                             <modifierMask key="keyEquivalentModifierMask" control="YES" command="YES"/>
                                             <connections>
-                                                <action selector="toggleSourceList:" target="Ady-hI-5gd" id="iwa-gc-5KM"/>
+                                                <action selector="toggleSidebar:" target="Ady-hI-5gd" id="iwa-gc-5KM"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem title="Enter Full Screen" keyEquivalent="f" id="4J7-dP-txa">
@@ -684,7 +685,7 @@
         <scene sceneID="R2V-B0-nI4">
             <objects>
                 <windowController id="B8D-0N-5wS" sceneMemberID="viewController">
-                    <window key="window" title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="IQv-IB-iLA">
+                    <window key="window" title="DBBBuilder Code Generator" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="IQv-IB-iLA">
                         <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
                         <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
                         <rect key="contentRect" x="196" y="240" width="480" height="270"/>
@@ -706,11 +707,11 @@
             <objects>
                 <viewController id="XfG-lQ-9wD" customClass="ViewController" customModule="CodeGenerator" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" wantsLayer="YES" id="m2S-Jp-Qdl">
-                        <rect key="frame" x="0.0" y="0.0" width="719" height="492"/>
+                        <rect key="frame" x="0.0" y="0.0" width="719" height="489"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <scrollView toolTip="Enter a comma, new-line, or space delimited list of property names here to generate boilerplate object code." borderType="none" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" translatesAutoresizingMaskIntoConstraints="NO" id="naQ-Bc-fHV">
-                                <rect key="frame" x="20" y="61" width="301" height="355"/>
+                                <rect key="frame" x="20" y="60" width="301" height="355"/>
                                 <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="Xur-b1-1Lq">
                                     <rect key="frame" x="0.0" y="0.0" width="286" height="355"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -730,6 +731,10 @@
                                     <constraint firstAttribute="width" constant="301" id="yLb-dP-2YB"/>
                                     <constraint firstAttribute="height" constant="355" id="yrh-lE-Ayf"/>
                                 </constraints>
+                                <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="KH5-Yg-A54">
+                                    <rect key="frame" x="-100" y="-100" width="286" height="15"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </scroller>
                                 <scroller key="verticalScroller" verticalHuggingPriority="750" horizontal="NO" id="hpE-bE-l03">
                                     <rect key="frame" x="286" y="0.0" width="15" height="355"/>
                                     <autoresizingMask key="autoresizingMask"/>
@@ -739,7 +744,7 @@
                                 </connections>
                             </scrollView>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="dxi-Av-s9h">
-                                <rect key="frame" x="18" y="424" width="35" height="17"/>
+                                <rect key="frame" x="18" y="423" width="35" height="16"/>
                                 <textFieldCell key="cell" lineBreakMode="clipping" title="Input" id="LNc-dD-fqj">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -747,7 +752,7 @@
                                 </textFieldCell>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="0yE-br-Uce">
-                                <rect key="frame" x="18" y="455" width="101" height="17"/>
+                                <rect key="frame" x="18" y="453" width="101" height="16"/>
                                 <textFieldCell key="cell" lineBreakMode="clipping" title="Default var type" id="Oj1-wW-9Gg">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -755,7 +760,7 @@
                                 </textFieldCell>
                             </textField>
                             <scrollView borderType="none" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" translatesAutoresizingMaskIntoConstraints="NO" id="16Q-8k-rVB">
-                                <rect key="frame" x="383" y="61" width="316" height="355"/>
+                                <rect key="frame" x="383" y="60" width="316" height="355"/>
                                 <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="CMc-BX-lYj">
                                     <rect key="frame" x="0.0" y="0.0" width="301" height="355"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -771,13 +776,17 @@
                                         </textView>
                                     </subviews>
                                 </clipView>
+                                <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="VPD-sp-BOF">
+                                    <rect key="frame" x="-100" y="-100" width="301" height="15"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </scroller>
                                 <scroller key="verticalScroller" verticalHuggingPriority="750" horizontal="NO" id="OMX-A9-pek">
                                     <rect key="frame" x="301" y="0.0" width="15" height="355"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                             </scrollView>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Q4C-I6-Rhy">
-                                <rect key="frame" x="379" y="424" width="47" height="17"/>
+                                <rect key="frame" x="379" y="423" width="47" height="16"/>
                                 <textFieldCell key="cell" lineBreakMode="clipping" title="Output" id="q5p-6l-wqO">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -785,7 +794,7 @@
                                 </textFieldCell>
                             </textField>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="aS0-wl-RMM">
-                                <rect key="frame" x="97" y="13" width="132" height="32"/>
+                                <rect key="frame" x="100" y="13" width="126" height="32"/>
                                 <buttonCell key="cell" type="push" title="Generate Code" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="qbH-Ys-dH5">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -795,7 +804,7 @@
                                 </connections>
                             </button>
                             <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1si-kZ-dnH">
-                                <rect key="frame" x="123" y="450" width="125" height="25"/>
+                                <rect key="frame" x="122" y="447" width="127" height="25"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="120" id="7rf-x6-XXF"/>
                                 </constraints>
@@ -815,7 +824,7 @@
                                 </connections>
                             </popUpButton>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="WhH-4N-cbJ">
-                                <rect key="frame" x="480" y="13" width="108" height="32"/>
+                                <rect key="frame" x="483" y="13" width="102" height="32"/>
                                 <buttonCell key="cell" type="push" title="Copy Code" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="XS5-wn-IOQ">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -825,7 +834,7 @@
                                 </connections>
                             </button>
                             <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="jWk-l5-R2O">
-                                <rect key="frame" x="355" y="453" width="344" height="22"/>
+                                <rect key="frame" x="355" y="451" width="344" height="21"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" id="23i-Sw-p3k">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -836,7 +845,7 @@
                                 </connections>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="YtI-GG-WKn">
-                                <rect key="frame" x="275" y="455" width="74" height="17"/>
+                                <rect key="frame" x="275" y="453" width="74" height="16"/>
                                 <textFieldCell key="cell" lineBreakMode="clipping" title="Class name" id="8Gq-IJ-gXK">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>

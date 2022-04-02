@@ -6,6 +6,7 @@
 //  Copyright © 2016 Dennis Birch. All rights reserved.
 //
 
+#if os(iOS)
 import UIKit
 
 extension UIColor {
@@ -14,3 +15,4 @@ extension UIColor {
 		return newColor
 	}
 }
+#endif

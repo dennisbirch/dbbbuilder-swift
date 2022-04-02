@@ -29,7 +29,7 @@ let package = Package(
         ),
         .target(name: "ExceptionCatcher"),
         .testTarget(
-            name: "DBBBuilderPackageTests",
+            name: "Tests",
             dependencies: ["DBBBuilder"]),
     ]
 )
