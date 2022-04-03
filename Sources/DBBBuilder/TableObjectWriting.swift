@@ -187,13 +187,8 @@ extension DBBTableObject {
             
             autoreleasepool {
                 var statement = "UPDATE \(instance.shortName) SET "
-                var paramsArray = [String]()
-                for param in instanceComponents.params {
-                    paramsArray.append("\(param) = ?")
-                }
-                
+                let paramsArray = instanceComponents.params.map{ "\($0) = ?" }
                 statement += paramsArray.joined(separator: ", ") + " WHERE \(Keys.id) = \(instance.idNum);"
-                
                 statements.append(statement)
                 valueStrings.append(instanceComponents.values)
             }
@@ -312,8 +307,7 @@ extension DBBTableObject {
         if let joinMap = map[className] {
             for (key, _) in joinMap {
                 if let propertyType = joinMap[key]?.propertyType,
-                   propertyType.isDBBTableObjectType()
-                {
+                   propertyType.isDBBTableObjectType() {
                     return true
                 }
             }
@@ -353,11 +347,8 @@ extension DBBTableObject {
             let valuesToInsert = joinValues(column: propertyName)
             if valuesToInsert.isEmpty == true { continue }
             
-            for item in valuesToInsert {
-                let args: [Any] = [String(id), item]
-                sql = "INSERT INTO \(joinTableName) (\(joinMap.parentJoinColumn), \(joinMap.joinColumnName)) VALUES (?, ?)"
-                statementsAndArgs.append((sql, args))
-            }
+            let inserts: [JoinStatementsAndValues] = valuesToInsert.map{("INSERT INTO \(joinTableName) (\(joinMap.parentJoinColumn), \(joinMap.joinColumnName)) VALUES (?, ?)", [String(id), $0])}
+            statementsAndArgs.append(contentsOf: inserts)
         }
         
         return statementsAndArgs
