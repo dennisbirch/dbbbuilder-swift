@@ -137,6 +137,7 @@ extension DBBTableObject {
                     
                     let executor = DBBDatabaseExecutor(db: database)
                     do {
+                        os_log("Executing join table statements: %@, arguments: %@", sql, String(describing: values))
                         try executor.executeUpdate(sql: sql, withArgumentsIn: values)
                         instance.id = database.lastInsertRowId
                     } catch  {
@@ -207,6 +208,7 @@ extension DBBTableObject {
                     
                     let executor = DBBDatabaseExecutor(db: database)
                     do {
+                        os_log("Executing join table statements: %@, arguments: %@", sql, String(describing: values))
                         try executor.executeUpdate(sql: sql, withArgumentsIn: values)
                     } catch  {
                         os_log("Update failed with error message: %@", log: writerLogger, type: defaultLogType, error.localizedDescription)
@@ -242,14 +244,18 @@ extension DBBTableObject {
                         for statementTuple in statementsAndArgs {
                             let statement = statementTuple.statement
                             if let args = statementTuple.args {
+                                os_log("Executing join table statements: %@, arguments: %@", statement, String(describing: args))
                                 database.executeUpdate(statement, withArgumentsIn: args)
                                 if database.lastErrorCode() != 0 {
+                                    os_log("Executing join table statements failed; rolling back")
                                     rollback.pointee = true
                                     success = false
                                 }
                             } else {
+                                os_log("Executing join table statements: %@, arguments: %@", statement)
                                 database.executeUpdate(statement, withArgumentsIn: [])
                                 if database.lastErrorCode() != 0 {
+                                    os_log("Executing join table statements failed; rolling back")
                                     rollback.pointee = true
                                     success = false
                                 }
