@@ -137,7 +137,7 @@ extension DBBTableObject {
                     
                     let executor = DBBDatabaseExecutor(db: database)
                     do {
-                        os_log("Executing join table statements: %@, arguments: %@", sql, String(describing: values))
+                        os_log("Executing Insert statements: %@, arguments: %@", sql, String(describing: values))
                         try executor.executeUpdate(sql: sql, withArgumentsIn: values)
                         instance.id = database.lastInsertRowId
                     } catch  {
@@ -208,7 +208,7 @@ extension DBBTableObject {
                     
                     let executor = DBBDatabaseExecutor(db: database)
                     do {
-                        os_log("Executing join table statements: %@, arguments: %@", sql, String(describing: values))
+                        os_log("Executing Update statements: %@, arguments: %@", sql, String(describing: values))
                         try executor.executeUpdate(sql: sql, withArgumentsIn: values)
                     } catch  {
                         os_log("Update failed with error message: %@", log: writerLogger, type: defaultLogType, error.localizedDescription)
@@ -252,7 +252,7 @@ extension DBBTableObject {
                                     success = false
                                 }
                             } else {
-                                os_log("Executing join table statements: %@, arguments: %@", statement)
+                                os_log("Executing join table statements: %@", statement)
                                 database.executeUpdate(statement, withArgumentsIn: [])
                                 if database.lastErrorCode() != 0 {
                                     os_log("Executing join table statements failed; rolling back")
@@ -341,7 +341,7 @@ extension DBBTableObject {
             let joinTableName = joinMap.joinTableName
 
             if isInsert == false {
-                // delete from joinTable where parentClass_id = parentClassIDNum
+                // delete from joinTable where parentClass_id = parentClassID
                 sql = "DELETE FROM \(joinMap.joinTableName) WHERE \(joinMap.parentJoinColumn) = \(id)"
                 statementsAndArgs.append((sql, nil))
             }
