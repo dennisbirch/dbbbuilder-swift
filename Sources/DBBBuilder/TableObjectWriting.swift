@@ -189,7 +189,7 @@ extension DBBTableObject {
             autoreleasepool {
                 var statement = "UPDATE \(instance.shortName) SET "
                 let paramsArray = instanceComponents.params.map{ "\($0) = ?" }
-                statement += paramsArray.joined(separator: ", ") + " WHERE \(Keys.id) = \(instance.idNum);"
+                statement += paramsArray.joined(separator: ", ") + " WHERE \(Keys.id) = \(instance.id);"
                 statements.append(statement)
                 valueStrings.append(instanceComponents.values)
             }
