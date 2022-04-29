@@ -488,7 +488,7 @@ extension DBBTableObject {
                     output.append((keyValue.0, String(floatValue)))
                 } else if typeName == TypeNames.float, let floatValue = value as? Float {
                     output.append((keyValue.0, String(floatValue)))
-                } else if typeName == TypeNames.int, let intValue = value as? Int {
+                } else if typeName == TypeNames.int, let intValue = intValue(value) {
                     output.append((keyValue.0, String(intValue)))
                 } else if let unwrappedString = value as? String {
                     output.append((keyValue.0, unwrappedString))
@@ -562,4 +562,20 @@ extension DBBTableObject {
         return output.joined(separator: ", ")
     }
     
+}
+
+func intValue(_ input: Any) -> Int64? {
+    if let newValue = input as? Int {
+        return Int64(newValue)
+    } else if let newValue = input as? Int8 {
+        return Int64(newValue)
+    } else if let newValue = input as? Int16 {
+        return Int64(newValue)
+    } else if let newValue = input as? Int32 {
+        return Int64(newValue)
+    } else if let newValue = input as? Int64 {
+        return Int64(newValue)
+    }
+    
+    return nil
 }
