@@ -469,6 +469,25 @@ extension DBBTableObject {
     }
 
     private func instanceValues() -> [(ValueTuple)] {
+        // `anyInt64Value` function gets the Int64 value of any Integer variant wrapped in an Any type
+        // Ints (and all other value types) will be converted to strings,
+        // so upcast all Int variants to Int64 to prevent overflowing
+        func anyInt64Value(_ input: Any) -> Int64? {
+            if let newValue = input as? Int {
+                return Int64(newValue)
+            } else if let newValue = input as? Int8 {
+                return Int64(newValue)
+            } else if let newValue = input as? Int16 {
+                return Int64(newValue)
+            } else if let newValue = input as? Int32 {
+                return Int64(newValue)
+            } else if let newValue = input as? Int64 {
+                return Int64(newValue)
+            }
+            
+            return nil
+        }
+
         let selfMirror = Mirror(reflecting: self)
         var output = [ValueTuple]()
         guard let persistenceMap = dbManager.persistenceMap[shortName] else {
@@ -488,7 +507,7 @@ extension DBBTableObject {
                     output.append((keyValue.0, String(floatValue)))
                 } else if typeName == TypeNames.float, let floatValue = value as? Float {
                     output.append((keyValue.0, String(floatValue)))
-                } else if typeName == TypeNames.int, let intValue = intValue(value) {
+                } else if typeName == TypeNames.int, let intValue = anyInt64Value(value) {
                     output.append((keyValue.0, String(intValue)))
                 } else if let unwrappedString = value as? String {
                     output.append((keyValue.0, unwrappedString))
@@ -554,28 +573,7 @@ extension DBBTableObject {
     }
     
     private func sqlPlaceholders(count: Int) -> String {
-        var output = [String]()
-        while output.count < count {
-            output.append("?")
-        }
-        
-        return output.joined(separator: ", ")
+        return Array.init(repeating: "?", count: count).joined(separator: ", ")
     }
     
-}
-
-func intValue(_ input: Any) -> Int64? {
-    if let newValue = input as? Int {
-        return Int64(newValue)
-    } else if let newValue = input as? Int8 {
-        return Int64(newValue)
-    } else if let newValue = input as? Int16 {
-        return Int64(newValue)
-    } else if let newValue = input as? Int32 {
-        return Int64(newValue)
-    } else if let newValue = input as? Int64 {
-        return Int64(newValue)
-    }
-    
-    return nil
 }
