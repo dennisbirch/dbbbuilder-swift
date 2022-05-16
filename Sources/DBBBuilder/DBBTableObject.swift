@@ -185,13 +185,31 @@ typealias ParamsAndStringValues = (params: [String], values: [Any])
      ```
      */
     public static func deleteMultipleInstances(_ instances: [DBBTableObject], manager: DBBManager) -> Bool {
-        var success = true
-        for instance in instances {
-            let instanceSuccess = self.deleteInstance(instance, manager: manager)
-            if instanceSuccess == false {
-                os_log("Deleting instance of %@ with idNum %@ failed.", log: logger, type: defaultLogType, self.init(dbManager: manager).shortName, String(instance.idNum))
-                success = false
+        let idNums = instances.map{ String($0.idNum) }.joined(separator: ", ")
+        let tableName = self.init(dbManager: manager).shortName
+        
+        var sql: [String] = []
+        if let joinMap = manager.joinMapDict[tableName] {
+            let keys = joinMap.keys
+            for key in keys {
+                if let propertyMap = joinMap[key] {
+                    let joinTable = propertyMap.joinTableName
+                    let parentColumn = propertyMap.parentJoinColumn
+                    sql.append("DELETE FROM \(joinTable) WHERE \(parentColumn) IN (\(idNums))")
+                }
             }
+        }
+        
+        sql.append("DELETE FROM \(tableName) WHERE ID IN (\(idNums))")
+        let statements = sql.joined(separator: ";")
+        let executor = DBBDatabaseExecutor(db: manager.database)
+        let logger = DBBBuilder.logger(withCategory: "DBBTableObject")
+        
+        let success = executor.executeStatements(statements)
+        if success == true {
+            os_log("Executed DELETE statement: %@", log: logger, type: defaultLogType, statements)
+        } else {
+            os_log("Error executing DELETE statment: %@", log: logger, type: defaultLogType, statements)
         }
         
         return success
