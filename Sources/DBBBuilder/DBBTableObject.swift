@@ -185,23 +185,8 @@ typealias ParamsAndStringValues = (params: [String], values: [Any])
      ```
      */
     public static func deleteMultipleInstances(_ instances: [DBBTableObject], manager: DBBManager) -> Bool {
-        let idNums = instances.map{ String($0.idNum) }.joined(separator: ", ")
-        let tableName = self.init(dbManager: manager).shortName
-        
-        var sql: [String] = []
-        if let joinMap = manager.joinMapDict[tableName] {
-            let keys = joinMap.keys
-            for key in keys {
-                if let propertyMap = joinMap[key] {
-                    let joinTable = propertyMap.joinTableName
-                    let parentColumn = propertyMap.parentJoinColumn
-                    sql.append("DELETE FROM \(joinTable) WHERE \(parentColumn) IN (\(idNums))")
-                }
-            }
-        }
-        
-        sql.append("DELETE FROM \(tableName) WHERE ID IN (\(idNums))")
-        let statements = sql.joined(separator: ";")
+        let statements = deleteMultipleObjectsStatements(instances, manager: manager)
+  
         let executor = DBBDatabaseExecutor(db: manager.database)
         let logger = DBBBuilder.logger(withCategory: "DBBTableObject")
         
@@ -214,7 +199,42 @@ typealias ParamsAndStringValues = (params: [String], values: [Any])
         
         return success
     }
-    
+
+    /**
+     A static method to delete multiple instances of a DBBTableObject subclass on an asynchronous queue.
+     
+     - Parameters:
+        - instances: Array containing the objects you want to delete.
+        - manager: The instance of the DBBManager that owns the FMDatabase instance and SQLite file containing the object to be deleted.
+        - completion: A closure with a Bool argument which signals success of the deletion operation
+     
+     
+     An example of using this method:
+     ```
+    deleteMultipleInstancesOnQueue(retiringPlayers, manager: myManager) { success in
+        ...
+     }
+     ```
+     */
+    public static func deleteMultipleInstancesOnQueue(_ instances: [DBBTableObject], manager: DBBManager, completion: (Bool) -> Void) {
+        let statements = deleteMultipleObjectsStatements(instances, manager: manager)
+
+        let executor = DBBDatabaseExecutor(db: manager.database)
+        let logger = DBBBuilder.logger(withCategory: "DBBTableObject")
+        
+        executor.runQueryOnQueue(statements) { _ in
+            let error = manager.database.lastError()
+            let success = (error as NSError).code == 0
+            if success == true {
+                os_log("Executed DELETE statement: %@", log: logger, type: defaultLogType, statements)
+            } else {
+                os_log("Error executing DELETE statment: %@", log: logger, type: defaultLogType, statements)
+            }
+            
+            completion(success)
+        }
+    }
+
     /**
      A static method to delete all instances of a DBBTableObject subclass.
      
@@ -297,6 +317,29 @@ typealias ParamsAndStringValues = (params: [String], values: [Any])
         }
         
         dbManager.persistenceMap[shortName]?.isInitialized = true
+    }
+
+    // MARK: - Private
+    
+    static private func deleteMultipleObjectsStatements(_ instances: [DBBTableObject], manager: DBBManager) -> String {
+        let idNums = instances.map{ String($0.idNum) }.joined(separator: ", ")
+        let tableName = self.init(dbManager: manager).shortName
+        
+        var sql: [String] = []
+        if let joinMap = manager.joinMapDict[tableName] {
+            let keys = joinMap.keys
+            for key in keys {
+                if let propertyMap = joinMap[key] {
+                    let joinTable = propertyMap.joinTableName
+                    let parentColumn = propertyMap.parentJoinColumn
+                    sql.append("DELETE FROM \(joinTable) WHERE \(parentColumn) IN (\(idNums))")
+                }
+            }
+        }
+        
+        sql.append("DELETE FROM \(tableName) WHERE ID IN (\(idNums))")
+        let statements = sql.joined(separator: ";")
+        return statements
     }
 }
 

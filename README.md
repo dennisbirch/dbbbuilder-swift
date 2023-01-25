@@ -348,7 +348,7 @@ _Returns_: An array of Int64 values representing all the id values for the subcl
 
 #### Deleting from the database <a name="deleting"> </a>
 
-There are three DBBTableObject static methods for deleting rows associated with object instances from their database tables. You call them on the DBBTableObject subclass type of the instance(s) you want to delete.
+There are multiple DBBTableObject static methods for deleting rows associated with object instances from their database tables. You call them on the DBBTableObject subclass type of the instance(s) you want to delete.
 
 `public static func deleteInstance(_ instance: DBBTableObject, manager: DBBManager) -> Bool`
 
@@ -374,6 +374,14 @@ _instances_: A homogenous array of instances of the DBBTableObject subclass type
  _dbManager_: The DBBManager instance managing the database the object values should be saved to.
  
 _Returns_: A Boolean indicating successful execution.
+
+ `public static func deleteMultipleInstancesOnQueue(_ instances: [DBBTableObject], manager: DBBManager, completion: (Bool) -> Void)`
+ 
+A static method to delete multiple instances of a DBBTableObject subclass on an asynchronous queue.
+     
+_instances_: Array containing the objects you want to delete.
+_manager_: The instance of the DBBManager that owns the FMDatabase instance and SQLite file containing the object to be deleted.
+_completion_: A closure with a Bool argument which signals success of the deletion operation
 
 `public static func deleteAllInstances(manager: DBBManager) -> Bool`
 
