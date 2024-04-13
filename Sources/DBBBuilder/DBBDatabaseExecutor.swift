@@ -28,6 +28,7 @@ struct DBBDatabaseExecutor {
         
         do {
             let result = try database.executeQuery(query, values: arguments)
+            logError()
             return result
         } catch {
             os_log("Error executing query: %@", log: logger, type: defaultLogType, error.localizedDescription)
@@ -49,9 +50,10 @@ struct DBBDatabaseExecutor {
         fmDBQueue?.inDatabase({ db in
             do {
                 let result = try db.executeQuery(query, values: arguments)
+                logError()
                 completion(result)
             } catch {
-                os_log("Error executing query")
+                os_log("Error executing query", log: logger, type: defaultLogType)
                 completion(nil)
             }
         })
@@ -66,13 +68,22 @@ struct DBBDatabaseExecutor {
     func executeUpdate(sql: String, withArgumentsIn arguments: [Any]) throws {
         do {
             try database.executeUpdate(sql, values: arguments)
+            logError()
         } catch {
             throw error
         }
     }
     
     func executeStatements(_ sql: String) -> Bool {
-        return database.executeStatements(sql)
+        let success = database.executeStatements(sql)
+        logError()
+        return success
     }
 
+    private func logError() {
+        let error = database.lastError() as NSError
+        if error.code != 0 {
+            os_log("Execution error: %@", log: logger, type: defaultLogType, error.localizedDescription)
+        }
+    }
 }
